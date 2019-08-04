@@ -55,6 +55,7 @@ _A list of my commonly used Git commands -- Ronnie_
 | Command | Description |
 | ------- | ----------- |
 | `git log --oneline` |Shows comits in the active branch|
+| `git log --oneline --graph --decorate --all` |Shows all branches in tree structure|
 | `git checkout [commit_id]` |go back to the commit id|
 | `git revert HEAD` |revert a commit|
 | `git reset` |removes all files from staging area|
