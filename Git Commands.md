@@ -13,7 +13,7 @@ _A list of my commonly used Git commands -- Ronnie_
 | `mv [target_name] [new_name]` |Rename target file or folder|
 
 
-## Conigure Git
+## Configure Git
 
 | Command | Description |
 | ------- | ----------- |
@@ -22,10 +22,10 @@ _A list of my commonly used Git commands -- Ronnie_
 | `git config --global user.email "email"` |Set email globally in pc |
 | `git config --global diff.tool p4merge` |set default diff.tool as p4merge|
 | `git config --global difftool.p4merge.path "path.exe` |add p4merge path|
-| `git config --global difftool.propt false` |prevent confirmation to open p4merge|
+| `git config --global difftool.prompt false` |prevent confirmation to open p4merge|
 | `git config --global merge.tool p4merge` |set default merge.tool as p4merge|
 | `git config --global mergetool.p4merge.path "path.exe` |add p4merge path|
-| `git config --global mergetool.propt false` |prevent confirmation to open p4merge|
+| `git config --global mergetool.prompt false` |prevent confirmation to open p4merge|
 
 
 ## Getting & Creating Projects
@@ -54,7 +54,7 @@ _A list of my commonly used Git commands -- Ronnie_
 
 | Command | Description |
 | ------- | ----------- |
-| `git log --oneline` |Shows comits in the active branch|
+| `git log --oneline` |Shows commits in the active branch|
 | `git log --oneline --graph --decorate --all` |Shows all branches in tree structure|
 | `git checkout [commit_id]` |go back to the commit id|
 | `git revert HEAD` |revert a commit|
