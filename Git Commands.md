@@ -4,26 +4,68 @@ Git Commands
 _A list of my commonly used Git commands -- Ronnie_
 
 
-### Getting & Creating Projects
+## Basic commands in Bash
+
+| Command | Description |
+| ------- | ----------- |
+| `ls` |list files or folders in a directory|
+| `ls -al` |list all files or folders in a directory including hidden|
+| `mv [target_name] [new_name]` |Rename target file or folder|
+
+
+## Conigure Git
+
+| Command | Description |
+| ------- | ----------- |
+| `git config --global --list` |list all Git config|
+| `git config --global user.name "user_name"` |Set user_name globally in pc |
+| `git config --global user.email "email"` |Set email globally in pc |
+| `git config --global diff.tool p4merge` |set default diff.tool as p4merge|
+| `git config --global difftool.p4merge.path "path.exe` |add p4merge path|
+| `git config --global difftool.propt false` |prevent confirmation to open p4merge|
+| `git config --global merge.tool p4merge` |set default merge.tool as p4merge|
+| `git config --global mergetool.p4merge.path "path.exe` |add p4merge path|
+| `git config --global mergetool.propt false` |prevent confirmation to open p4merge|
+
+
+## Getting & Creating Projects
 
 | Command | Description |
 | ------- | ----------- |
 | `git init` | Initialize a local Git repository |
 | `git clone ssh://git@github.com/[username]/[repository-name].git` | Clone a remote repository |
-| `git remote add origin git@github.com/[username]/[repository-name].git` |add a new remote repository|
+| `git remote add origin git@github.com/[username]/[repository-name].git` |add a remote repository|
 | `git push -u origin master` |push project to new remote repository|
 
-### Basic Snapshotting
+## Basic Snapshotting
 
 | Command | Description |
 | ------- | ----------- |
 | `git status` | Check status |
 | `git add [file-name.txt]` | Add a file to the staging area |
-| `git add -A` | Add all new and changed files to the staging area |
+| `git add .` | Add all new and changed files to the staging area |
 | `git commit -m "[commit message]"` | Commit changes |
+| `git commit -am "[commit message]"` | Express Commit changes |
+| `git pull origin [active-branch-name]` |Updates you with remote repository|
+| `git push origin [active-branch-name]` |Push all changes to remote repository |
 | `git rm -r [file-name.txt]` | Remove a file (or folder) |
 
-### Branching & Merging
+## Commit Status
+
+| Command | Description |
+| ------- | ----------- |
+| `git log --oneline` |Shows comits in the active branch|
+| `git checkout [commit_id]` |go back to the commit id|
+| `git revert HEAD` |revert a commit|
+| `git reset` |removes all files from staging area|
+| `git reset --hard` |removes all files from staging area and undo modification|
+| `git reset [commit_id]` |reset the repository to commit_id still files will be in modified state|
+| `git reset [commit_id] --hard` |reset the repository to commit_id & no files will be in modified state|
+
+
+
+
+## Branching
 
 | Command | Description |
 | ------- | ----------- |
@@ -37,12 +79,21 @@ _A list of my commonly used Git commands -- Ronnie_
 | `git checkout [branch name]` | Switch to a branch |
 | `git checkout -` | Switch to the branch last checked out |
 | `git checkout -- [file-name.txt]` | Discard changes to a file |
-| `git merge [branch name]` | Merge a branch into the active branch |
-| `git merge [source branch] [target branch]` | Merge a branch into a target branch |
-| `git stash` | Stash changes in a dirty working directory |
-| `git stash clear` | Remove all stashed entries |
 
-### Sharing & Updating Projects
+
+
+## Merging
+
+| Command | Description |
+| ------- | ----------- |
+| `git diff [source branch] [target branch]` | Preview changes before merging |
+| `git merge [branch name]` | Merge a branch into the active branch ff-merge |
+| `git merge [branch name] --no-ff` | Merge a branch into the active branch noff-merge |
+| `git merge [branch name] -m "message"` | Merge a branch into the active branch 3way-merge |
+| `git merge [source branch] [target branch]` | Merge a branch into a target branch |
+| `git mergetool` | Merge conflict branches |
+
+## Sharing & Updating Projects
 
 | Command | Description |
 | ------- | ----------- |
@@ -54,12 +105,4 @@ _A list of my commonly used Git commands -- Ronnie_
 | `git pull origin [branch name]` | Pull changes from remote repository |
 | `git remote add origin ssh://git@github.com/[username]/[repository-name].git` | Add a remote repository |
 | `git remote set-url origin ssh://git@github.com/[username]/[repository-name].git` | Set a repository's origin branch to SSH |
-
-### Inspection & Comparison
-
-| Command | Description |
-| ------- | ----------- |
-| `git log` | View changes |
-| `git log --summary` | View changes (detailed) |
-| `git diff [source branch] [target branch]` | Preview changes before merging |
 
