@@ -1,7 +1,7 @@
 Git Commands
 ============
 
-_A list of my commonly used Git commands_
+_A list of my commonly used Git commands -- Ronnie_
 
 
 ### Getting & Creating Projects
@@ -9,7 +9,9 @@ _A list of my commonly used Git commands_
 | Command | Description |
 | ------- | ----------- |
 | `git init` | Initialize a local Git repository |
-| `git clone ssh://git@github.com/[username]/[repository-name].git` | Create a local copy of a remote repository |
+| `git clone ssh://git@github.com/[username]/[repository-name].git` | Clone a remote repository |
+| `git remote add origin git@github.com/[username]/[repository-name].git` |add a new remote repository|
+| `git push -u origin master` |push project to new remote repository|
 
 ### Basic Snapshotting
 
