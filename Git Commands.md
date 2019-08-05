@@ -65,6 +65,7 @@ _A list of my commonly used Git commands -- Ronnie_
 
 
 ## Playing With Commits
+| Command | Description |
 | ------- | ----------- |
 | `git commit --amend` |Change last commit to an entirely new commit|
 | `git commit --amend --no-edit` |Change last commit to an entirely new commit without changing commit message|
