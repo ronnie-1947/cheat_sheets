@@ -101,6 +101,14 @@ _A list of my commonly used Git commands -- Ronnie_
 | `git merge [source branch] [target branch]` | Merge a branch into a target branch |
 | `git mergetool` | Merge conflict branches |
 
+
+## Rebase 
+
+| Command | Description |
+| ------- | ----------- |
+| `git rebase [branch_name]` | Preview changes before merging |
+
+
 ## Sharing & Updating Projects
 
 | Command | Description |
