@@ -138,7 +138,8 @@ for (let [key, value] of Map_name.entries()){
 ```
 
 ## Sets
-Sets are types of adv arrays . In Sets no duplicates are there. .
+Sets are types of adv arrays . In Sets no duplicates are there.
+
 | Set Properties & Methods | Description |
 | ------- | ----------- |
 | `set_name.add('x')` |Add element in a set|
