@@ -5,7 +5,7 @@ JS ES6--
 ## New Functions
 
 | Function | Description |
-| ------- | ----------- |~
+| ------- | ----------- |
 | `n.repeat(5)` |repeat n 5 times|
 | `new Date()` |current date|
 | `new Date().getFullYear()` |current year|
@@ -21,11 +21,12 @@ JS ES6--
         color: green,
         position: 1,
         clickMe: function (){
-            document.querySelector(.class).addEventListener('click', ()=>{
+            document.querySelector('.class').addEventListener('click', ()=>{
                 <!-- do anything -->
             })
         }
     }
+    ```
 * Function Constructors returns object
     ```
     function Person(name, age , sex){
@@ -55,6 +56,7 @@ JS ES6--
     John
     21
     male
+    ```
 * Destructuring is done on Arrays and Objects and also on function constructors. Use [ ] for arrays and { } for objects.
 * document.querySelectorAll gives a NodeList . To convert NodeList to an array, use Array.from(List_name);
     ```
@@ -63,6 +65,7 @@ JS ES6--
     Array.from(boxes).forEach((cur)=>{
     cur.style.backgroundColor = 'dodgerblue';
     })
+    ```
 
 
 ## Array Functions
@@ -76,7 +79,7 @@ JS ES6--
 | `arr.endsWith('x')` |check if last element in arr is x|
 | `arr.includes('x')` |check if arr includes element x|
 | `arr.map((el,index,cur) => { });` |loop over arr using map|
-| `arr.slice(x)` |Start array from position x ; or clip first x elements|
+| `arr.slice(0,x)` |Start array from position x ; or clip first x elements|
 | `arr.shift()` |clip first element of array|
 | `arr.pop()` |clip last element of array|
 | `arr.reverse()` |reverse an array|
