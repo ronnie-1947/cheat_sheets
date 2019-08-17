@@ -11,6 +11,8 @@ JS ES6--
 | `new Date().getFullYear()` |current year|
 | `Object.keys(obj_name)` |fetch keys of the object in an array|
 | `Object.values(obj_name)` |fetch values of the object in an array|
+| Math.max(x , y , z ...) |return the maximum number|
+| Math.min(x , y , z , ...) |return the minimum number|
 
 ### Notes
 * document.querySelector(.'className').addEventListener('click', function() { } )
