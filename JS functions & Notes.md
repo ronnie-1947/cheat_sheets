@@ -11,13 +11,13 @@ JS ES6--
 | `new Date().getFullYear()` |current year|
 | `Object.keys(obj_name)` |fetch keys of the object in an array|
 | `Object.values(obj_name)` |fetch values of the object in an array|
-| Math.max(x , y , z ...) |return the maximum number|
-| Math.min(x , y , z , ...) |return the minimum number|
+| `Math.max(x , y , z ...)` |return the maximum number|
+| `Math.min(x , y , z , ...)` |return the minimum number|
 
 ### Notes
 * document.querySelector(.'className').addEventListener('click', function() { } )
 * use 'function (){...}' while using prototype.functionName . Don't use arrow function
-* Objects can store anything . A function too . 
+* Objects can store anything . A function too.
     ```
     const box = {
         color: green,
@@ -29,6 +29,7 @@ JS ES6--
         }
     }
     ```
+
 * Function Constructors returns object
     ```
     function Person(name, age , sex){
