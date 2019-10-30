@@ -13,6 +13,7 @@ JS ES6--
 | `Object.values(obj_name)` |fetch values of the object in an array|
 | `Math.max(x , y , z ...)` |return the maximum number|
 | `Math.min(x , y , z , ...)` |return the minimum number|
+| `` |return the minimum number|
 
 ### Notes
 * document.querySelector(.'className').addEventListener('click', function() { } )
@@ -82,7 +83,8 @@ JS ES6--
 | `arr.endsWith('x')` |check if last element in arr is x|
 | `arr.includes('x')` |check if arr includes element x|
 | `arr.map((el,index,cur) => { });` |loop over arr using map|
-| `arr.slice(0,x)` |Start array from position x ; or clip first x elements|
+| `arr.slice(x,y)` |Start array from position x and ends at y-1|
+| `arr.reduce(acc, cur)` |sums the array|
 | `arr.shift()` |clip first element of array|
 | `arr.pop()` |clip last element of array|
 | `arr.reverse()` |reverse an array|
@@ -155,4 +157,14 @@ Sets are types of adv arrays . In Sets no duplicates are there.
 | `set_name.delete(x)` |Delete (x) key from the set|
 | `set_name.clear()` |Clear everything from the set. Its a method|
 
+------------------------
 
+## DOM Manupulation
+```
+elements.searchResPages.addEventListener('click', (e) => {
+    console.log(e.target);
+    const goToPage = parseInt(btn.dataset.goto);
+    console.log(goToPage)
+    } );
+```
+dataset property is used to read data of HTML element
