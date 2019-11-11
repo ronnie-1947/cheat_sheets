@@ -110,9 +110,9 @@ WHERE <condition>
 | Command | Description |
 | ------- | ----------- |
 | `CONCAT` |Used to join two or more |
-| `SUBSTRING` |Show the specified column|
-| `REPLACE` |Show the specified column|
-| `REVERSE` |Show the specified column|
+| `SUBSTRING` |Used as SPLICE in JS|
+| `REPLACE` |Replaces certain characters in String|
+| `REVERSE` |Reverse a String|
 | `CHAR_LENGTH` |Show the specified column|
 | `UPPER` |Show the specified column|
 | `LOWER` |Show the specified column|
@@ -380,4 +380,60 @@ INNER JOIN series
     ON series.id = reviews.series_id
 ORDER BY title;
 ```
+_____________________________
+_____________________________
 
+## TRIGGERS
+These are rules which can be set for a table, that take place after or just before an event . Which can also give an error message set by us.
+
+Given below , an example of a trigger that gives error message when age entered is less than 18.
+```
+DELIMITER $$
+CREATE TRIGGER must_be_adult
+	BEFORE INSERT ON users FOR EACH ROW
+    BEGIN 
+		IF NEW.age < 18
+        THEN 
+			SIGNAL SQLSTATE '45000'
+				SET MESSAGE_TEXT = 'Must be an adult';
+		END IF;
+	END;
+$$
+DELIMITER ;
+```
+Given below , Trigger code that stops self-following on social media.
+```
+DELIMITER $$
+CREATE TRIGGER prevent_self_follows
+	INSERT BEFORE ON follows FOR EACH ROW
+		BEGIN
+			IF NEW.follower.id = NEW.followee_id
+            THEN 
+				SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'You cannot follow yourself!';
+			END IF;
+        END;
+$$
+DELIMITER
+```
+Given below , Trigger code that entrys data when someone unfollows someone. This also uses another syntax to insert data in a table.
+```
+DELIMITER $$
+CREATE TRIGGER capture_unfollow
+	AFTER DELETE ON follows FOR EACH ROW
+		BEGIN
+			INSERT INTO unfollows
+            SET follower_id = OLD.follower_id,
+				followee_id = OLD.followee_id;
+        END;
+$$;
+DELIMITER
+```
+
+### Managing TRIGGERS
+
+
+| Command | Description |
+| ------- | ----------- |
+| `SHOW TRIGGERS` |Show and list all triggers |
+| `DROP TRIGGER <trigger_name>` |Delete a trigger|

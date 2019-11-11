@@ -1,0 +1,79 @@
+[1mdiff --git a/MySql.md b/MySql.md[m
+[1mindex 1868aff..84e665c 100644[m
+[1m--- a/MySql.md[m
+[1m+++ b/MySql.md[m
+[36m@@ -110,9 +110,9 @@[m [mWHERE <condition>[m
+ | Command | Description |[m
+ | ------- | ----------- |[m
+ | `CONCAT` |Used to join two or more |[m
+[31m-| `SUBSTRING` |Show the specified column|[m
+[31m-| `REPLACE` |Show the specified column|[m
+[31m-| `REVERSE` |Show the specified column|[m
+[32m+[m[32m| `SUBSTRING` |Used as SPLICE in JS|[m
+[32m+[m[32m| `REPLACE` |Replaces certain characters in String|[m
+[32m+[m[32m| `REVERSE` |Reverse a String|[m
+ | `CHAR_LENGTH` |Show the specified column|[m
+ | `UPPER` |Show the specified column|[m
+ | `LOWER` |Show the specified column|[m
+[36m@@ -380,4 +380,60 @@[m [mINNER JOIN series[m
+     ON series.id = reviews.series_id[m
+ ORDER BY title;[m
+ ```[m
+[32m+[m[32m_____________________________[m
+[32m+[m[32m_____________________________[m
+[32m+[m
+[32m+[m[32m## TRIGGERS[m
+[32m+[m[32mThese are rules which can be set for a table, that take place after or just before an event . Which can also give an error message set by us.[m
+[32m+[m
+[32m+[m[32mGiven below , an example of a trigger that gives error message when age entered is less than 18.[m
+[32m+[m[32m```[m
+[32m+[m[32mDELIMITER $$[m
+[32m+[m[32mCREATE TRIGGER must_be_adult[m
+[32m+[m	[32mBEFORE INSERT ON users FOR EACH ROW[m
+[32m+[m[32m    BEGIN[m[41m [m
+[32m+[m		[32mIF NEW.age < 18[m
+[32m+[m[32m        THEN[m[41m [m
+[32m+[m			[32mSIGNAL SQLSTATE '45000'[m
+[32m+[m				[32mSET MESSAGE_TEXT = 'Must be an adult';[m
+[32m+[m		[32mEND IF;[m
+[32m+[m	[32mEND;[m
+[32m+[m[32m$$[m
+[32m+[m[32mDELIMITER ;[m
+[32m+[m[32m```[m
+[32m+[m[32mGiven below , Trigger code that stops self-following on social media.[m
+[32m+[m[32m```[m
+[32m+[m[32mDELIMITER $$[m
+[32m+[m[32mCREATE TRIGGER prevent_self_follows[m
+[32m+[m	[32mINSERT BEFORE ON follows FOR EACH ROW[m
+[32m+[m		[32mBEGIN[m
+[32m+[m			[32mIF NEW.follower.id = NEW.followee_id[m
+[32m+[m[32m            THEN[m[41m [m
+[32m+[m				[32mSIGNAL SQLSTATE '45000'[m
+[32m+[m[32m                SET MESSAGE_TEXT = 'You cannot follow yourself!';[m
+[32m+[m			[32mEND IF;[m
+[32m+[m[32m        END;[m
+[32m+[m[32m$$[m
+[32m+[m[32mDELIMITER[m
+[32m+[m[32m```[m
+[32m+[m[32mGiven below , Trigger code that entrys data when someone unfollows someone. This also uses another syntax to insert data in a table.[m
+[32m+[m[32m```[m
+[32m+[m[32mDELIMITER $$[m
+[32m+[m[32mCREATE TRIGGER capture_unfollow[m
+[32m+[m	[32mAFTER DELETE ON follows FOR EACH ROW[m
+[32m+[m		[32mBEGIN[m
+[32m+[m			[32mINSERT INTO unfollows[m
+[32m+[m[32m            SET follower_id = OLD.follower_id,[m
+[32m+[m				[32mfollowee_id = OLD.followee_id;[m
+[32m+[m[32m        END;[m
+[32m+[m[32m$$;[m
+[32m+[m[32mDELIMITER[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m### Managing TRIGGERS[m
+ [m
+[32m+[m
+[32m+[m[32m| Command | Description |[m
+[32m+[m[32m| ------- | ----------- |[m
+[32m+[m[32m| `SHOW TRIGGERS` |Show and list all triggers |[m
+[32m+[m[32m| `DROP TRIGGER <trigger_name>` |Delete a trigger|[m
+\ No newline at end of file[m

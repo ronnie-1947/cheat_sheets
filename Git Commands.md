@@ -17,6 +17,7 @@ _A list of my commonly used Git commands -- Ronnie_
 
 | Command | Description |
 | ------- | ----------- |
+| `git config --global alias.<any_name> 'git command'` |Set a global git alias|
 | `git config --global --list` |list all Git config|
 | `git config --global user.name "user_name"` |Set user_name globally in pc |
 | `git config --global user.email "email"` |Set email globally in pc |
@@ -33,6 +34,7 @@ _A list of my commonly used Git commands -- Ronnie_
 | Command | Description |
 | ------- | ----------- |
 | `git init` | Initialize a local Git repository |
+| `rm -rf .git` | Uninitialize a local Git repository |
 | `git clone ssh://git@github.com/[username]/[repository-name].git` | Clone a remote repository |
 | `git remote add origin git@github.com/[username]/[repository-name].git` |add a remote repository|
 | `git push -u origin master` |push project to new remote repository|
@@ -94,6 +96,7 @@ _A list of my commonly used Git commands -- Ronnie_
 
 | Command | Description |
 | ------- | ----------- |
+| `git diff` | Preview all changes before staging |
 | `git diff [source branch] [target branch]` | Preview changes before merging |
 | `git merge [branch name]` | Merge a branch into the active branch ff-merge |
 | `git merge [branch name] --no-ff` | Merge a branch into the active branch noff-merge |
