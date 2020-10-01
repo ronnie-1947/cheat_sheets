@@ -16,7 +16,7 @@ MySql
 | `CREATE DATABASE <database_name>;` |Create a new DataBase|
 | `USE <database_name>;` |Use that DataBase|
 | `SELECT DATABASE();` |Show DataBase currently in use|
-| `DROP DATABASE <database_name>;` |Delte a DataBase|
+| `DROP DATABASE <database_name>;` |Delete a DataBase|
 
 ## Table Initial Commands
 
@@ -73,8 +73,8 @@ CREATE TABLE <table_name> (
     user_id INTEGER NOT NULL,
     photo_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
-    FOREIGN KEY(user_id) REFERENCES users(id),
-    FOREIGN KEY(photo_id) REFERENCES photos(id),
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(photo_id) REFERENCES photos(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(user_id, photo_id)
 );
 ```
