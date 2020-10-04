@@ -34,6 +34,7 @@ ______________________________________
 | `db.dropDatabase()` |Drop current dataBase|
 | `show collections` |Show all the collections present in Database|
 | `db.<collectionName>.drop()` |Delete the collection|
+| `db.<collectionName>.explain(executionStats).<some function>` |Show stats about the function|
 
 
 Notes: The database will be created in the fly if no such database exist
@@ -63,6 +64,110 @@ ______________________________________
 | `db.<collection_name>.find({key:{$gt: num}})` |Show all docs greater than num|
 | `db.<collection_name>.find({}, {name:1, _id:0})` |Show specific fields that are specified in the 2nd object|
 | `db.<collection_name>.find({"key.key1": "value"})` |nested filters|
+| `db.<collection_name>.find({array: ['abc']})` |filter exact match like the array|
+
+
+## Filter Operators
+| Operator| Command | Description |
+|---------| ------- | ----------- |
+| $in | `db.<dbName>.find({runtime: {$in: [30, 50]}})` |Filter doc where runtime is within 30 & 50|
+| $nin | `db.<dbName>.find({runtime: {$nin: [30, 50]}})` |Filter doc where runtime is not within 30 & 50|
+
+| Operator| Example | Description |
+|---------| ------- | ----------- |
+| $or | See Below | All of the condition should satisfy|
+
+```
+db.movies.find(
+    {
+        $or: [
+            {
+                'rating.average': {$gt: 9.3}
+            },
+            {
+                'rating.average': {$lt: 5}
+            }
+        ]
+    }
+).pretty()
+```
+| Operator| Example | Description |
+|---------| ------- | ----------- |
+| $nor | See Below | All of the condition satisfied should not be queried|
+```
+db.movies.find(
+    {
+        $nor: [
+            {
+                'rating.average': {$gt: 9.3}
+            },
+            {
+                'rating.average': {$lt: 5}
+            }
+        ]
+    }
+).pretty()
+```
+
+| Operator| Example | Description |
+|---------| ------- | ----------- |
+| $and | See Below | AND operator|
+```
+db.movies.find(
+    {
+        $and: [
+            {
+                'rating.average': {$gt: 9.3}
+            },
+            {
+                'genre': 'Horror'
+            }
+        ]
+    }
+).pretty()
+```
+
+| Operator| Example | Description |
+|---------| ------- | ----------- |
+|$exists|`db.<dbName>.find({name: {$exists: true}})`| If the field 'name' exists|
+
+
+### Querying Arrays
+
+#### Query Objects inside Arrays
+```
+hobbies: [
+            {
+                title: 'Swimming',
+                frequency: 3
+            },
+            {
+                title: 'Trekking',
+                frequency: 4
+            }
+        ]
+
+db.<dbName>.findOne({'hobbies.title': 'Swimming'})
+```
+
+| Operator| Example | Description |
+|---------| ------- | ----------- |
+|$size|`db.<dbName>.find({hobbies: {$size: 4}})`| find doc where user have 4 hobby|
+|$all|`db.<dbName>.find({hobbies: {$all: ['cooking', 'dancing']}})`| find doc where all listed items are present|
+|$elemMatch|`db.<dbName>.find({hobbies: {$elemMatch : {title: 'a', freq: 3} }})`|query by matching from an object|
+
+## Cursor Sorting Skipping Limit
+
+These can be used together and works in the following order -
+Sort -----> Skip -----> Limit
+
+| Operator| Example | Description |
+|---------| ------- | ----------- |
+|sort()|`db.<dbName>.find().sort({name: 1, rating:-1})`| sort by order name and rating|
+|skip()|`db.<dbName>.find().skip(10)`| skip certain doc|
+|limit()|`db.<dbName>.find().limit(10)`| limit the documents|
+
+
 
 ______________________________________
 
@@ -89,6 +194,33 @@ ______________________________________
 | `$set` |Sets the value of a field in a document|
 | `$setOnInsert` |Sets the value of a field if an update results in an insert of a document. Has no effect on update operations that modify existing documents|
 | `$unset` |Removes the specified field from a document.|
+
+### Updating Arrays
+
+#### Updating particular documents inside Array
+
+```
+db.<dbName>.updateMany(
+    {
+        hobbies: {
+            $elemMatch: {
+                title: 'Sports',
+                frequency: {$gte: 3}
+            },
+        }
+    },
+    {
+        $set: {
+            'hobbies.$.frequency': 10
+        }
+    }
+)
+```
+
+#### Updating all Array Elements
+```
+
+```
 ______________________________________
 
 ## Delete
@@ -117,6 +249,99 @@ lookup is used to merge tables. The local Field should be an array
     ]
 ).pretty()
 ```
+
+### Group data
+group is used to group data with same fields. In Below example , we are grouping people from same state and printing the total. See https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group for more functions like $sum
+```
+ db.<local_table-name>.aggregate(
+     [
+         {
+             $group: {
+                _id: {state : key from collection to group (eg. 'state.location')},
+                total: {$sum: 1}
+            }
+        }
+    ]
+).pretty()
+```
+
+### Sort data
+```
+ db.<local_table-name>.aggregate(
+    [
+        {
+             $group: {
+                _id: {state : key from collection to group (eg. 'state.location')},
+                total: {$sum: 1}
+            }
+        },
+        {
+            $sort: {
+                total: 1
+            }
+        }
+    ]
+).pretty()
+```
+
+### Project
+Project can be used to output any data. See aggregation 12th video of Max for details
+```
+ db.<local_table-name>.aggregate(
+    [
+        {
+             $group: {
+                _id: {state : key from collection to group (eg. 'state.location')},
+                total: {$sum: 1}
+            }
+        },
+        {
+            $project: {
+                state: '$_id.state', 
+                _id: 0, 
+                sentence: {$concat: ['we are from ', '$_id.state']}, 
+                totalPersons: 1}
+        }
+    ]
+).pretty()
+```
+______________________________________
+
+## Indexes
+
+### Create Index
+| Command | Uses |
+| ------- | ----------- |
+| `db.<dbName>.getIndexes()` |See all available indexes|
+| `db.<dbName>.createIndex({FieldName: 1})` |Command for creating index in specific Field|
+| `db.<dbName>.createIndex({FieldName: 1, FieldName: -1})` |Compound Index creation|
+| `db.<dbName>.createIndex({FieldName: 1}, {unique: true})` |Unique index creation|
+| `db.<dbName>.createIndex({FieldName: 1}, {partialFilterExpression: {age: ${gt: 50}}})` |Partial Index|
+| `db.<dbName>.createIndex({FieldName: 'text'})` |Create Text Index|
+| `db.<dbName>.find({$text: {$search: 'keyword'}})` |Search Keywords with text index|
+| `db.<dbName>.createIndex({FieldName: 1}, {background: true})` |Create Index in the background|
+
+______________________________________
+
+## Importing a collection
+
+Open Shell in the respective Folder. And run command
+```
+ mongoimport 
+    <fileName.json> 
+    -d <databaseName>
+    -c <collectionName>
+    --jsonArray
+    --drop
+```
+| Command | Uses |
+| ------- | ----------- |
+| `mongoimport` |Default command for importing json data into Database|
+| `-d dbName` |On which database to be inserted|
+| `-c collectionName` |On which collection to be inserted|
+| `--jsonArray` |If it's an array with multiple doc|
+| `--drop` |drop any previous collection|
+
 ______________________________________
 
 ## Defining a Collection
