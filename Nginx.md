@@ -64,40 +64,114 @@ worker_processes auto;
 
 
 events {
-        worker_connections 1024;
-
+    worker_connections 1024;
 }
 
 http {
 
-        include mime.types;
+    include mime.types;
 
 
-        server{
+    server{
 
-                listen 80;
-                server_name ripunjoybuddha.site www.ripunjoybuddha.site;
+        listen 80;
+        server_name ripunjoybuddha.site www.ripunjoybuddha.site;
 
-                location / {
-                    proxy_pass http://localhost:3000;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded $proxy_add_x_forwarded_for;
-                }
-
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded $proxy_add_x_forwarded_for;
         }
 
+    }
 
-        server{
 
-                listen 80;
-                server_name kolaart.com www.kolaart.com;
+    server{
 
-                location / {
-                        proxy_pass http://localhost:3001;
-                }
+        listen 80;
+        server_name kolaart.com www.kolaart.com;
+
+        location / {
+            proxy_pass http://localhost:3001;
         }
+    }
 }
 
+```
+
+## Cache in the client side and Micro caching
+```
+http{
+
+    server{
+
+        listen 80;
+        server_name ripunjoybuddha.site www.ripunjoybuddha.site;
+
+        fastcgi_cache_path /tmp/cache_nginx levels=1:2 keys_zone=ZONE_1:100m inactive=60m;
+        fastcgi_cache_key "$scheme$request_method$host$request_uri";
+
+
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded $proxy_add_x_forwarded_for;
+
+            fastcgi_cache ZONE_1;
+            fastcgi_cache_valid 200 60m;
+
+        }
+
+        location ~* \.(css|js|jpg|jpeg|png) {
+            add_header Cache-Control public;
+            add_header Pragma public;
+            add_header Vary Accept-Encoding;
+            expires 2M;
+        }
+    }
+}
+
+```
+
+
+
+## Compress files with gzip
+```
+http{
+
+    gzip on;
+    gzip_comp_level 4;
+    gzip_types text/plain text/css application/javascript aplication/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+    server{
+
+        listen 80;
+        server_name ripunjoybuddha.site www.ripunjoybuddha.site;
+
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded $proxy_add_x_forwarded_for;
+        }
+    }
+}
+
+```
+
+## Blacklist and WhiteList IP addresses
+```
+    location /admin{
+        allow 1.2.3.4;
+        deny all
+    }
+```
+
+## Limit Network Bandwidth
+```
+    location / {
+        limit_rate_after 30m;
+        limit_rate 100M; #Any limit you want to provide
+    }
 ```
 
 
