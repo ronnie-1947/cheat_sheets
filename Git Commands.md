@@ -13,6 +13,15 @@ _A list of my commonly used Git commands -- Ronnie_
 | `mv [target_name] [new_name]` |Rename target file or folder|
 
 
+## SSH Config
+
+| Command | Description |
+| ------- | ----------- |
+| `ssh-keygen -t rsa -b 4096 - C "Comment"` |Create ssh key pair|
+| `eval "$(ssh-agent -s)"` |start the ssh-agent|
+| `ssh-add ~/.ssh/id_rsa` |Add id_rsa key|
+
+
 ## Configure Git
 
 | Command | Description |
