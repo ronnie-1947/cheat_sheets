@@ -1,5 +1,10 @@
-Linux Commands
+Linux 
 ===============
+
+# Table Of Contents
+- [Basic Commands](#Basic-commands-in-linux)
+- [Compress and Archive](#Compress-and-Archive)
+- [Input Output And Redirection](#Input-Output-and-Redirection)
 
 ## Basic commands in linux
 
@@ -14,13 +19,13 @@ Linux Commands
 
 _____________________________________________________________________
 
-## Manupulating Files
+## Compress and Archive
 
 | Command | Description |
 | ------- | ----------- |
 | `gzip -v [file_name]` |Compress file with gzip, -v flag for more info|
 | `gzip -d [file_name]` |decompress file with gzip|
-| `tar -zcf [newName].tar.gz [target_path]` |decompress and archive|
+| `tar -zcf [newName].tar.gz [target_path]` |compress and archive|
 | `tar -cf [newName].tar.gz [target_path]` |archive with tar|
 | `tar -zxvf [filename].tar.gz` |unArchive with tar|
 
@@ -35,3 +40,6 @@ Redirection reffers to saving command output to a file
 | `[any_command] > [file_name]` |Save the command output to file|
 | `[any_command] >> [file_name]` |Appends the command output to the file|
 | `[any_command] < [file_name]` |command operation to the contents of file_name|
+
+
+## Search In Files
