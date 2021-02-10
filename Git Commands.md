@@ -1,7 +1,20 @@
 Git Commands
 ============
 
-_A list of my commonly used Git commands -- Ronnie_
+- [Git Commands](#git-commands)
+  * [Basic commands in Bash](#basic-commands-in-bash)
+  * [SSH Config](#ssh-config)
+  * [Configure Git](#configure-git)
+  * [Getting & Creating Projects](#getting---creating-projects)
+  * [Basic Snapshotting](#basic-snapshotting)
+  * [Commit Status](#commit-status)
+  * [Playing With Commits](#playing-with-commits)
+  * [Branching](#branching)
+  * [Merging](#merging)
+  * [Rebase](#rebase)
+  * [Sharing & Updating Projects](#sharing---updating-projects)
+
+_A list of my commonly used Git commands -- Ronny_
 
 
 ## Basic commands in Bash

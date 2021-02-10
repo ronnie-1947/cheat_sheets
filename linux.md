@@ -75,6 +75,7 @@ column is used to display file content as table
     grep bob /etc/passwd | tr ':' ' ' | column -t
 ```
 
+_________
 
 ## upload in remote server
 
