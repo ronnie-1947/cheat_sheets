@@ -5,10 +5,10 @@ MySql
   * [Initial Commands](#initial-commands)
   * [Database Commands](#database-commands)
   * [Table Initial Commands](#table-initial-commands)
-  * [Creating tables:](#creating-tables-)
-  * [Inserting in Tables:](#inserting-in-tables-)
+  * [Creating tables:](#creating-tables)
+  * [Inserting in Tables:](#inserting-in-tables)
   * [Filtering Commands](#filtering-commands)
-  * [Insert UNIQUE DATA in tables (PRIMARY KEY & UNIQUE)](#insert-unique-data-in-tables--primary-key---unique-)
+  * [Insert UNIQUE DATA in tables (PRIMARY KEY & UNIQUE)](#insert-unique-data-in-tables--primary-key---unique)
   * [Updating & Deleting](#updating---deleting)
   * [String Functions](#string-functions)
     + [CONCAT](#concat)
@@ -37,7 +37,7 @@ MySql
     + [Inner Joint](#inner-joint)
     + [Left Join](#left-join)
     + [RIGHT Join](#right-join)
-    + [Join MANY TO MANY (3 tables)](#join-many-to-many--3-tables-)
+    + [Join MANY TO MANY (3 tables)](#join-many-to-many--3-tables)
   * [TRIGGERS](#triggers)
     + [Managing TRIGGERS](#managing-triggers)
 
@@ -166,7 +166,7 @@ CONCAT (<column-1> , ' ' , <column-2 , .....>)
 FROM <table_name>
 WHERE <condition>
 ```
-_________________________
+
 
 ### SUBSTRING
 Used as SPLICE in JS
@@ -175,7 +175,7 @@ SELECT SUBSTRING(
     <column_name>, strt_num, end_num;
 ) FROM <table_name>
 ```
-_________________________
+
 
 ### REPLACE
 Replaces certain characters in String
@@ -184,7 +184,7 @@ SELECT
     REPLACE(<column_name> , 'e', 3)
     FROM <table_name>
 ```
-_________________________
+
 
 ### REVERSE
 Reverse a String
@@ -193,7 +193,7 @@ SELECT
     REVERSE(<column_name>)
     FROM <table_name>
 ```
-_________________________
+
 
 ### CHAR_LENGTH
 Gives num of characters in a String
@@ -202,7 +202,7 @@ SELECT
     CHAR_LENGTH(<column_name>)
     FROM <table_name>
 ```
-_________________________
+
 
 ### UPPER & LOWER
 Converts to UpperCase Or LowerCase
@@ -215,7 +215,7 @@ SELECT
     LOWER(<column_name>)
     FROM <table_name>
 ```
-_________________________
+
 
 ### DISTINCT
 Remove Duplicates
@@ -224,7 +224,7 @@ SELECT
     DISTINCT(<column_name>)
     FROM <table_name>
 ```
-_________________________
+
 
 Combine CONCAT & SUBSTRING & REPLACE
 ```
@@ -236,7 +236,7 @@ SELECT
 FROM books;
 ```
 ____________________________
-____________________________
+
 ## Aggregate Functions
 
 | Command | Description |
@@ -255,7 +255,6 @@ COUNT(
     <column_name>
 )FROM <table_name>
 ```
-________________________________
 
 ### Group By
 Summarizes identical data into single rows
@@ -265,7 +264,6 @@ SELECT
 FROM books 
 GROUP BY <column_name-1>, <column_name-2>;
 ```
-________________________________
 
 ### Min & Max
 Find minimum or maximum among a list
@@ -273,7 +271,6 @@ Find minimum or maximum among a list
 SELECT MIN(<column_name>)
 FROM <table_name>
 ```
-_________________________________
 
 ### Using Min & Max along with Group By
 Table containing first book release of every author
@@ -285,7 +282,6 @@ FROM   books
 GROUP  BY author_lname, 
           author_fname;
 ```
-__________________________________
 
 ### SUM
 Used to sum a whole column
@@ -293,7 +289,6 @@ Used to sum a whole column
 SELECT SUM(<column_name>) 
 FROM <table_name>;
 ```
-__________________________________
 
 ### AVG
 Used to AVG a whole column
@@ -301,7 +296,7 @@ Used to AVG a whole column
 SELECT AVG(<column_name>) 
 FROM <table_name>;
 ```
-__________________________________
+
 __________________________________
 
 ## WORKING WITH DATES
@@ -319,7 +314,6 @@ birthdt DATETIME);
 SELECT DATE_FORMAT(<column_date-time>, '%m/%d/%Y at %h:%i')
 FROM <table_name>;
 ```
-__________________________________
 
 ### DATE_DIFF & DATE_ADD
 ```
@@ -332,14 +326,12 @@ SELECT
 DATE_ADD(birthdt, INTERVAL 10 year) 
 FROM people;
 ```
-__________________________________
 
 ### TIME-INTERVAL , DATE_DIFF & DATE_ADD
 ```
 SELECT NOW()+INTERVAL 1 MONTH  FROM people;
 SELECT NOW()-INTERVAL 1 MONTH  FROM people;
 ```
-__________________________________
 
 ### Create TIME-STAMP Table
 ```
@@ -349,7 +341,7 @@ CREATE TABLE comments (
 );
 ```
 ____________________________
-____________________________
+
 
 ## CASE STATEMENTS & IF STATEMENTS
 CASE works as IF ELSE
@@ -369,7 +361,7 @@ SELECT title, stock_quantity,
 ```
 
 _____________________________
-_____________________________
+
 ## DATA RELATIONSHIPS
 
 ### Creating relational table
@@ -381,7 +373,7 @@ CREATE TABLE <table_name>(
     FOREIGN KEY(customer_id) REFERENCES customers(id)
 );
 ```
-_____________________________
+
 
 ### Inner Joint
 ```
@@ -389,7 +381,7 @@ SELECT * FROM <table_1>
     JOIN <table_2>
     ON <condition>
 ```
-_____________________________
+
 ### Left Join
 
 ```
@@ -397,7 +389,7 @@ SELECT * FROM <table_1>
     LEFT JOIN <table_2>
     ON <condition>
 ```
-_____________________________
+
 ### RIGHT Join
 
 ```
@@ -405,7 +397,7 @@ SELECT * FROM <table_1>
     RIGHT JOIN <table_2>
     ON <condition>
 ```
-_____________________________
+
 
 ### Join MANY TO MANY (3 tables)
 ```
@@ -420,7 +412,7 @@ INNER JOIN series
     ON series.id = reviews.series_id
 ORDER BY title;
 ```
-_____________________________
+
 _____________________________
 
 ## TRIGGERS
