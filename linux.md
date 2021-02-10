@@ -16,6 +16,8 @@ Linux
 | `cp [file_name] [file_name] [destination_path]` |Copy all the files to destination folder|
 | `mv [target_name] [new_name]` |Rename target file or folder|
 | `mv [file_name] [destination_path]` |Move file to given destination|
+| `file [file_name]` |Show Meta Data about the file|
+| `strings [file_name]` |Show the human readable Strings|
 
 _____________________________________________________________________
 
@@ -41,5 +43,32 @@ Redirection reffers to saving command output to a file
 | `[any_command] >> [file_name]` |Appends the command output to the file|
 | `[any_command] < [file_name]` |command operation to the contents of file_name|
 
+_____________________________________________________________________
 
-## Search In Files
+## Actions in files (search, cut, display etc)
+
+### Grep
+
+Grep is used to search keywords in files
+```
+    ps aux | grep nginx
+    grep [keyword] [file_name]
+```
+
+### Cut
+Cut is used to remove letters or words.. Used as 'split' in JS
+```
+    strings [file_name] | grep -i john | cut -d' ' -f2
+```
+
+### tr
+tr is used for replaceing some characters
+```
+    grep bob /etc/passwd | tr ':' ' '
+```
+
+### column
+column is used to display file content as table
+```
+    grep bob /etc/passwd | tr ':' ' ' | column -t
+```
