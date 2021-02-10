@@ -8,8 +8,8 @@ MySql
   * [Creating tables:](#creating-tables)
   * [Inserting in Tables:](#inserting-in-tables)
   * [Filtering Commands](#filtering-commands)
-  * [Insert UNIQUE DATA in tables (PRIMARY KEY & UNIQUE)](#insert-unique-data-in-tables--primary-key---unique)
-  * [Updating & Deleting](#updating---deleting)
+  * [Insert UNIQUE DATA in tables (PRIMARY KEY & UNIQUE)](#insert-unique-data-in-tables-primary-key--unique)
+  * [Updating & Deleting](#updating--deleting)
   * [String Functions](#string-functions)
     + [CONCAT](#concat)
     + [SUBSTRING](#substring)
@@ -21,17 +21,17 @@ MySql
   * [Aggregate Functions](#aggregate-functions)
     + [Count](#count)
     + [Group By](#group-by)
-    + [Min & Max](#min---max)
-    + [Using Min & Max along with Group By](#using-min---max-along-with-group-by)
+    + [Min & Max](#min--max)
+    + [Using Min & Max along with Group By](#using-min--max-along-with-group-by)
     + [SUM](#sum)
     + [AVG](#avg)
   * [WORKING WITH DATES](#working-with-dates)
     + [Create Table of DATES](#create-table-of-dates)
     + [Format_Date](#format-date)
-    + [DATE_DIFF & DATE_ADD](#date-diff---date-add)
-    + [TIME-INTERVAL , DATE_DIFF & DATE_ADD](#time-interval---date-diff---date-add)
+    + [DATE_DIFF & DATE_ADD](#date_diff--date_add)
+    + [TIME-INTERVAL, DATE_DIFF & DATE_ADD](#time-interval--date_diff--date_add)
     + [Create TIME-STAMP Table](#create-time-stamp-table)
-  * [CASE STATEMENTS & IF STATEMENTS](#case-statements---if-statements)
+  * [CASE STATEMENTS & IF STATEMENTS](#case-statements--if-statements)
   * [DATA RELATIONSHIPS](#data-relationships)
     + [Creating relational table](#creating-relational-table)
     + [Inner Joint](#inner-joint)
@@ -104,7 +104,7 @@ VALUES (V11, V12, ....),
 | `LIMIT <strt_num>, <prsnt_num> ;` |Present only limited data|
 
 ___________________________
-___________________________
+
 ## Insert UNIQUE DATA in tables (PRIMARY KEY & UNIQUE)
 PRIMARY KEY : It is a column or combination of column that uniquely identifies a row in a table.
 Given below example of combination (user_id, photo_id) which cannot be duplicated .
@@ -129,9 +129,6 @@ CREATE TABLE users (
 ```
 
 ___________________________
-___________________________
-
-
 
 ## Updating & Deleting
 ```
@@ -144,6 +141,7 @@ WHERE <condition>;
 DELETE FROM <table_name>
 WHERE <condition>
 ```
+___________________________
 
 ## String Functions
 
