@@ -5,6 +5,8 @@ Linux
 - [Basic Commands](#Basic-commands-in-linux)
 - [Compress and Archive](#Compress-and-Archive)
 - [Input Output And Redirection](#Input-Output-and-Redirection)
+- [Action in Files](#actions-in-files-search-cut-display-etc)
+- [Upload in Remote Server](#upload-in-remote-server)
 
 ## Basic commands in linux
 
@@ -71,4 +73,25 @@ tr is used for replaceing some characters
 column is used to display file content as table
 ```
     grep bob /etc/passwd | tr ':' ' ' | column -t
+```
+
+
+## upload in remote server
+
+### SFTP
+
+1. Connect to Remote server
+```
+sftp root@<remoteIP>
+```
+2. Upload File into server
+```
+    cd [destination path in server]
+    put [localFilePath]
+```
+
+### SCP
+Send directly to server with scp
+```
+    scp [local_file_path] root@<ipAddress>:/[remote_path]
 ```
