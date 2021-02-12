@@ -7,6 +7,8 @@ Linux
 - [Input Output And Redirection](#Input-Output-and-Redirection)
 - [Action in Files](#actions-in-files-search-cut-display-etc)
 - [Upload in Remote Server](#upload-in-remote-server)
+- [Aliases & Environment Variables](#aliases--environmentvariables)
+- [Processes](#processes)
 
 ## Basic commands in linux
 
@@ -75,7 +77,7 @@ column is used to display file content as table
     grep bob /etc/passwd | tr ':' ' ' | column -t
 ```
 
-_________
+_____________________________________________________________________
 
 ## upload in remote server
 
@@ -96,3 +98,46 @@ Send directly to server with scp
 ```
     scp [local_file_path] root@<ipAddress>:/[remote_path]
 ```
+_____________________________________________________________________
+
+## Aliases & EnvironmentVariables
+
+| Command | Description |
+| ------- | ----------- |
+| `alias` |List all alias|
+| `alias [new_command]=[existing_command]` |Create new alias|
+| `unalias [command]` |Removes alias|
+| `env` |Show all Environment Variables|
+| `echo $[VARIABLE]` |Show Environment Variable|
+| `export [VARIABLE]='...'` |Create Or Change Environment Variables|
+| `unset [VARIABLE]='...'` |Remove Environment variable|
+_____________________________________________________________________
+
+## Processes
+| Command | Description |
+| ------- | ----------- |
+| `ps -ef` |List all Processes|
+| `pstree` |List all Processes in tree structure|
+| `top` |Open task Manager|
+| `htop` |Open task Manager|
+| `kill [process_PID]` |Kill a background process|
+_____________________________________________________________________
+
+## Schedule Task With Cron 
+Cron is used to Schedule Tasks.
+```
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon, tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  *
+```
+
+| Command | Description |
+| ------- | ----------- |
+| `crontab [fileName]` |Install Tasks from file|
+| `crontab -l` |List all cron Tasks|
+| `crontab -e` |Edit Cron Tasks|
+| `crontab -r` |Remove all cron jobs|
