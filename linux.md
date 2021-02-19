@@ -124,6 +124,7 @@ _____________________________________________________________________
 _____________________________________________________________________
 
 ## Schedule Task With Cron 
+
 Cron is used to Schedule Tasks.
 ```
 # .---------------- minute (0 - 59)
@@ -133,6 +134,8 @@ Cron is used to Schedule Tasks.
 # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon, tue,wed,thu,fri,sat
 # |  |  |  |  |
 # *  *  *  *  *
+
+* * * * * echo 'Hello' >> /tmp/text.txt
 ```
 
 | Command | Description |
@@ -141,3 +144,35 @@ Cron is used to Schedule Tasks.
 | `crontab -l` |List all cron Tasks|
 | `crontab -e` |Edit Cron Tasks|
 | `crontab -r` |Remove all cron jobs|
+
+_____________________________________________________________________
+
+## Linux Boot Process
+
+
+### Linux Boot Loaders
+
+Main work of Boot loaders is to start the operating system
+
+- Boot Loaders start the operating system
+- Boot loaders can start the operating system with different options
+- LILO (Linux Loader) Old boot loader used by systems
+- GRUB (Grand Unified Bootloader) replaces LILO present day
+
+### initrd Initial RAM Disk
+
+Boot Loader uses Initial RAM Disk in its process
+- Temporary filesystem that is loaded from disk and stored in memory
+- Contains  helpers and modules required to load the permanent OS file system
+
+### /boot Directory
+
+This directory contains all files required to boot Linux
+
+- initrd.img-x.xx.x-xx-generic (Initial RAM Disk)
+- vmlinuz-x.xx.x-xx-generic (linux kernal)
+
+
+### Runlevels/ Description
+
+- Init Scripts starts other processes in each Run levels
