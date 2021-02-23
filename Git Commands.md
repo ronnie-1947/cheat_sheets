@@ -30,7 +30,7 @@ _A list of my commonly used Git commands -- Ronny_
 
 | Command | Description |
 | ------- | ----------- |
-| `ssh-keygen -t rsa -b 4096 - C "Comment"` |Create ssh key pair|
+| `ssh-keygen -t rsa -b 4096 -C "Comment"` |Create ssh key pair|
 | `eval "$(ssh-agent -s)"` |start the ssh-agent|
 | `ssh-add ~/.ssh/id_rsa` |Add id_rsa key|
 
