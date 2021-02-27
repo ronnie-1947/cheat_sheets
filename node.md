@@ -4,7 +4,10 @@
 - [NVM (Node Version Manager)](#nvm-node-version-manager-)
     + [NVM Installation Guide](#nvm-installation-guide)
     + [NVM commands](#nvm-commands)
-- [NVM (Node Version Manager)](#nvm-node-version-manager-)
+- [HTTP & HTTPS module](#http--https-module)
+  * [Creating Server with HTTP](#creating-server-with-http)
+  * [Creating Server with HTTPS](#creating-server-with-https)
+- [URL Module](#url-module)
 
 ## NVM (Node Version Manager)
 
@@ -68,4 +71,18 @@ const app = https.createServer(server.httpsServerOptions, (req, res)=>{
 app.listen(PORT, ()=>{
     console.log('app listening on PORT')
 })
+```
+
+____
+
+## URL Module
+Url module is used to parse, construct, normalize and encode URLs.
+```
+const url = require('url')
+
+const parsedUrl = url.parse('http://localhost:8080/default?year=2017&month=february', true);
+
+const host = parsedUrl.host // 'localhost:8080'
+const pathName = parsedUrl.pathname // '/default'
+const query = parsedUrl.query // '{ year: 2017, month: 'february' }'
 ```
