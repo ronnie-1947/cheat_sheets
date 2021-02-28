@@ -5,9 +5,18 @@
     + [NVM Installation Guide](#nvm-installation-guide)
     + [NVM commands](#nvm-commands)
 - [HTTP & HTTPS module](#http--https-module)
-  * [Creating Server with HTTP](#creating-server-with-http)
-  * [Creating Server with HTTPS](#creating-server-with-https)
+    * [Creating Server with HTTP](#creating-server-with-http)
+    * [Creating Server with HTTPS](#creating-server-with-https)
 - [URL Module](#url-module)
+- [String Decoder](#string-decoder)
+- [File System](#fs-module)
+    * [Reading a File Synchronously](#reading-a-file-synchronously)
+    * [Reading a File Asynchronously](#reading-a-file-asynchronously)
+    * [writing a File Synchronously](#writing-a-file-synchronously)
+    * [writing a File Asynchronously](#writing-a-file-asynchronously)
+    * [Appending to a File](#appending-to-a-file)
+    * [Deleting a file](#deleting-a-file)
+    * [Open a File](#open-a-file)
 
 ## NVM (Node Version Manager)
 
@@ -85,4 +94,83 @@ const parsedUrl = url.parse('http://localhost:8080/default?year=2017&month=febru
 const host = parsedUrl.host // 'localhost:8080'
 const pathName = parsedUrl.pathname // '/default'
 const query = parsedUrl.query // '{ year: 2017, month: 'february' }'
+```
+____
+
+## String Decoder
+Decode a stream of binary data (a buffer object) into a string
+```
+const {StringDecoder} = require('string_decoder)
+
+const decoder = new StringDecoder(utf8)
+const buffer = Buffer('abc') // Creating buffer using Buffer()
+
+const result = decoder.write(buffer) // Decoding the buffer back to string
+decoder.end()
+
+```
+_____
+
+## FS Module
+File System module allows us to read write delete files in the disk
+
+### Reading a File Synchronously
+```
+const fs = require('fs')
+const str = fs.readFileSync('path', 'utf8')
+console.log(str)
+```
+
+### Reading a File Asynchronously
+```
+const fs = require('fs')
+
+fs.readFile('path', 'encType', (err, str)=>{
+    console.log('str')
+})
+```
+### writing a File Synchronously
+```
+const fs = require('fs')
+
+fs.writeFileSync(path, str)
+```
+
+### writing a File Asynchronously
+```
+const fs = require('fs')
+
+fs.writeFile('path', str, (err)=>{
+    ...
+})
+```
+
+### Appending to a File
+```
+const fs = require('fs')
+
+fs.appendFileSync(path, str)
+
+fs.appendFile(path, str, (err)=>{
+    console.log(err)
+})
+```
+
+### Deleting a file
+```
+const fs = require('fs')
+
+fs.unlink(path, ()=>{
+    ...
+})
+```
+
+### Open a File
+Opening a File allows to do all the operations to a file
+```
+const fs = require('fs')
+
+fs.open(path, flag, (err, fd)=>{
+    ...
+})
 ```
