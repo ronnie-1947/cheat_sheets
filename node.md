@@ -17,6 +17,9 @@
     * [Appending to a File](#appending-to-a-file)
     * [Deleting a file](#deleting-a-file)
     * [Open a File](#open-a-file)
+- [Crypto Module](#crypto-module)
+  * [Hash a string with crypto](#hash-a-string-with-crypto)
+  * [Create Random String](#create-random-string)
 
 ## NVM (Node Version Manager)
 
@@ -173,4 +176,22 @@ const fs = require('fs')
 fs.open(path, flag, (err, fd)=>{
     ...
 })
+```
+
+
+## Crypto Module
+
+### Hash a string with crypto
+```
+const crypto = require('crypto')
+
+crypto.createHmac('SHA256', config.hashingSecret).update(str).digest('hex')
+
+```
+
+### Create Random String
+```
+const crypto = require('crypto')
+
+const hash = crypto.randomBytes(strLength).toString('hex');
 ```
