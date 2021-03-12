@@ -20,6 +20,10 @@
 - [Crypto Module](#crypto-module)
   * [Hash a string with crypto](#hash-a-string-with-crypto)
   * [Create Random String](#create-random-string)
+- [OS Module](#os-module)
+- [V8 Module](#v8-module)
+
+
 
 ## NVM (Node Version Manager)
 
@@ -177,7 +181,7 @@ fs.open(path, flag, (err, fd)=>{
     ...
 })
 ```
-
+___
 
 ## Crypto Module
 
@@ -194,4 +198,38 @@ crypto.createHmac('SHA256', config.hashingSecret).update(str).digest('hex')
 const crypto = require('crypto')
 
 const hash = crypto.randomBytes(strLength).toString('hex');
+```
+
+___
+
+## OS Module
+Os module provides information about the computer's operating system
+| Method | Description |
+| ------- | ----------- |
+| `os.arch()` |Show OS cpu architecture|
+| `os.cpus()` |Returns an array containing information about the computer's CPUs|
+| `os.freemem()` |Returns an array containing information about the computer's CPUs|
+| `os.totalmem()` |Returns the number of total memory of the system|
+| `os.userInfo()` |Returns information about the current user|
+| `os.uptime()` |Returns the uptime of the operating system, in seconds|
+
+____
+
+## V8 Module
+```
+v8.getHeapStatistics()
+
+{
+  total_heap_size: ,
+  total_heap_size_executable: ,
+  total_physical_size: ,
+  total_available_size: ,
+  used_heap_size: ,
+  heap_size_limit: ,
+  malloced_memory: ,
+  peak_malloced_memory: ,
+  does_zap_garbage: ,
+  number_of_native_contexts: ,
+  number_of_detached_contexts: 
+}
 ```
