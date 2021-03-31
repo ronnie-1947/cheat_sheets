@@ -3,6 +3,7 @@ NGIN    X
 
 - [NGIN    X](#ngin----x)
   - [Nginx installation on Ubuntu](#nginx-installation-on-ubuntu)
+  - [Nginx basic commands](#nginx-basic-commands)
   - [Reverse Proxy](#reverse-proxy)
   - [SSL certificate with Lets Encrypt](#ssl-certificate-with-lets-encrypt)
 
@@ -15,6 +16,14 @@ NGIN    X
 | `ps aux  grep nginx`| Show nginx processes running on system |
 | `ulimit -n`| Show number of capable worker connections |
 
+
+## Nginx Basic Commands
+
+| Command                       | Description                            |
+| ----------------------------- | -------------------------------------- |
+| `systemctl start nginx`| Start nginx on ip |
+| `systemctl restart nginx`| Restart nginx server |
+| `nginx -s reload`| Reload nginx server |
 
 
 ```
