@@ -6,6 +6,7 @@ NGIN    X
   - [Nginx basic commands](#nginx-basic-commands)
   - [Reverse Proxy](#reverse-proxy)
   - [SSL certificate with Lets Encrypt](#ssl-certificate-with-lets-encrypt)
+  - [Final Recomended Setup](#final-recomended-setup)
 
 
 ## Nginx installation on Ubuntu
@@ -210,3 +211,99 @@ http{
 | `sudo apt-get install python3-certbot-nginx`| Step 3 |
 | `sudo certbot --nginx -d domain.com -d www.domain.com`| Step 4 |
 | `certbot renew --dry-run`| Step 5 |
+
+
+## Final Recomended Setup
+```
+events {
+    worker_connections 1024;
+    # multi_accept on;
+}
+
+http {
+
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    server_tokens off;
+
+    ################
+    # Gzip Settings
+    ###############
+
+    gzip on;
+
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 4;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+
+    gzip_types
+    application/atom+xml
+    application/javascript
+    application/json
+    application/ld+json
+    application/manifest+json
+    application/rss+xml
+    application/vnd.geo+json
+    application/vnd.ms-fontobject
+    application/x-font-ttf
+    application/x-web-app-manifest+json
+    application/xhtml+xml
+    application/xml
+    font/opentype
+    image/bmp
+    image/svg+xml
+    image/x-icon
+    text/cache-manifest
+    text/css
+    text/plain
+    text/vcard
+    text/vnd.rim.location.xloc
+    text/vtt
+    text/x-component
+    text/x-cross-domain-policy;
+    
+    limit_req_zone $binary_remote_addr zone=one:10m rate=100r/s;
+
+    fastcgi_cache_path /tmp/cache_nginx levels=1:2 keys_zone=ZONE_1:100m inactive=60m;
+    fastcgi_cache_key "$scheme$request_method$host$request_uri";
+    
+
+    include /etc/nginx/mime.types;
+
+    server{
+        server_name Domain.com;
+
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded $proxy_add_x_forwarded_for;
+            limit_req zone=one;
+
+            fastcgi_cache ZONE_1;
+            fastcgi_cache_valid 200 60m;
+        }
+
+        location ~* \.(jpg|jpeg|png|gif|ico|css) {
+            proxy_pass http://localhost:3000;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded $proxy_add_x_forwarded_for;
+            #limit_req zone=one;
+            add_header Cache-Control public;
+            add_header Pragma public;
+            add_header Vary Accept-Encoding;
+            expires 1M;
+        }
+
+        add_header X-FRAME-Options "SAMEORIGIN";
+        add_header X-XSS-Protection "1; mode=block";
+    }
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;    
+}
+
+```
