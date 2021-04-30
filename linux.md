@@ -3,6 +3,7 @@ Linux
 
 # Table Of Contents
 - [Basic Commands](#Basic-commands-in-linux)
+- [User Management](#user-management)
 - [Compress and Archive](#Compress-and-Archive)
 - [Input Output And Redirection](#Input-Output-and-Redirection)
 - [Action in Files](#actions-in-files-search-cut-display-etc)
@@ -22,6 +23,67 @@ Linux
 | `mv [file_name] [destination_path]` |Move file to given destination|
 | `file [file_name]` |Show Meta Data about the file|
 | `strings [file_name]` |Show the human readable Strings|
+
+_____________________________________________________________________
+
+## User Management
+
+### Linux Account Properties
+Each Linux Account have Common Properties. Info stored in 
+
+```
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash # For root account
+
+cat /etc/passwd
+Joe:x:1000:1000:Joe Henderson:/home:/bin/bash
+
+#Format
+username:password:UID:GID:comments:home_dir:shell
+```
+
+Accounts encrypted passwords stored in 
+```
+cat /etc/shadow # Only readable by root
+root:$6$9g1IC8AyzqoZP21:16502:0:99999:7:::
+```
+
+| Property | Description |
+| ------- | ----------- |
+| `username` |Username or Login Id, Linux supports upto 32 char|
+| `UID` |Unique ID, root is always UID 0|
+| `Default Group` |All accounts are assigned a group|
+| `Comments` |Comments Related to that account|
+| `Shell` |Shell to execute logs into the system |
+| `Home` |Home directory|
+
+
+
+### Linux user management commands
+
+| Command | Description |
+| ------- | ----------- |
+| `ps -fu <username>` |Show user details|
+| `useradd <username> -c "Comment" -g groupName -m -s /shell/path` |Add a new user with listed Options, -m is used to create home directory|
+| `passwd <username>` |Set password to respective users account|
+| `deluser <username> -r` |delete an users account, also remove /home/user folder|
+
+
+### Group Detail
+Group file lives in 
+```
+cat /etc/group
+sales:x10001:john,marry
+
+# The format of the /etc/groupfile:
+group_name:password:GID:account1,accountN
+
+```
+| Command | Description |
+| ------- | ----------- |
+| `groups <username>` |Show the group , user associated with|
+| `groupadd <groupName> -g 2500` |Assign new group with GID 2500|
+| `groupdel <groupName>` |Delete a group|
 
 _____________________________________________________________________
 
@@ -101,6 +163,11 @@ Send directly to server with scp
 _____________________________________________________________________
 
 ## Aliases & EnvironmentVariables
+
+For Parmanent Alias
+```
+nano ~/.bashrc
+```
 
 | Command | Description |
 | ------- | ----------- |
