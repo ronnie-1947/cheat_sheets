@@ -3,6 +3,7 @@ Linux
 
 # Table Of Contents
 - [Basic Commands](#Basic-commands-in-linux)
+- [system Commands](#system-commands)
 - [User Management](#user-management)
 - [Compress and Archive](#Compress-and-Archive)
 - [Input Output And Redirection](#Input-Output-and-Redirection)
@@ -23,6 +24,18 @@ Linux
 | `mv [file_name] [destination_path]` |Move file to given destination|
 | `file [file_name]` |Show Meta Data about the file|
 | `strings [file_name]` |Show the human readable Strings|
+
+_____________________________________________________________________
+
+## System Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `whoami` |display username|
+| `UID` |display uid of user|
+| `id -options` |display user related info|
+| `uptime` |Show how many days mins secs the system is up|
+| `type -a <any command>` |Display whether command is shell builtin or file|
 
 _____________________________________________________________________
 
