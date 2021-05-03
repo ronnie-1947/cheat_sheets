@@ -2,6 +2,8 @@
 
 | Command | Description |
 | ------- | ----------- |
+| `docker login` |Login to Dockerhub|
+| `docker logout` |Logout to Dockerhub|
 | `docker version` |Shows docker details|
 | `docker info` |Shows docker more Info details|
 | `docker container stats` |Live monitoring of containers|
@@ -13,14 +15,17 @@
 | ------- | ----------- |
 | `docker container ls -a` |Lists all available containers including hidden containers|
 | `docker container run --publish 80:80 nginx` |Starts an nginx server in port 80|
-| `docker run -p 3000:80 -d --name any_name nginx` |Runs an nginx server in port 3000 in detach state|
+| `docker run -p 3000:80 -d --name any_name --rm nginx` |Runs an nginx server in port 3000 in detach state|
+| `docker run -p 3000:80 --rm nginx` |provide --rm flag to automatically remove the container as it stops|
 | `docker container start <containerId>` |Starts unique container with the id|
 | `docker container stop <containerId>` |Stops unique container with the id|
 | `docker container rm -f <containerId>` |Force removes the container with id|
 | `winpty docker run -it <imageName> bash` |Starts a new image in bash shell|
-| `winpty docker start -ia <containerId>` |Start an existing container|
+| `winpty docker start -ia <containerId>` |Start an existing container in terminal|
+| `docker logs -f <containerId>` |Shows all logs printed in terminal, and follows it|
+| `docker cp <localFilePath> <containerName>:<./destinationPath>` |Copy to and from a running container|
 
-## Build Custom Image
+## Docker Images
 
 ### Dockerfile
 ```
@@ -41,4 +46,11 @@ CMD ["node", "server.js"] # Cmd run after starting container
 
 | Command | Description |
 | ------- | ----------- |
-| `docker build .` |Builds custom image reading into Dockerfile|
+| `docker images` |Shows all available images with little detail|
+| `docker image inspect <imageId>` |Shows full info of an image|
+| `docker rmi <imageID>` |Removes image with the imageId|
+| `docker build -t <imageName>:<imageTag> .` |Builds custom image reading the Dockerfile|
+| `docker image prune` |Removes all unused images|
+| `docker tag <imageName> <newImageName>` |Renames an image name|
+| `docker push <imageName>` |Push to dockerhub or some other hub|
+| `docker pull <imageName>` |Pull from dockerhub or some other hub|
