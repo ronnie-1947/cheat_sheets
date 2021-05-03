@@ -1,3 +1,8 @@
+- [Docker Basic Commands](#docker-basic-commands)
+- [Docker Containers](#docker-containers)
+- [Docker Images](#docker-images)
+  * [Dockerfile](#dockerfile)
+
 ## Docker Basic Commands
 
 | Command | Description |
@@ -9,6 +14,9 @@
 | `docker container stats` |Live monitoring of containers|
 | `docker container inspect <containerId>` |Shows metadata how the container was started|
 | `docker top <containerId>` |shows the process running inside a container|
+
+______________
+
 
 ## Docker Containers
 | Command | Description |
@@ -24,8 +32,21 @@
 | `winpty docker start -ia <containerId>` |Start an existing container in terminal|
 | `docker logs -f <containerId>` |Shows all logs printed in terminal, and follows it|
 | `docker cp <localFilePath> <containerName>:<./destinationPath>` |Copy to and from a running container|
+______________
 
 ## Docker Images
+
+
+| Command | Description |
+| ------- | ----------- |
+| `docker images` |Shows all available images with little detail|
+| `docker image inspect <imageId>` |Shows full info of an image|
+| `docker rmi <imageID>` |Removes image with the imageId|
+| `docker build -t <imageName>:<imageTag> .` |Builds custom image reading the Dockerfile|
+| `docker image prune` |Removes all unused images|
+| `docker tag <imageName> <newImageName>` |Renames an image name|
+| `docker push <imageName>` |Push to dockerhub or some other hub|
+| `docker pull <imageName>` |Pull from dockerhub or some other hub|
 
 ### Dockerfile
 ```
@@ -43,14 +64,3 @@ EXPOSE 80
 
 CMD ["node", "server.js"] # Cmd run after starting container
 ```
-
-| Command | Description |
-| ------- | ----------- |
-| `docker images` |Shows all available images with little detail|
-| `docker image inspect <imageId>` |Shows full info of an image|
-| `docker rmi <imageID>` |Removes image with the imageId|
-| `docker build -t <imageName>:<imageTag> .` |Builds custom image reading the Dockerfile|
-| `docker image prune` |Removes all unused images|
-| `docker tag <imageName> <newImageName>` |Renames an image name|
-| `docker push <imageName>` |Push to dockerhub or some other hub|
-| `docker pull <imageName>` |Pull from dockerhub or some other hub|
