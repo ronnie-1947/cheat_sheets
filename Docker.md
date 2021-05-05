@@ -1,7 +1,8 @@
 - [Docker Basic Commands](#docker-basic-commands)
 - [Docker Containers](#docker-containers)
 - [Docker Images](#docker-images)
-  * [Dockerfile](#dockerfile)
+- [Docker Volumes](#docker-volumes)
+- [Dockerfile](#dockerfile)
 
 ## Docker Basic Commands
 
@@ -48,7 +49,13 @@ ______________
 | `docker push <imageName>` |Push to dockerhub or some other hub|
 | `docker pull <imageName>` |Pull from dockerhub or some other hub|
 
-### Dockerfile
+____________
+
+## Docker Volume
+Volumes are folders on the host machine , which are made available in containers
+
+____________
+## Dockerfile
 ```
 FROM node  # Image name
 
