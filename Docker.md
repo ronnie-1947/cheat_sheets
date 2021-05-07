@@ -3,6 +3,7 @@
 - [Docker Images](#docker-images)
 - [Docker Volumes](#docker-volumes)
 - [Dockerfile](#dockerfile)
+- [Docker Ignore File](#.dockerignore)
 
 ## Docker Basic Commands
 
@@ -54,7 +55,43 @@ ____________
 ## Docker Volume
 Volumes are folders on the host machine , which are made available in containers
 
+### Anonymus Volumes
+These are unnamed volumes , created with the container and have no use when the container is deleted. Creating Anonymus volume, via docker file
+```
+FROM node
+...
+VOLUME ["/app/feedback"] # Specify the folder, to be stored in volume
+...
+```
+
+### Named Volumes
+Named volumes are created when run a container
+```
+docker container run -v <volumeName>:></folder/path> -d <imageId>
+```
+
+### Bind Mounts
+Bind Mounts are type of volumes, where the source path is known Or Path is given instead of VolumeName. Bind Mounts are supposed to be READ ONLY. :ro flag is applied in the end
+```
+docker container run -v "</source/code/path>:</workingDir>:ro" -d <imageId>
+```
+Running anonymus volumes, named volumes and bindmounts together
+```
+docker container run -v <volumeName>:></folder/path> -v "</source/code/path>:</workingDir>:ro" -v /workingDir/node_modules -d <imageId>
+```
+
+### Volume Commands 
+Command | Description |
+| ------- | ----------- |
+| `docker volume ls` |List all volumes|
+| `docker volume rm <volumeId>` |Remove a volume|
+| `docker volume prune` |Remove all unused volume|
+| `docker volume create <volumeName>` |Create a new volume manually|
+| `docker volume inspect <volumeName>` |See Volume meta informations|
+
 ____________
+
+
 ## Dockerfile
 ```
 FROM node  # Image name
@@ -67,7 +104,20 @@ RUN npm install # Runs the command on building image
 
 COPY . /app  # Copy everything from current folder to app folder 
 
-EXPOSE 80 
+ARG DEFAULT_PORT=80
+
+ENV PORT $DEFAULT_PORT
+
+EXPOSE $PORT
 
 CMD ["node", "server.js"] # Cmd run after starting container
+```
+
+
+## .dockerignore
+Prevent from copying into container
+```
+node_modules
+Dockerfile
+.git
 ```
