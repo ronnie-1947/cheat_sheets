@@ -2,8 +2,9 @@
 - [Docker Containers](#docker-containers)
 - [Docker Images](#docker-images)
 - [Docker Volumes](#docker-volumes)
+- [Docker Networks](#docker-network)
 - [Dockerfile](#dockerfile)
-- [Docker Ignore File](#.dockerignore)
+- [Docker Ignore File](#dockerignore)
 
 ## Docker Basic Commands
 
@@ -31,7 +32,7 @@ ______________
 | `docker container stop <containerId>` |Stops unique container with the id|
 | `docker container rm -f <containerId>` |Force removes the container with id|
 | `winpty docker run -it <imageName> bash` |Starts a new image in bash shell|
-| `winpty docker start -ia <containerId>` |Start an existing container in terminal|
+| `winpty docker exec -ia <containerId> bash` |Start an existing container in terminal|
 | `docker logs -f <containerId>` |Shows all logs printed in terminal, and follows it|
 | `docker cp <localFilePath> <containerName>:<./destinationPath>` |Copy to and from a running container|
 ______________
@@ -91,6 +92,32 @@ Command | Description |
 
 ____________
 
+## Docker Network
+
+### Connect to localhost
+Docker connects to host machine by using special address. **host.docker.internal:[PORT]**
+```
+mongoClient.connect('mongodb://host.docker.internal:27017/test')
+```
+
+### Connect Container to Container
+####  Use Container IP address to connect
+```
+docker container inspect <containerName>
+# Where mongo-container ip addr = 172.17.0.2
+mongoClient.connect('mongodb://172.17.0.2/test')
+```
+#### Create Container Network
+| Command | Description |
+| ------- | ----------- |
+| `docker network create <networkName>` |Create network in docker for communication|
+| `docker run --network <networkName> <containerName>` |Start a container with the network|
+
+Use other container name as IP address
+```
+mongoClient.connect('mongodb://<mongo_containerName>/test')
+```
+____________
 
 ## Dockerfile
 ```
@@ -114,7 +141,7 @@ CMD ["node", "server.js"] # Cmd run after starting container
 ```
 
 
-## .dockerignore
+## dockerignore
 Prevent from copying into container
 ```
 node_modules
