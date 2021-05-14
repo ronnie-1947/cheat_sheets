@@ -167,6 +167,48 @@ services:
     env_file: 
       - "./env/mongo.env" # real env variable from a file
 
+  # -------------------------------------------------
+  # -------------------------------------------------
+
+  backend: 
+    build: ./backend # Relative path to backend folder
+
+    # ------ Detail way to write build ------
+    #build: 
+    #  context: ./backend
+    #  dockerfile: Dockerfile
+      #args:
+      #  some-arg:'abc..'
+
+    ports: 
+      - '2000:80'
+    volumes: 
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file: 
+      - "./env/backend.env"
+    depends_on: # List of containers this container depends on
+      - mongodb
+  
+  # -------------------------------------------------
+  # -------------------------------------------------
+  frontend:
+    build: ./frontend
+    ports: 
+      - '2001:3000'
+    volumes: 
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+# ---- Named Volumes to be listed here ----
+volumes: 
+  data:
+  logs:
+
 
 volumes: 
   data:
