@@ -5,6 +5,7 @@
 - [Docker Networks](#docker-network)
 - [Dockerfile](#dockerfile)
 - [Docker Ignore File](#dockerignore)
+- [Docker Compose](#docker-compose)
 
 ## Docker Basic Commands
 
@@ -148,3 +149,36 @@ node_modules
 Dockerfile
 .git
 ```
+________________
+
+## Docker Compose
+Docker compose runs all commands to run containers, set volumes, set networks etc. docker-compose.yaml config file to be written to use docker compose
+
+```
+version: '3.8'  # See docs to know latest version available
+
+services: 
+  mongodb: # container name
+    image: mongo #image Name
+    volumes: 
+      - data:/data/db
+    environment: 
+      MONGO_INITDB_ROOT_PASSWORD: secret # set env variable
+    env_file: 
+      - "./env/mongo.env" # real env variable from a file
+
+
+volumes: 
+  data:
+```
+Docker-compose.yaml file uses strict indentations
+
+### Commands
+#### Create Container Network
+| Command | Description |
+| ------- | ----------- |
+| `docker-compose up -d` |creates and start containers in detach mode|
+| `docker-compose up --build -d` |Builds images first then start containers|
+| `docker-compose build` |Builds all images listed in yml file|
+| `docker-compose down` |stops and removes container, network|
+| `docker-compose down -v` |stops and removes container, network & volumes|
