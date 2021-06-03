@@ -40,6 +40,12 @@ MySql
     + [Join MANY TO MANY (3 tables)](#join-many-to-many--3-tables)
   * [TRIGGERS](#triggers)
     + [Managing TRIGGERS](#managing-triggers)
+  * [DOCKER POSTGRES](#docker-postgres)
+    + [Docker Compose File](#docker-compose-file)
+    + [Run Postgres in terminal](#run-postgres-in-terminal)
+  * [DOCKER MYSQL](#docker-mysql)
+    + [Docker Compose File](#docker-compose-file)
+    + [Run mysql in terminal](#run-mysql-in-terminal)
 
 ## Initial Commands
 
@@ -467,3 +473,61 @@ DELIMITER
 | ------- | ----------- |
 | `SHOW TRIGGERS` |Show and list all triggers |
 | `DROP TRIGGER <trigger_name>` |Delete a trigger|
+
+_______________________
+
+## Docker Postgres
+
+### Docker Compose File
+```
+version: "3.8"
+
+services: 
+    postgres:
+        container_name: anyName
+        image: postgres:tag
+        ports: 
+            - 5432:5432
+        volumes: 
+            - ./database:/var/lib/postgresql/data
+        tty: true
+        environment:
+            POSTGRES_PASSWORD: password
+        stdin_open: true
+```
+
+### Run Postgres in Terminal
+
+```
+$~ docker exec -it <containerName> /bin/sh
+$~ su postgres
+# psql
+```
+
+_______________________
+
+## Docker MySql
+
+### Docker Compose File
+```
+version: "3.8"
+
+services: 
+    mysql:
+        container_name: anyName
+        image: mysql:tag
+        ports: 
+            - 3306:3306
+        volumes: 
+            - ./database:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        tty: true
+        stdin_open: true
+```
+
+### Run MySQL in Terminal
+
+```
+$~ docker exec -it <containerName> mysql -p
+```

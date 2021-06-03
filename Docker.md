@@ -6,6 +6,7 @@
 - [Dockerfile](#dockerfile)
 - [Docker Ignore File](#dockerignore)
 - [Docker Compose](#docker-compose)
+- [Utility Containers](#utility-container)
 
 ## Docker Basic Commands
 
@@ -139,6 +140,8 @@ ENV PORT $DEFAULT_PORT
 EXPOSE $PORT
 
 CMD ["node", "server.js"] # Cmd run after starting container
+
+ENTRYPOINT ["npm"] # appends command after npm while starting
 ```
 
 
@@ -224,3 +227,9 @@ Docker-compose.yaml file uses strict indentations
 | `docker-compose build` |Builds all images listed in yml file|
 | `docker-compose down` |stops and removes container, network|
 | `docker-compose down -v` |stops and removes container, network & volumes|
+| `docker-compose run --rm <containerNameFromComposeFile> <Any Command>` |Runs docker container|
+
+______________
+
+## Utility Container
+These are containers used to code from scratch
