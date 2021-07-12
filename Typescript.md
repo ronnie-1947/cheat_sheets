@@ -142,3 +142,57 @@ type name = (string|boolean)[];
 
 const name:name = ['Harry', true, 'Doe', false]
 ```
+_________________________
+
+## Interface
+
+Interfaces are object types 
+```
+interface User {
+    name: string;
+    age: number;
+}
+
+interface Company extends User {
+    company: string;
+}
+
+const user: Company = {
+    name:'',
+    age: 23,
+    company:''
+}
+```
+_________________________
+
+## Intersection Types
+
+Combine two or more type alias and combine its common types
+
+```
+type Admin = {
+    name: string;
+    privileges: string[];
+}
+
+type Employee = {
+    name: string;
+    startDate: string;
+}
+
+type ElevatedEmployee = Admin & Employee;
+
+const e1: ElevatedEmployee = {
+    name: 'Max',
+    privileges: ['create-server'],
+    startDate: new Date().toDateString()
+}
+```
+```
+type Combinable = string | number ;
+type Numeric = number | boolean;
+
+type Universal = Combinable & Numeric;
+
+const numb: Universal = 23
+```
