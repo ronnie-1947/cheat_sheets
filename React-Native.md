@@ -177,4 +177,52 @@ __________________________
 
 __________________________
 
-# Platform API
+# Notifications
+## Install Packages
+```
+expo install expo-notifications
+expo install expo-permissions
+```
+
+## Change the package.json file
+```
+"android": {
+    "useNextNotificationsApi": true
+  }
+```
+
+## Ask for appropriate permissions
+```
+
+  const getNotiPermisson = async ()=>{
+
+    const {status: existingStatus} = await Notifications.getPermissionsAsync()
+
+    let finalStatus = existingStatus
+    if(finalStatus !== 'granted'){
+      const {status} = await Notifications.requestPermissionsAsync()
+      finalStatus = status
+    }
+    if(finalStatus !== 'granted'){
+      alert('Failed to get permissons')
+      return
+    }
+  }
+
+```
+
+## Local Notification function 
+```
+const triggerNotificationHandler = ()=> {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "My first local notification",
+        body: "This is the body of the notificaiton"
+      },
+      trigger: {
+        seconds: 10
+      }
+    })
+  }
+```
+
