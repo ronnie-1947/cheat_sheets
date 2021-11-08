@@ -80,6 +80,8 @@ _A list of my commonly used Git commands -- Ronny_
 | ------- | ----------- |
 | `git log --oneline` |Shows commits in the active branch|
 | `git log --oneline --graph --decorate --all` |Shows all branches in tree structure|
+| `git log --diff-filter=D --summary` |see log of deleted files|
+| `git checkout [commit_id]~1 [fileName]` |Pull only the file changes, under that commit|
 | `git checkout [commit_id]` |go back to the commit id|
 | `git revert HEAD` |revert a commit|
 | `git reset` |removes all files from staging area|
