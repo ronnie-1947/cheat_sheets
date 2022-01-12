@@ -88,6 +88,13 @@ _A list of my commonly used Git commands -- Ronny_
 | `git reset --hard` |removes all files from staging area and undo modification|
 | `git reset [commit_id]` |reset the repository to commit_id still files will be in modified state|
 | `git reset [commit_id] --hard` |reset the repository to commit_id & no files will be in modified state|
+| `git restore [filename]` |Undo all modification in the file|
+| `git restore --staged [filename]` |Remove file from staging area|
+| `git stash` |Saves uncommitted changes in stash|
+| `git stash pop` |Reapply recently stashed changes in whichever branch|
+| `git stash list` |Shows all stashed items list|
+| `git stash clear` |Clear all stashed items|
+| `git stash drop <stash-id>` |Drop the selected stash|
 
 
 ## Playing With Commits
@@ -109,8 +116,10 @@ _A list of my commonly used Git commands -- Ronny_
 | `git branch -d [branch name]` | Delete a branch |
 | `git push origin --delete [branch name]` | Delete a remote branch |
 | `git checkout -b [branch name]` | Create a new branch and switch to it |
+| `git switch -c [branch name]` | Create a new branch and switch to it |
 | `git checkout -b [branch name] origin/[branch name]` | Clone a remote branch and switch to it |
 | `git checkout [branch name]` | Switch to a branch |
+| `git switch [branch name]` | Switch to a branch |
 | `git checkout -` | Switch to the branch last checked out |
 | `git checkout -- [file-name.txt]` | Discard changes to a file |
 
