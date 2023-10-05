@@ -153,6 +153,8 @@ _A list of my commonly used Git commands -- Ronny_
 | `git push -u origin [branch name]` | Push changes to remote repository (and remember the branch) |
 | `git push` | Push changes to remote repository (remembered branch) |
 | `git push origin --delete [branch name]` | Delete a remote branch |
+| `git fetch` |Update all branches in local repo with remote repo but don't merge it with local branches|
+| `git fetch origin [branch name]` |Update local branch with remote repo but don't merge it with local branches|
 | `git pull` | Update local repository to the newest commit |
 | `git pull origin [branch name]` | Pull changes from remote repository |
 | `git remote add origin ssh://git@github.com/[username]/[repository-name].git` | Add a remote repository |
