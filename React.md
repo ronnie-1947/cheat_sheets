@@ -30,6 +30,59 @@ function impureFunction (r){
 }
 ```
 
+## How React works
+React paints the DOM in 3 phases
+- Create Virtual DOM (Render phase)
+- Create Fiber tree (Reconciliation)
+- Commit Phase (Paints the DOM)
+
+### Create Virtual DOM
+Virtual DOM is a JS object and it is created pretty fast. if the state is changed in some component, all of its child component goes to a modified state.
+
+### Reconciliation (Diffing)
+Fiber tree creation, React compares the current tree with the virtual DOM to create an updated Tree.
+
+- The required props are passed in child components
+- Repaint happens in child components
+- State is morized if the component is not erased or no change in position of component
+- Loss of state if component is deleted
+
+
+Key props is used to uniquely identify a component. 
+
+NOTE: Don't set the key to index of the array. If there is remove of elements in between, the state of the elements get jumbled up
+
+## Events
+React introduce us to synthetic events so that most of the event works same across all browsers. And synthetic events bouble except the scroll event.
+
+## component LifeCycle
+
+1. Mount / Initial Render 🐣
+2. Re-Render 💫
+3. Unmount ☠️
+
+## Hooks
+Special built-in functions that allow us to hook into React internals:
+  1. Creating and accessing state from Fiber tree
+  2. Registering side effects in Fiber tree
+  3. Manual DOM selection
+  4. Etc.
+
+### Hooks list
+```
+useState
+useEffect
+useReducer
+useContext
+useRef
+useCallback
+useMemo
+useTransition
+```
+
+### Hooks Rules
+1. Hooks need to called from the top level of a React component
+2. React keep record for order of hooks written
 
 ### Use State Hook
 
@@ -55,24 +108,25 @@ const handleState = ()=>{
 - setState is asynchrnous
 - Opt out of automatic batching by wrapping a state update in ReactDOM.flushSync()
 
-## How React works
-React paints the DOM in 3 phases
-- Create Virtual DOM (Render phase)
-- Create Fiber tree (Reconciliation)
-- Commit Phase (Paints the DOM)
+useState hook also accepts a function with no args
+```
+const [movies, setMovies] = useState(()=>{
+  const movies = localStorage.getItem('movies')
+  return JSON.parse(movies)
+})
+```
 
-### Create Virtual DOM
-Virtual DOM is a JS object and it is created pretty fast. if the state is changed in some component, all of its child component goes to a modified state.
+### useRef() Hook
+A hook to store DOM elements.
+```
+const inputEl = useRef(null)
 
-### Reconciliation (Diffing)
-Fiber tree creation, React compares the current tree with the virtual DOM to create an updated Tree.
+useEffect(()=>{
+  console.log(inputEl.current) // Shows the input element
+}, [])
 
-- The required props are passed in child components
-- No repaint happens if there is no new component
-- Loss of component state if component is deleted
-- Child component are left untouched if there is no change required
 
-Key props is used to uniquely identify a component. 
+return <input ref={inputEL}/>
+```
 
-NOTE: Don't set the key to index of the array. If there is remove of elements in between, the state of the elements get jumbled up
-
+useRef hook don't result in component render when the value is updated.
