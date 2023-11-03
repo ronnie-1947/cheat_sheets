@@ -805,5 +805,182 @@ const {isLoading, mutate} = useMutation({
 return <button onClick={mutate}> ❌Click to delete </button>
 ```
 
+React query can be used for prefetching data. Next page data 🤩
+
 ## Advance React patterns
 
+### Render props
+For complete control over what the component renders, by passing in a function that tells the component what to render. **More common before hooks**. But still useful
+```
+export default function App() {
+  return (
+    <div>
+      <h1>Render Props Demo</h1>
+
+      <div className="col-2">
+        <List
+          title="Products"
+          items={products}
+          render={(product) => (
+            <ProductItem key={product.productName} product={product} />
+          )}
+        />
+        <List
+          title="Companies"
+          items={companies}
+          render={(company) => (
+            <CompanyItem key={company.companyName} company={company} />
+          )}
+        />
+      </div>
+    </div>
+  );
+}
+```
+```
+function List({ title, items, render }) {
+  const isCollapsed = false;
+  const displayItems = isCollapsed ? items.slice(0, 3) : items;
+
+  return (
+    <div className="list-container">
+      <div className="heading">
+        <h2>{title}</h2>
+      </div>
+      {<ul className="list">{displayItems.map(render)}</ul>}
+    </div>
+  );
+}
+```
+
+This way The List component don't know what it is rendering, and control is with the App. List is acting a kind of layout. App can use List and render Products and Companies list.
+
+### Higher Order Component
+It is a wrapper to a component. HOC takes a component and returns a simillar component with enhanced features. Naming starts "with..." example - withToggles. Given below an example, how a normal list features are enhanced with HOC wrapper.
+
+```
+// App.js
+
+export default function App() {
+
+  const ProductListWithToggles = withToggles(ProductList)
+
+  return (
+    <div>
+      <h1>HOC Demo</h1>
+
+      <div className='col-2'>
+        <ProductList title="Products HOC" items={products}/>
+        <ProductListWithToggles title="Products HOC" items={products}/>
+      </div>
+    </div>
+  );
+}
+```
+
+```
+// File HOC
+
+import { useState } from "react";
+
+export default function withToggles(WrappedComponent) {
+  return function List(props) {
+    const [isOpen, setIsOpen] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const displayItems = isCollapsed ? props.items.slice(0, 3) : props.items;
+
+    function toggleOpen() {
+      setIsOpen((isOpen) => !isOpen);
+      setIsCollapsed(false);
+    }
+
+    return (
+      <div className="list-container">
+        <div className="heading">
+          <h2>{props.title}</h2>
+          <button onClick={toggleOpen}>
+            {isOpen ? <span>&or;</span> : <span>&and;</span>}
+          </button>
+        </div>
+        {isOpen && <WrappedComponent {...props} items={displayItems} />}
+
+        <button onClick={() => setIsCollapsed((isCollapsed) => !isCollapsed)}>
+          {isCollapsed ? `Show all ${props.items.length}` : "Show less"}
+        </button>
+      </div>
+    );
+  };
+}
+```
+
+### Compound component pattern
+For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components
+
+```
+import { createContext, useContext, useState } from "react";
+
+//1. Create a context
+const CounterContext = createContext();
+
+//2. Create parent component
+function Counter({children}) {
+  const [count, setCount] = useState(0);
+
+  const increase = () => setCount((c) => c + 1);
+  const decrease = () => setCount((c) => c - 1);
+
+  return (
+    <CounterContext.Provider value={{ count, increase, decrease }}>
+      <div>{children}</div> 
+    </CounterContext.Provider>
+  );
+}
+
+// 3. Create child components
+function Count(){
+  const {count} = useContext(CounterContext)
+  return <span>{count}</span>
+}
+function label({children}){
+  return <span>{children}</span>
+}
+function increase({icon}){
+  const {increase} = useContext(CounterContext) 
+  return <button onClick={increase}>{icon}</button>
+}
+function decrease({icon}){
+  const {decrease} = useContext(CounterContext)
+  return <button onClick={decrease}>{icon}</button>
+}
+
+
+//4. Add child components as properties
+Counter.Count = Count
+Counter.Label = label
+Counter.Increase = increase
+Counter.Decrease = decrease
+
+
+export default Counter;
+
+```
+
+```
+import Counter from "./Counter";
+import "./styles.css";
+
+export default function App() {
+  return (
+    <div>
+      <h1>Compound Component Pattern</h1>
+      <Counter>
+        <Counter.Decrease icon="-"/>
+        <Counter.Label>My super flexible counter</Counter.Label>
+        <Counter.Increase icon="+"/>
+        <Counter.Count/>
+      </Counter>
+    </div>
+  );
+}
+```
