@@ -97,7 +97,7 @@ useTransition
 1. Hooks need to called from the top level of a React component
 2. React keep record for order of hooks written
 
-### Use State Hook
+### useState Hook
 
 ```
 const [state, setState] = useState(true)
@@ -180,6 +180,57 @@ const useCounter = ()=>{
 export default useCounter
 ```
 
+### useMemo
+
+Used to memoize values. As long as dependencies don't change, the cached value will be returned. It has a dependency array like useEffect.
+
+Big useCases -
+
+1. Memoizing props to prevent wested renders (with memo)
+2. Memoizing values to avoid expensive calcs on every render
+3. Memoizing values that are used in dependency array of another hook.
+
+```
+const {useMemo} from 'react'
+
+function Component(posts){
+
+  const memorizedValue = useMemo(()=>{
+
+    const calc = 234534234**234**(posts.length)
+    const obj = {theme: 'dark', value: calc}
+
+    return obj
+  }, [posts])
+
+  return (
+    <.../>
+  )
+}
+
+```
+
+### useCallback
+
+This hook is used to memoize Functions. Usage is same as useMemo
+
+```
+const {useCallback} from 'react'
+
+function Component(posts){
+
+  const memorizedFunction = useCallback(
+    function handleClick(){
+      // Handle click here
+    }, []
+  )
+
+  return (
+    <.../>
+  )
+}
+```
+
 ## Routing in React
 
 Use the package React-router-dom for routing. Multiple functions are allowed.
@@ -190,10 +241,10 @@ Use the package React-router-dom for routing. Multiple functions are allowed.
 function App() {
 
   return (
-    
+
     <BrowserRouter>
       <Routes>
-        <Route index element={<HomePage/>} />
+        <Route index element={<HomePage/> replaceto="/"} />
         <Route path="/product" element={<Product/>} />
         <Route path="app" element={<Home/>}>
           <Route index element={<CityList cities={cities}/>}/>
@@ -203,12 +254,105 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
-    
+
   );
 }
 ```
 
+### React Routers with data loaders >v6
+```
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const menuLoader = async()=>{
+  const menu = await fetch ('')  // Fetch menu
+  return menu
+}
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout>,   // Parent route
+    errorElement: <Error/>,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/menu",
+        element: <Menu />,
+        loader: menuLoader
+      }
+    ]
+  }
+]);
+
+const App = () => {
+  return <RouterProvider router={router}></RouterProvider>;
+};
+
+export default App;
+```
+AppLayout.js File 👇. With loading indicator
+```
+import { Fragment } from "react";
+import Header from "./Header";
+import { Outlet } from "react-router-dom";
+
+const AppLayout = () => {
+
+  const navigation = useNavigation()
+
+  if(navigation.state === 'loading') return <Spinner/>
+
+  return (
+    <Fragment>
+      <Header />
+      <main>
+        <Outlet/>  // To load the childrens
+      </main>
+    </Fragment>
+  );
+};
+
+export default AppLayout;
+
+```
+
+How to Use the loaded data in File 🤔 ?? Ahah!! got it 👇
+```
+import { useLoaderData } from "react-router-dom";
+
+function Menu() {
+  const menu  = useLoaderData()
+  return <ul>{menu.map(pizza=> <li key={pizza.id}>{pizza.name}</li>)}</ul>;
+}
+
+export default Menu;
+```
+What happens when error ?? 🫨😢😭. No worries
+```
+import { useNavigate, useRouteError } from 'react-router-dom';
+
+function NotFound() {
+  const navigate = useNavigate();
+  const error = useRouteError() // Fetch messages
+
+  return (
+    <div>
+      <h1>Something went wrong 😢</h1>
+      <p>{error.data || error.message}</p>
+      <button onClick={() => navigate(-1)}>&larr; Go back</button>
+    </div>
+  );
+}
+
+export default NotFound;
+
+```
+
+
 ### Use \<Link/> and \<NavLink/> to route through pages
+
 ```
 function AppNav() {
   return (
@@ -229,6 +373,7 @@ export default AppNav;
 ```
 
 ### Using Querys and Params in urls
+
 ```
 <Link to={`/app/cities/${id}?lat=${position.lat}&lng=${position.lng}`}>
 
@@ -245,6 +390,7 @@ function City() {
 ### Programatic Navigation
 
 Navigate to any page by using hook UseNavigate
+
 ```
 const navigate = useNavigate()
 
@@ -255,6 +401,7 @@ clickHandler ()=>{
 ```
 
 ## Context API
+
 Manage global state with context API
 
 Provider: Main place to store global state. Usually in the App component.
@@ -262,18 +409,30 @@ Provider: Main place to store global state. Usually in the App component.
 Consumer: Components that read the provided context value
 
 ### Creating context
+
 ```
-import {useContext, createContext} from React
+import {useContext, createContext, useReducer} from React
 
 const Context = createContext()
 
-function ContextProvider({children}){
+const reducer = (state, action)=>{
 
-  const [text, setText] = useState(')
-  const initialState = {text, setText}
+  switch (action.type){
+
+    case 'note':
+      return {...state, action.payload}
+
+    default:
+      throw new Error('no type provided')
+  }
+}
+
+function ContextProvider({children}){
+  const initialState = {note: ''}
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-    <Context.Provider value={initialState}>
+    <Context.Provider value={state, dispatch}>
       {children}
     </Context.Provider>
   )
@@ -288,17 +447,363 @@ export {ContextProvider, useContext}
 ```
 
 ### Using Context in child elements
+
 ```
 
 import {ContextProvider, useContext} from '../Context'
 
 function Header(){
 
-  const {user, updateUser} = useContext()
+  const {state, dispatch} = useContext()
 
   return <ContextProvider><App/></ContextProvider>
 }
 ```
 
+For maximum optimizationi use context this way. Use different context for different states. If multiple states are there in single contexts, all the components using the context will rerender on context change.
 
+## Optimization
+
+### Wasted Renders
+
+A render that didn't produce any change in the DOM are wasted renders. Component get re-renders in 3 situations -
+
+1. State change
+2. Context changes
+3. Parent - Rerenders
+
+- Common method to avoid rerender of a slow component is to -- Pass the \<SLOW_COMPONENT> as a prop or a children.
+
+### Memoization with useMemo
+
+Optimization technique that executes a pure function once, and saves the result in memory. If we try to execute the function again **with same arguments** as before, the previously saved result will be returned, without executing the function again.
+
+Some points to discuss -
+
+- Memoized child will not rerender when parents rerenders
+- Memoized child will rerender when it's own state changes or change in context
+- Use memo when the component is heave and often rerenders with same props
+
+Memoize a component
+
+```
+import {memo} from 'react'
+
+function slowFunction(){
+  const expensiveCalc = ()=>{...}
+  return(
+    <div>{expensiveCalc}</div>
+  )
+}
+
+export default memo(slowFunction) // Wrap it in memo
+```
+
+When props memo components are either functions or objects, use useMemo or useCallback hooks.
+
+See [useMemo](#useMemo) for memoize Values passed in props.
+See [useCallback](#useMemo) for memoize functions passed in props.
+
+### BundleSize with codesplitting and Suspense
+
+Load each element lazily in React Router. Use Router like this
+
+```
+import {lazy, Suspense} from 'react;
+import SpinnerFullPage from './SpinnerFullPage'
+
+const HomePage = lazy(()=> import('./HomePage'))
+const Home = lazy(()=> import('./Home'))
+const CityList = lazy(()=> import('./CityList'))
+const PageNotFound = lazy(()=> import('./PageNotFound'))
+
+<BrowserRouter>
+  <Suspense fallback={<SpinnerFullPage/>}>
+    <Routes>
+      <Route index element={<HomePage/>} />
+      <Route path="app" element={<Home/>}>
+        <Route index element={<CityList cities={cities}/>}/>
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
+  <Suspense/>
+</BrowserRouter>
+```
+
+## Redux
+Redux is a global state management tool simillar like useReducer + context API. 
+
+### Redux in traditional way
+
+Initiate Redux for a feature
+```
+// File - customerSlice.js
+
+const InitialState = {
+  name: '',
+  age: 0
+}
+
+export default function(state = initialState, action){
+
+  const {type, payload} = action
+
+  switch (type){
+    case 'customer/create':
+      const {name, age} = payload
+      return {...state, name, age}
+    case 'customer/delete':
+      return initialState
+    default:
+      return state
+  }
+}
+
+export const createCustomer = (name, age)=> {
+  return {type: 'customer/create', payload: {name, age}}
+}
+
+export const delCustomer = ()=> ({type: 'customer/delete})
+```
+
+Redux store file, creating the store by combining all Reducers
+```
+// - File store.js
+
+import { combineReducers, createStore, applyMiddleware } from "redux"
+import thunk from "redux-thunk"
+
+import accReducer from './accountSlice'
+import customerReducer from './customerSlice'
+
+
+const rootReducer = combineReducers({
+  account: accReducer,
+  customer: customerReducer
+})
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
+
+
+export default store;
+```
+
+Index.js file
+```
+import { Provider } from 'react-redux'
+import store from './store'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+)
+```
+
+App.js File - Use store for dispatching actions
+```
+// App.js
+
+import { useSelector, useDispatch } from "react-redux";
+import {createCustomer} from './customerSlice'
+
+function App(){
+
+  const customer = useSelector(store=> store.customer)
+  const dispatch = useDispatch()
+
+  const handleClick = ()=>{
+    dispatch(createCustomer('Ronny', 25))
+  }
+
+  return (
+    <>
+      <h1>Welcome {customer.name}</h1>
+      <button onClick={handleClick}>Click Me</button>
+    </>
+
+  )
+}
+```
+
+Using Redux middleware with Thunk
+```
+// File - customerSlice.js
+
+const InitialState = {
+  name: '',
+  age: 0,
+  loading: false
+}
+
+export default function(state = initialState, action){
+
+  const {type, payload} = action
+
+  switch (type){
+    case 'customer/create':
+      const {name, age} = payload
+      return {...state, name, age}
+    case 'customer/delete':
+      return initialState
+    case 'customer/loading':
+      return {...state, loading: true}
+    default:
+      return state
+  }
+}
+
+export const delCustomer = ()=> {
+
+  dispatch({type: 'customer/loading'})
+
+  return async function(){  // Thunk middleware here 👈
+
+    //Delete customer remotely
+
+    // Dispatch and update locally
+    dispatch ({type:'customer/delete'})
+  }
+}
+```
+
+### Modern Redux with Redux Tool Kit
+
+Configure Store. It brings thunks and combines reducer behind the scenes. 😲
+```
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from './userSlice'
+
+const store = configureStore({
+  reducer: {
+    user: userReducer
+  }
+})
+
+export default store
+```
+
+Use store to wrap up in index.jsx or main.jsx file. That's it
+```
+import { Provider } from "react-redux";
+import store from "./redux/store.js";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
+
+```
+
+
+Creating Reducers or Slice is way easier now. 😃
+```
+import {createSlice } from "@reduxjs/toolkit"
+
+const initialState = {
+  username: ''
+}
+
+const userSlice = createSlice({
+  initialState,
+  name: 'user',
+  reducers: {
+    create (state, action){
+      state.username = action.payload.name
+    },
+    delete (state){
+      state.username = ''
+    }
+  }
+})
+
+export const {createUser, deleteUser} = userSlice.actions
+export default userSlice.reducer
+```
+
+## React Query
+
+### Setup Reqct query 
+```
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries: {
+      staleTime: 60*1000
+    }
+  }
+})
+
+const App = () => {
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}></RouterProvider>;
+    </QueryClientProvider>
+  ) 
+};
+
+export default App;
+```
+
+### Using React query
+React query can work with graphql as well as any fetch API . Yayy 🤩
+```
+import MenuItem from './MenuItem'
+import { useQuery } from "@tanstack/react-query";
+
+const getMenu = async()=>{
+  const res = await fetch('/url')
+  const data = await res.json()
+  return data
+}
+
+function Menu() {
+
+  const {isLoading, data:menu, error} = useQuery({
+    queryKey: ['menu'],
+    queryFn: getMenu
+  })
+
+  if(isLoading) return <Spinner/>
+  if(error) return <h1>{error}</h1>
+  return <ul>{menu.map(pizza=> <MenuItem key={pizza.id} pizza={pizza}/>)}</ul>;
+}
+
+
+export default Menu;
+```
+
+### Mutate with React query
+Mutation is just writing or updating to database
+
+```
+const queryClient = useQueryClient()
+
+const {isLoading, mutate} = useMutation({
+  mutationFn: (id)=> deleteMenu(id),
+  onSuccess: ()=> {
+
+    console.log('success')
+
+    // Invalidate the cache data and fetch new
+    queryClient.invalidateQueries({
+      queryKey: ['menu']
+    })
+  }
+
+  onError: (err)=> alert('Error occoured')
+})
+
+return <button onClick={mutate}> ❌Click to delete </button>
+```
+
+## Advance React patterns
 
