@@ -1,11 +1,13 @@
 # Data Structures & Algorithms
 
 ## Big O Notation
+
 Big O notation is a way to describe the **efficiency of an algorithm** in terms of its worst-case scenario. It helps us understand how the runtime or space requirements of an algorithm grow as the input size increases. In simpler terms, it's like expressing the upper bound of how long an algorithm might take or how much space it might use. It's a handy tool for comparing algorithms and figuring out which one is more scalable.
 
 ## Frequency Counter
 
 A simple problem to check whether the second array's elements array are a squared of the first's
+
 ```
 const same = (arr, arr2) => {
 
@@ -19,7 +21,7 @@ const same = (arr, arr2) => {
   // Fill the objects
   arr.forEach((c, i) => {
     freq1[c] = !freq1[c] ? 1 : freq1[c] + 1 //Count frequency for arr1
-    
+
     const d = arr2[i]
     freq2[d] = !freq2[d] ? 1 : freq2[d] + 1 // Count frequency for arr2
   })
@@ -35,8 +37,11 @@ const same = (arr, arr2) => {
   return result
 }
 ```
+
 ## Sets in JS
+
 Using sets is an excellent thing to check if element is present in an array 🤩.
+
 ```
 const set = new Set()
 const set2 = new Set()
@@ -47,7 +52,9 @@ set.difference(set2) //Prints only the difference
 
 set.forEach(c=>{})
 ```
+
 ### Use of Set
+
 ```
 function sumZero (arr){
 
@@ -55,7 +62,7 @@ function sumZero (arr){
 
   for (let el of set){
     if (el > 0) break
-    
+
     if(set.has(-(el)))return [el, -el]
   }
 
@@ -63,24 +70,26 @@ function sumZero (arr){
 
 const s = sumZero([-3, -2, 2, 5, 7, 9, -5])
 ```
+
 ### Big O for Sets
-| Operation         | Average/Best Case   | Worst Case          |
-|-------------------|---------------------|---------------------|
-| Insertion         | O(1)                | O(1)                |
-| Deletion          | O(1)                | O(1)                |
-| Search            | O(1)                | O(1)                |
-| Iteration         | O(n)                | O(n)                |
 
-
+| Operation | Average/Best Case | Worst Case |
+| --------- | ----------------- | ---------- |
+| Insertion | O(1)              | O(1)       |
+| Deletion  | O(1)              | O(1)       |
+| Search    | O(1)              | O(1)       |
+| Iteration | O(n)              | O(n)       |
 
 ## Linear Search
-| Operation    |Time Complexity (Big O) |
-|------------------|--------------------------|
-| Linear Search    | O(n)                     |
+
+| Operation     | Time Complexity (Big O) |
+| ------------- | ----------------------- |
+| Linear Search | O(n)                    |
 
 Linear search is a simple searching algorithm that sequentially checks each element in a list or array until a match is found or the end of the list is reached
 
 ## Binary Search
+
 Binary search is a fast search algorithm that finds the position of a target value within a sorted array by repeatedly dividing the search range in half.
 
 Binary search requires sorted data, random access to elements (preferably in an array), the ability to compare for equality, and efficient indexing.
@@ -98,10 +107,10 @@ const findEl = (arr = [], n)=>{
   while (strt <= end){
 
     if(strt === mid || end === mid) return false //Terminate loop
-    if(arr[mid] === n) return [mid, true] 
+    if(arr[mid] === n) return [mid, true]
 
     if(n > arr[mid]){
-      strt = 0 + mid 
+      strt = 0 + mid
     }else{
       end = 0 + mid
     }
@@ -109,7 +118,7 @@ const findEl = (arr = [], n)=>{
     // Change the mid value
     mid = Math.floor((strt + end)/2)
   }
-  
+
   return false
 }
 
@@ -122,26 +131,29 @@ console.log(fin)
 ## Sorting Algos (Simple ones)
 
 ### Bouble sort
-| Case         | Time Complexity (Big O) |
-|--------------|--------------------------|
-| Worst Case   | O(n^2)                   |
-| Best Case    | O(n)                     |
 
-Best  case is where the array is almost sorted. Bubble Sort works by repeatedly stepping through the list of elements, comparing adjacent elements, and swapping them if they are in the wrong order. 
+| Case       | Time Complexity (Big O) |
+| ---------- | ----------------------- |
+| Worst Case | O(n^2)                  |
+| Best Case  | O(n)                    |
+
+Best case is where the array is almost sorted. Bubble Sort works by repeatedly stepping through the list of elements, comparing adjacent elements, and swapping them if they are in the wrong order.
 
 ## Selection sort
-| Case         | Time Complexity (Big O) |
-|--------------|--------------------------|
-| Worst Case   | O(n^2)                   |
-| Best Case    | O(n^2)                   |
+
+| Case       | Time Complexity (Big O) |
+| ---------- | ----------------------- |
+| Worst Case | O(n^2)                  |
+| Best Case  | O(n^2)                  |
 
 In every pass, the algorithm needs to find the minimum (or maximum) element in the unsorted part of the array and swap it with the first unsorted element. This process is repeated until the entire array is sorted.
 
 ## Insertion sort
-| Case         | Time Complexity (Big O) |
-|--------------|--------------------------|
-| Worst Case   | O(n^2)                   |
-| Best Case    | O(n)                     |
+
+| Case       | Time Complexity (Big O) |
+| ---------- | ----------------------- |
+| Worst Case | O(n^2)                  |
+| Best Case  | O(n)                    |
 
 In the worst case, Insertion Sort has a time complexity of O(n^2). This occurs when the array is in reverse order, and each element needs to be moved to its correct position by shifting elements and making multiple comparisons.
 
@@ -150,32 +162,35 @@ In the best case, the time complexity is O(n), which happens when the array is a
 ## Sorting Algos (Complex ones)
 
 ### Merge Sort
-| Case         | Time Complexity (Big O) |
-|--------------|--------------------------|
-| Worst Case   | O(n log n)               |
-| Best Case    | O(n log n)               |
 
- Merge Sort divides the array into halves recursively until it reaches single-element subarrays. Then, it merges these subarrays in a sorted manner.
+| Case       | Time Complexity (Big O) |
+| ---------- | ----------------------- |
+| Worst Case | O(n log n)              |
+| Best Case  | O(n log n)              |
 
-###  Quick sort (Don't go with name)
+Merge Sort divides the array into halves recursively until it reaches single-element subarrays. Then, it merges these subarrays in a sorted manner.
+
+### Quick sort (Don't go with name)
+
 Don't use it
 
-| Case         | Time Complexity (Big O) |
-|--------------|--------------------------|
-| Worst Case   | O(n^2)                   |
-| Best Case    | O(n log n)               |
+| Case       | Time Complexity (Big O) |
+| ---------- | ----------------------- |
+| Worst Case | O(n^2)                  |
+| Best Case  | O(n log n)              |
 
 Works by selecting one element (called the pivot) and finding the index where the pivot should end up in the sorted array. 😕😵
 
 Select any element in an array and all the elements smaller push it to left and all the elements bigger, push it to right. Repeat it.
 
 ### Radix sort (Best one so far)
+
 Loop run according to the base of the number (10 times for base 10 numbers)
 
 1. make 10 buckets
 2. Loop 10 times, and place the elements according to the digits in ones place
 3. Then place the elements according to digits in 10s place
-And so on.
+   And so on.
 
 ```
 const {performance} = require('perf_hooks')
@@ -203,17 +218,17 @@ const placeVal = (num=0, p=0)=>{
 function sortArr(arr=[]){
 
   // get the max num of digit (3000 - 4digits)
-  const k = maxNumDigits(arr) 
+  const k = maxNumDigits(arr)
 
   // loop it k times
   for (let i = 1; i<=k; i++){
     const temp = Array.from({length: 10}, ()=> []) // make bucket
-    
+
     arr.forEach((v)=>{ // Place value in bucket
       const p = placeVal(v, i)
       temp[p].push(v)
     })
-    
+
     arr = [].concat(...temp) //Redistrubute to array from bucket
   }
 
@@ -228,18 +243,19 @@ const t2 = performance.now()
 console.log(`performance is ${(t2-t1)/1000}`)
 ```
 
-| Case         | Time Complexity (Big O) |
-|--------------|--------------------------|
-| Worst Case   | O(k * n)                 |
-| Best Case    | O(k * n)                 |
+| Case       | Time Complexity (Big O) |
+| ---------- | ----------------------- |
+| Worst Case | O(k \* n)               |
+| Best Case  | O(k \* n)               |
 
-The Big O notation for Radix Sort is O(k * n), where "k" is the number of digits in the maximum number and "n" is the number of elements in the array.
+The Big O notation for Radix Sort is O(k \* n), where "k" is the number of digits in the maximum number and "n" is the number of elements in the array.
 
 // Only works for positive integers
 
 ## The class keyword
 
-To make a class 
+To make a class
+
 ```
 
 class Student {
@@ -269,6 +285,7 @@ s.showAge()
 ## Singly Link List
 
 A singly linked list is a data structure that consists of a sequence of elements where each element points to the next one in the sequence. Here's a brief overview:
+
 ```
 class Node:
     def __init__(self, data):
@@ -279,16 +296,17 @@ class LinkedList:
     def __init__(self):
         self.head = None
 ```
+
 BIG O for Singly link list
-| Operation                      | Time Complexity (Big O) |
+| Operation | Time Complexity (Big O) |
 |--------------------------------|--------------------------|
-| Access/Search                  | O(n)                     |
-| Insertion at the beginning     | O(1)                     |
-| Deletion at the beginning      | O(1)                     |
-| Insertion at the end           | O(n)                     |
-| Deletion at the end            | O(n)                     |
-| Insertion at a specific position| O(n)                     |
-| Deletion at a specific position | O(n)                     |
+| Access/Search | O(n) |
+| Insertion at the beginning | O(1) |
+| Deletion at the beginning | O(1) |
+| Insertion at the end | O(n) |
+| Deletion at the end | O(n) |
+| Insertion at a specific position| O(n) |
+| Deletion at a specific position | O(n) |
 
 ## Doubly Link List
 
@@ -324,71 +342,74 @@ class DoublyLinkedList {
 ```
 
 BIG O for doubly Link List
-| Operation                      | Time Complexity (Big O) |
+| Operation | Time Complexity (Big O) |
 |--------------------------------|--------------------------|
-| Access/Search                  | O(n)                     |
-| Insertion at the beginning     | O(1)                     |
-| Deletion at the beginning      | O(1)                     |
-| Insertion at the end           | O(1)                     |
-| Deletion at the end            | O(1)                     |
-| Insertion at a specific position| O(n)                    |
-| Deletion at a specific position | O(n)                    |
-
+| Access/Search | O(n) |
+| Insertion at the beginning | O(1) |
+| Deletion at the beginning | O(1) |
+| Insertion at the end | O(1) |
+| Deletion at the end | O(1) |
+| Insertion at a specific position| O(n) |
+| Deletion at a specific position | O(n) |
 
 ## Stacks
+
 A stack is a linear data structure that follows the Last In, First Out (LIFO) principle.
 
 - Array push
-- Array pop 
+- Array pop
 
 ## Queues
+
 A queue is a linear data structure that follows the First In, First Out (FIFO) principle.
 
 - Single List Unshift
 - Single List shift
 
 ### Get hand's dirty on queues
+
 ```
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.next = null;
+class Node{
+  constructor(val){
+    this.value = val
+    this.next = null
   }
 }
 
-class Queue {
-  constructor() {
-    this.head = null;
-    this.tail = null;
-    this.length = 0;
+class Queue{
+  constructor(){
+    this.head = null
+    this.tail = null
+    this.length = 0
   }
 
-  enqueue() {
-    if (!this.head) return undefined;
-    let currentHead = this.head;
-    this.head = currentHead.next;
-    this.length--;
-    if (this.length === 0) {
-      this.tail = null;
+  enqueue(val){
+    const node = new Node(val)
+    if(!this.head){
+      this.head = node
+      this.tail = this.head
+    }else{
+      this.tail.next = node
+      this.tail = node
     }
-    return currentHead;
+    this.length++
   }
-  dequeue(val) {
-    let newNode = new Node(val);
-    if (!this.head) {
-      this.head = newNode;
-      this.tail = this.head;
-    }
-    newNode.next = this.head;
-    this.head = newNode;
-    this.length++;
-    return this.head.val;
+
+  dequeue(){
+    if(!this.head) return null
+    const temp = this.head
+    if(this.tail === this.head) this.tail = null
+    this.head = this.head.next
+    this.length--
+    return temp.value
   }
 }
 ```
 
 ## Binary Trees
-A binary tree is a hierarchical data structure composed of nodes, where each node has at most two children, referred to as the left child and the right child. 
+
+A binary tree is a hierarchical data structure composed of nodes, where each node has at most two children, referred to as the left child and the right child.
+
 - Node without children are called leaves
 - Rooted Structure: The tree must have a designated root node from which all other nodes are descended.
 
@@ -396,65 +417,77 @@ A binary tree is a hierarchical data structure composed of nodes, where each nod
 
 - Hierarchical Ordering: Nodes are organized in a hierarchical structure, with each level containing nodes that are connected to the level above and below.
 
-| Operation         | Average/Best Case   | Worst Case          |
-|-------------------|---------------------|---------------------|
-| Search            | O(log n)            | O(n)                |
-| Insertion         | O(log n)            | O(n)                |
-| Deletion          | O(log n)            | O(n)                |
+| Operation | Average/Best Case | Worst Case |
+| --------- | ----------------- | ---------- |
+| Search    | O(log n)          | O(n)       |
+| Insertion | O(log n)          | O(n)       |
+| Deletion  | O(log n)          | O(n)       |
 
 ## Binary Tree Traversal
+
 Binary tree traversal refers to the process of systematically visiting and processing each node in a binary tree.
 
-| Traversal         | Average/Best Case   | Worst Case          |
-|-------------------|---------------------|---------------------|
-| Breath First      | O(n)                | O(n)                |
-| Pre-order         | O(n)                | O(n)                |
-| In-order          | O(n)                | O(n)                |
-| Post-order        | O(n)                | O(n)                |
+| Traversal    | Average/Best Case | Worst Case |
+| ------------ | ----------------- | ---------- |
+| Breath First | O(n)              | O(n)       |
+| Pre-order    | O(n)              | O(n)       |
+| In-order     | O(n)              | O(n)       |
+| Post-order   | O(n)              | O(n)       |
 
 ### Breath First search
+
 Breath-First Search (BFS) is a traversal algorithm that systematically explores a binary tree level by level
 
 - Time Complexity: O(n) - Where "n" is the number of nodes in the binary tree.
 
 Traversal: In the worst case, BFS needs to visit all nodes in the binary tree. Since each node is visited once, the time complexity is linear, O(n).
 
-### Depth First Preorder 
+### Depth First Preorder
+
 Pre-Order Traversal:
+
 - Visit the root node.
 - Traverse the left subtree.
 - Traverse the right subtree.
 - Result: Root-Left-Right.
-### Depth First Postorder 
+
+### Depth First Postorder
+
 Post-Order Traversal:
+
 - Visit the root node.
 - Traverse the left subtree.
 - Traverse the right subtree.
 - Result: Root-Left-Right.
-### Depth First Inorder 
+
+### Depth First Inorder
+
 In-Order Traversal:
+
 - Traverse the left subtree.
 - Visit the root node.
 - Traverse the right subtree.
 - Result: Left-Root-Right.
 
-
 ## Heaps
-A binary heap is a complete binary tree that satisfies the heap property. 
 
-| Operation         | Average/Best Case   | Worst Case          |
-|-------------------|---------------------|---------------------|
-| Insertion         | O(1)                | O(log n)            |
-| Deletion          | O(log n)            | O(log n)            |
-| Peek/Extract Root | O(1)                | O(1)                |
-| Search            | O(n)                | O(n)                |
-| Heapify           | O(n)                | O(n)                |
-| Build Heap        | O(n)                | O(n)                |
+A binary heap is a complete binary tree that satisfies the heap property.
 
+| Operation         | Average/Best Case | Worst Case |
+| ----------------- | ----------------- | ---------- |
+| Insertion         | O(1)              | O(log n)   |
+| Deletion          | O(log n)          | O(log n)   |
+| Peek/Extract Root | O(1)              | O(1)       |
+| Search            | O(n)              | O(n)       |
+| Heapify           | O(n)              | O(n)       |
+| Build Heap        | O(n)              | O(n)       |
 
 ### Max Heap
+
 For a max heap, the value of each node is greater than or equal to the values of its children. All children are smaller than the parent node
+
 ### Min Heap
+
 For a min heap, the value of each node is less than or equal to the values of its children. All children are greater than the parent
 
 ### Children Parent relationship
@@ -463,16 +496,19 @@ For a min heap, the value of each node is less than or equal to the values of it
 - Right children = (2n+2)
 - Parent = Math.floor((n-1)/2)
 
-### Heap insert 
+### Heap insert
+
 - push it in the array
 - Check parent , if parent is smaller, swap it
 - Log(n)
 
 ### Usage of Heaps
+
 - Implement priority queues
 - Graph Traversal
 
 ### Priority Queue Let's get hands dirty
+
 ```
 class Node {
   constructor(val, priority) {
@@ -554,14 +590,14 @@ ER.enqueue("glass in foot", 3)
 ```
 
 ## Hash Maps
+
 These are JS Objects. Nothing fancy 😌
 
-| Operation            | Average Case | Worst Case   |
-|----------------------|--------------|--------------|
-| Search               | O(1)         | O(n)         |
-| Insert               | O(1)         | O(n)         |
-| Delete               | O(1)         | O(n)         |
-
+| Operation | Average Case | Worst Case |
+| --------- | ------------ | ---------- |
+| Search    | O(1)         | O(n)       |
+| Insert    | O(1)         | O(n)       |
+| Delete    | O(1)         | O(n)       |
 
 ## Graphs
 
@@ -574,6 +610,7 @@ Graphs can be made in adjency List or adjency Matrice
 - Node or Vertices
 
 ### Get hands dirty on Graphs
+
 ```
 class Graph {
   constructor() {
@@ -610,6 +647,7 @@ class Graph {
 ```
 
 ### Uses of Graphs
+
 - Social Networks
 - Location / Mapping
 - Routing
@@ -617,6 +655,7 @@ class Graph {
 - File system optimizations
 
 ## Dijkstra's Algorithm
+
 Find the shortest path between 2 nodes in a WEIGHTED GRAPH.
 
 ```
