@@ -984,3 +984,61 @@ export default function App() {
   );
 }
 ```
+## ESLint Setup
+
+### Packages needed
+```
+yarn add -D eslint vite-plugin-eslint
+```
+
+### vite.config.js
+```
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import eslint from 'vite-plugin-eslint'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), {
+    ...eslint(),
+    apply: 'build'
+  },
+  {
+    ...eslint({
+      failOnError: false,
+      failOnWarning: false,
+      emitWarning: true
+    }),
+    apply: 'serve',
+    enforce: 'post'
+  }
+  ],
+})
+```
+
+### .eslintrc.cjs
+```
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  settings: { react: { version: '18.2' } },
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    'react/prop-types':0,
+    'no-unused-vars': 'warn'
+  },
+}
+
+```
