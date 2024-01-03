@@ -260,6 +260,7 @@ function App() {
 ```
 
 ### React Routers with data loaders >v6
+
 ```
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -292,7 +293,9 @@ const App = () => {
 
 export default App;
 ```
+
 AppLayout.js File 👇. With loading indicator
+
 ```
 import { Fragment } from "react";
 import Header from "./Header";
@@ -319,6 +322,7 @@ export default AppLayout;
 ```
 
 How to Use the loaded data in File 🤔 ?? Ahah!! got it 👇
+
 ```
 import { useLoaderData } from "react-router-dom";
 
@@ -329,7 +333,9 @@ function Menu() {
 
 export default Menu;
 ```
+
 What happens when error ?? 🫨😢😭. No worries
+
 ```
 import { useNavigate, useRouteError } from 'react-router-dom';
 
@@ -349,7 +355,6 @@ function NotFound() {
 export default NotFound;
 
 ```
-
 
 ### Use \<Link/> and \<NavLink/> to route through pages
 
@@ -531,11 +536,13 @@ const PageNotFound = lazy(()=> import('./PageNotFound'))
 ```
 
 ## Redux
-Redux is a global state management tool simillar like useReducer + context API. 
+
+Redux is a global state management tool simillar like useReducer + context API.
 
 ### Redux in traditional way
 
 Initiate Redux for a feature
+
 ```
 // File - customerSlice.js
 
@@ -567,6 +574,7 @@ export const delCustomer = ()=> ({type: 'customer/delete})
 ```
 
 Redux store file, creating the store by combining all Reducers
+
 ```
 // - File store.js
 
@@ -589,6 +597,7 @@ export default store;
 ```
 
 Index.js file
+
 ```
 import { Provider } from 'react-redux'
 import store from './store'
@@ -604,6 +613,7 @@ root.render(
 ```
 
 App.js File - Use store for dispatching actions
+
 ```
 // App.js
 
@@ -630,6 +640,7 @@ function App(){
 ```
 
 Using Redux middleware with Thunk
+
 ```
 // File - customerSlice.js
 
@@ -673,6 +684,7 @@ export const delCustomer = ()=> {
 ### Modern Redux with Redux Tool Kit
 
 Configure Store. It brings thunks and combines reducer behind the scenes. 😲
+
 ```
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './userSlice'
@@ -687,6 +699,7 @@ export default store
 ```
 
 Use store to wrap up in index.jsx or main.jsx file. That's it
+
 ```
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
@@ -701,8 +714,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 ```
 
-
 Creating Reducers or Slice is way easier now. 😃
+
 ```
 import {createSlice } from "@reduxjs/toolkit"
 
@@ -729,7 +742,8 @@ export default userSlice.reducer
 
 ## React Query
 
-### Setup Reqct query 
+### Setup Reqct query
+
 ```
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -747,14 +761,16 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router}></RouterProvider>;
     </QueryClientProvider>
-  ) 
+  )
 };
 
 export default App;
 ```
 
 ### Using React query
+
 React query can work with graphql as well as any fetch API . Yayy 🤩
+
 ```
 import MenuItem from './MenuItem'
 import { useQuery } from "@tanstack/react-query";
@@ -782,6 +798,7 @@ export default Menu;
 ```
 
 ### Mutate with React query
+
 Mutation is just writing or updating to database
 
 ```
@@ -810,7 +827,9 @@ React query can be used for prefetching data. Next page data 🤩
 ## Advance React patterns
 
 ### Render props
+
 For complete control over what the component renders, by passing in a function that tells the component what to render. **More common before hooks**. But still useful
+
 ```
 export default function App() {
   return (
@@ -837,6 +856,7 @@ export default function App() {
   );
 }
 ```
+
 ```
 function List({ title, items, render }) {
   const isCollapsed = false;
@@ -856,6 +876,7 @@ function List({ title, items, render }) {
 This way The List component don't know what it is rendering, and control is with the App. List is acting a kind of layout. App can use List and render Products and Companies list.
 
 ### Higher Order Component
+
 It is a wrapper to a component. HOC takes a component and returns a simillar component with enhanced features. Naming starts "with..." example - withToggles. Given below an example, how a normal list features are enhanced with HOC wrapper.
 
 ```
@@ -915,6 +936,7 @@ export default function withToggles(WrappedComponent) {
 ```
 
 ### Compound component pattern
+
 For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components
 
 ```
@@ -932,7 +954,7 @@ function Counter({children}) {
 
   return (
     <CounterContext.Provider value={{ count, increase, decrease }}>
-      <div>{children}</div> 
+      <div>{children}</div>
     </CounterContext.Provider>
   );
 }
@@ -946,7 +968,7 @@ function label({children}){
   return <span>{children}</span>
 }
 function increase({icon}){
-  const {increase} = useContext(CounterContext) 
+  const {increase} = useContext(CounterContext)
   return <button onClick={increase}>{icon}</button>
 }
 function decrease({icon}){
@@ -984,14 +1006,17 @@ export default function App() {
   );
 }
 ```
+
 ## ESLint Setup
 
 ### Packages needed
+
 ```
 yarn add -D eslint vite-plugin-eslint
 ```
 
 ### vite.config.js
+
 ```
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -1017,6 +1042,7 @@ export default defineConfig({
 ```
 
 ### .eslintrc.cjs
+
 ```
 module.exports = {
   root: true,
@@ -1041,4 +1067,125 @@ module.exports = {
   },
 }
 
+```
+
+# Next JS > V13
+
+Next JS introduced some features that can run code on the server using Server Actions
+
+## Server Actions
+
+An example shown to create a server action in TypeScript.
+```
+async function createSnippet(formData: FormData) {
+
+  // This needs to be a server action!
+  "use server";
+
+  // Check the user's input and make sure they're valid
+  const inputs: string[] = ["title", "code"];
+  const [title, code] = inputs.map((c) => formData.get(c) as string);
+
+  // Create a new record in the database
+  await db.snippet.create({ data: { code, title } });
+
+  // Redirect the user back to the root route
+  redirect("/");
+}
+```
+## Server Component & Client Component
+
+### Server Component
+By default all components are server components in NEXT JS. We can directly fetch data from database.
+
+#### Limitations
+- Cannot use any kind of hook
+- Cannot assign any event handlers
+
+### Client Component
+All that we are using in react apps. These components supports events, hooks etc. Basically that run on the client browser.
+A client can't show directly a server component
+```
+'use client'
+```
+## Use Form State
+It is a hook for client components. It is used to show error messages in forms during validations. It works with server actions and client components together.
+
+### UseFormState Hook
+```
+const SnippetCreatePage = () => {
+  const [formState, action] = useFormState(createSnippetAction, {
+    message: "",
+  });
+
+  return (
+    <form action={action}></form>
+  )}
+```
+### Create server Action
+```
+'use server'
+
+export async function createSnippetAction(formState: { message: string }, formData: FormData) {
+
+  try {
+    // Check the user's input and make sure they're valid
+    const inputs: string[] = ["title", "code"];
+    const [title, code] = inputs.map((c) => formData.get(c));
+
+    if (typeof (title) !== 'string' || title.length < 3) return { message: 'Title must be longer' }
+    if (typeof (code) !== 'string' || code.length < 3) return { message: 'Code must be longer' }
+
+    // Create a new record in the database
+    await db.snippet.create({ data: { code, title } });
+
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return {
+        message: err.message
+      }
+    } else {
+      return {
+        message: 'Something went wrong'
+      }
+    }
+  }
+  
+  // Redirect the user back to the root route
+  redirect("/");
+}
+```
+
+## Cache & Static or Dynamic page
+"Yarn build" will produce build outputs of the files. By default all the files are static. 
+
+### Disable caching
+To make it dynamic, write in the page file. This means after every 0 seconds fetch latest data from database.
+```
+export const revalidate = 0; 
+```
+
+### On Demand revalidation
+Revalidate with latest data whenever needed. This is the best way to show new data. Do it in server actions
+```
+import { revalidatePath } from "next/cache"
+
+export const deleteSnippetAction = async (id: number) => {
+  await db.snippet.delete({ where: { id } })
+
+  revalidatePath('/')
+  redirect('/')
+}
+```
+
+### Caching in dynamic paths
+To cache dynamic paths. Do this below.
+```
+export async function generateStaticParams() {
+  const snippets = await db.snippet.findMany()
+
+  return snippets.map((snippet)=>({
+    id: snippet.id.toString()
+  }))
+}
 ```
