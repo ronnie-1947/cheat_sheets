@@ -1,17 +1,22 @@
-## Table Of Contents
-- [Adding Fonts](#adding-fonts)
-- [React-Native Navigation](#react-native-navigation)
-    + 
+# React-Native
 
-# Adding Fonts
+### Table Of Contents
 
-## By use of expo
+* [Adding Fonts](React-Native.md#adding-fonts)
+* [React-Native Navigation](React-Native.md#react-native-navigation) +
+
+## Adding Fonts
+
+### By use of expo
 
 1. Download the packages
+
 ```
 npm i expo-font expo-app-loading
 ```
-2. Create function fetchFonts
+
+1. Create function fetchFonts
+
 ```
 const fetchFonts = ()=> {
   return Font.loadAsync({
@@ -20,7 +25,9 @@ const fetchFonts = ()=> {
   })
 }
 ```
-3. Init function
+
+1. Init function
+
 ```
 const [dataLoaded, setDataLoaded] = useState(false)
 
@@ -32,7 +39,9 @@ if(!dataLoaded){
     />
   }
 ```
-4. Use fonts in stylesheet
+
+1. Use fonts in stylesheet
+
 ```
 const styles = StyleSheet.create({
     headerTitle: {
@@ -43,28 +52,32 @@ const styles = StyleSheet.create({
 })
 ```
 
-______________________
+***
 
-# React Native Navigation
+## React Native Navigation
 
-## Types of Navigation
+### Types of Navigation
 
 1. Stack Navigator
 2. Drawer Navigator
 
-## Steps Sack Navigation
+### Steps Sack Navigation
 
 1. Download Packages
+
 ```
 expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 ```
-2. Make a new file in root folder
+
+1. Make a new file in root folder
+
 ```
 mkdir navigation
 touch navigation/Navigator.js
 ```
 
-3. Navigaror.js file.. Creates a jsx component
+1. Navigaror.js file.. Creates a jsx component
+
 ```
 import {createStackNavigator} from 'react-navigation-stack'
 import {createAppContainer} from 'react-navigation'
@@ -91,7 +104,9 @@ const MealsNavigator = createStackNavigator({
 
 export default createAppContainer(MealsNavigator)
 ```
-4. App.js file
+
+1. App.js file
+
 ```
 import {enableScreens} from 'react-native-screens'
 import Navigator from './navigation/MealsNavigator'
@@ -106,7 +121,8 @@ export default function App() {
 }
 ```
 
-5. Push, pop, navigate, replace, goback are used to navigate between different pages
+1. Push, pop, navigate, replace, goback are used to navigate between different pages
+
 ```
 const Categories = ({navigation}) => {
 
@@ -124,10 +140,10 @@ const Categories = ({navigation}) => {
     )
 }
 
-
 ```
 
-6. Setting Title using navigationOptions
+1. Setting Title using navigationOptions
+
 ```
 const Categories = ({navigation}) => {
 
@@ -155,12 +171,14 @@ Categories.navigationOptions = (data)=> {
 }
 ```
 
-## Tabs Navigation
+### Tabs Navigation
 
+***
 
-__________________________
-# Components
+## Components
+
 1. FlatList
+
 ```
 <FlatList 
     numColumns={2} 
@@ -171,29 +189,33 @@ __________________________
 ```
 
 2.ImageBackground
+
 ```
 <ImageBackground />
 ```
 
-__________________________
+***
 
-# Notifications
-## Install Packages
+## Notifications
+
+### Install Packages
+
 ```
 expo install expo-notifications
 expo install expo-permissions
 ```
 
-## Change the package.json file
+### Change the package.json file
+
 ```
 "android": {
     "useNextNotificationsApi": true
   }
 ```
 
-## Ask for appropriate permissions
-```
+### Ask for appropriate permissions
 
+```
   const getNotiPermisson = async ()=>{
 
     const {status: existingStatus} = await Notifications.getPermissionsAsync()
@@ -208,10 +230,10 @@ expo install expo-permissions
       return
     }
   }
-
 ```
 
-## Local Notification function 
+### Local Notification function
+
 ```
 const triggerNotificationHandler = ()=> {
     Notifications.scheduleNotificationAsync({
@@ -225,4 +247,3 @@ const triggerNotificationHandler = ()=> {
     })
   }
 ```
-

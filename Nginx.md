@@ -1,31 +1,27 @@
-NGIN    X
-============
+# NGIN X
 
-- [NGIN    X](#ngin----x)
-  - [Nginx installation on Ubuntu](#nginx-installation-on-ubuntu)
-  - [Nginx basic commands](#nginx-basic-commands)
-  - [Reverse Proxy](#reverse-proxy)
-  - [SSL certificate with Lets Encrypt](#ssl-certificate-with-lets-encrypt)
-  - [Final Recomended Setup](#final-recomended-setup)
-
+* [NGIN X](Nginx.md#ngin----x)
+  * [Nginx installation on Ubuntu](Nginx.md#nginx-installation-on-ubuntu)
+  * [Nginx basic commands](Nginx.md#nginx-basic-commands)
+  * [Reverse Proxy](Nginx.md#reverse-proxy)
+  * [SSL certificate with Lets Encrypt](Nginx.md#ssl-certificate-with-lets-encrypt)
+  * [Final Recomended Setup](Nginx.md#final-recomended-setup)
 
 ## Nginx installation on Ubuntu
 
-| Command                       | Description                            |
-| ----------------------------- | -------------------------------------- |
-| `sudo apt-get install nginx ` | Install nginx on Ubuntu and start it   |
-| `ps aux  grep nginx`| Show nginx processes running on system |
-| `ulimit -n`| Show number of capable worker connections |
-
+| Command                      | Description                               |
+| ---------------------------- | ----------------------------------------- |
+| `sudo apt-get install nginx` | Install nginx on Ubuntu and start it      |
+| `ps aux grep nginx`          | Show nginx processes running on system    |
+| `ulimit -n`                  | Show number of capable worker connections |
 
 ## Nginx Basic Commands
 
-| Command                       | Description                            |
-| ----------------------------- | -------------------------------------- |
-| `systemctl start nginx`| Start nginx on ip |
-| `systemctl restart nginx`| Restart nginx server |
-| `nginx -s reload`| Reload nginx server |
-
+| Command                   | Description          |
+| ------------------------- | -------------------- |
+| `systemctl start nginx`   | Start nginx on ip    |
+| `systemctl restart nginx` | Restart nginx server |
+| `nginx -s reload`         | Reload nginx server  |
 
 ```
 user www-data;
@@ -61,9 +57,7 @@ http {
 
     }
 }
-
 ```
-
 
 ## Reverse Proxy
 
@@ -106,10 +100,10 @@ http {
         }
     }
 }
-
 ```
 
 ## Cache in the client side and Micro caching
+
 ```
 http{
 
@@ -139,10 +133,10 @@ http{
         }
     }
 }
-
 ```
 
 ## Caching in Proxy Server
+
 ```
 http {
     proxy_cache_path  /data/nginx/cache  levels=1:2    keys_zone=STATIC:10m
@@ -160,9 +154,8 @@ http {
 }
 ```
 
-
-
 ## Compress files with gzip
+
 ```
 http{
 
@@ -182,10 +175,10 @@ http{
         }
     }
 }
-
 ```
 
 ## Blacklist and WhiteList IP addresses
+
 ```
     location /admin{
         allow 1.2.3.4;
@@ -194,6 +187,7 @@ http{
 ```
 
 ## Limit Network Bandwidth
+
 ```
     location / {
         limit_rate_after 30m;
@@ -201,19 +195,18 @@ http{
     }
 ```
 
-
 ## SSL certificate with Lets Encrypt
 
-| Command                       | Description                            |
-| ----------------------------- | -------------------------------------- |
-| `sudo add-apt-repository ppa:certbot/certbot` | Step 1 |
-| `sudo apt-get update`| Step 2 |
-| `sudo apt-get install python3-certbot-nginx`| Step 3 |
-| `sudo certbot --nginx -d domain.com -d www.domain.com`| Step 4 |
-| `certbot renew --dry-run`| Step 5 |
-
+| Command                                                | Description |
+| ------------------------------------------------------ | ----------- |
+| `sudo add-apt-repository ppa:certbot/certbot`          | Step 1      |
+| `sudo apt-get update`                                  | Step 2      |
+| `sudo apt-get install python3-certbot-nginx`           | Step 3      |
+| `sudo certbot --nginx -d domain.com -d www.domain.com` | Step 4      |
+| `certbot renew --dry-run`                              | Step 5      |
 
 ## Final Recomended Setup
+
 ```
 events {
     worker_connections 1024;
@@ -305,5 +298,4 @@ http {
     access_log /var/log/nginx/access.log;
     error_log /var/log/nginx/error.log;    
 }
-
 ```
