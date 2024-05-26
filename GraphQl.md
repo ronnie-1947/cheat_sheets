@@ -2,21 +2,23 @@
 
 ## Table Of Contents
 
-- [Creating Your Own GraphQL API](#creating-your-own-graphql-api)
-- [GraphQL creating custom Types](#graphql-creating-custom-types)
-- [Relational Data](#relational-data)
+* [Creating Your Own GraphQL API](GraphQl.md#creating-your-own-graphql-api)
+* [GraphQL creating custom Types](GraphQl.md#graphql-creating-custom-types)
+* [Relational Data](GraphQl.md#relational-data)
 
-____
+***
 
 ## Creating Your Own GraphQL API
 
 Install GraphQL Yoga from NPM
+
 ```
 npm i graphql-yoga
 ```
 
 Running GraphQL server
-```
+
+```javascript
 import { GraphQLServer } from 'graphql-yoga'
 
 // Type definitions (schema)
@@ -45,10 +47,11 @@ server.start(() => {
 })
 ```
 
-___
+***
 
 ## GraphQL creating custom Types
-```
+
+```javascript
 const typeDefs = `
     type Query {
         product: [Product!]!
@@ -78,11 +81,14 @@ const resolvers = {
     }
 }
 ```
-___
+
+***
 
 ## Relational Data
+
 Setting up Association between 2 Schema
-```
+
+```graphql
 type User{
     id: ID!,
     name: String!,

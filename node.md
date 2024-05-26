@@ -56,7 +56,7 @@ https://github.com/coreybutler/nvm-windows/releases
 
 ### Creating Server with HTTP
 
-```
+```javascript
 const http = require('http')
 
 const app = http.createServer((req, res)=>{
@@ -78,7 +78,7 @@ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out c
 
 Initiate server with Https
 
-```
+```javascript
 const https = require('https')
 
 const httpsServerOptions = {
@@ -101,7 +101,7 @@ app.listen(PORT, ()=>{
 
 Url module is used to parse, construct, normalize and encode URLs.
 
-```
+```javascript
 const url = require('url')
 
 const parsedUrl = url.parse('http://localhost:8080/default?year=2017&month=february', true);

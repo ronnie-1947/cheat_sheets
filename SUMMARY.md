@@ -26,3 +26,7 @@
 
 * [Docker Swarm](docker/docker-swarm.md)
 * [Docker](docker/docker.md)
+
+## Python
+
+* [Numpy](python/numpy.md)
