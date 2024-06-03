@@ -30,3 +30,4 @@
 ## Python
 
 * [Numpy](python/numpy.md)
+* [Matplotlib](python/matplotlib.md)
