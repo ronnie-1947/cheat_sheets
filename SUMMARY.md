@@ -31,3 +31,4 @@
 
 * [Numpy](python/numpy.md)
 * [Matplotlib](python/matplotlib.md)
+* [Scikit Learn](python/scikit-learn.md)
