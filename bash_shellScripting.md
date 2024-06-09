@@ -1,12 +1,15 @@
-## Begin a Script
-- Make a file with any extension .sh .txt
-- change file permisson to executeable and writable
+# bash\_shellScripting
 
-_____________
+### Begin a Script
 
-## Variables
+* Make a file with any extension .sh .txt
+* change file permisson to executeable and writable
 
-```
+***
+
+### Variables
+
+```sh
 # Set a variable
 NAME="any_name"
 
@@ -20,14 +23,15 @@ NAME="other_name"
 USER_NAME=$(id -un) || USER_NAME=`id -un`
 ```
 
-_____________
+***
 
-## If Else Condition
-[[ ]] available only on bash. Works only on bash shell
+### If Else Condition
+
+\[\[ ]] available only on bash. Works only on bash shell
 
 More resource on https://linuxize.com/post/bash-if-else-statement/
 
-```
+```sh
 if [[ "${UID}" -eq 0]]
 then
     echo "You are root"
@@ -35,5 +39,5 @@ else
     echo "You are not root"
 fi
 ```
-_____________
 
+***

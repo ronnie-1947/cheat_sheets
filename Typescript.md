@@ -30,7 +30,7 @@
 
 #### Mention specific Object types
 
-```
+```typescript
 //--- Interface option ---//
 
 interface person {
@@ -48,7 +48,7 @@ const person: person = {
 
 Don't get autocompletion here
 
-```
+```typescript
 //--- Without Interface option ---//
 
 const user = {
@@ -61,7 +61,7 @@ const user = {
 
 ### Array Type
 
-```
+```typescript
 const arr: string[] = ['Hello', 'Hi'] // Array of strings
 
 const age: number[] = [ 23, 43] // Array of numbers
@@ -87,7 +87,7 @@ const role: [number, string] = [23, 'John Doe']
 
 Enums can hold global constants , where elements are numbered with position
 
-```
+```typescript
 enum Role {
     ADMIN = 'adm', 
     READ_ONLY = 'read', 
@@ -111,7 +111,7 @@ Set any type with 'any'
 
 Accept more than 1 type
 
-```
+```typescript
 const man : number|string = 'hello' // man can be of both string and number
 
 const user: (string|number)[] = ['John', 23] // Array of string and number

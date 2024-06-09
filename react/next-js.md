@@ -2,6 +2,8 @@
 
 Next JS introduced some features that can run code on the server using Server Actions
 
+Link to app\_1: [https://github.com/ronnie-1947/nextjs\_v14\_struc\_app](https://github.com/ronnie-1947/nextjs\_v14\_struc\_app)
+
 ## Server Actions
 
 An example shown to create a server action in TypeScript.
@@ -177,7 +179,7 @@ export default function EditSnippet(){
 
 Show error page  if something wrong goes out in server actions.
 
-```javascript
+```typescript
 "use client";
 
 import React from "react";

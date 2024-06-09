@@ -117,7 +117,7 @@ const query = parsedUrl.query // '{ year: 2017, month: 'february' }'
 
 Decode a stream of binary data (a buffer object) into a string
 
-```
+```javascript
 const {StringDecoder} = require('string_decoder)
 
 const decoder = new StringDecoder(utf8)
@@ -135,7 +135,7 @@ File System module allows us to read write delete files in the disk
 
 ### Reading a File Synchronously
 
-```
+```javascript
 const fs = require('fs')
 const str = fs.readFileSync('path', 'utf8')
 console.log(str)
@@ -143,7 +143,7 @@ console.log(str)
 
 ### Reading a File Asynchronously
 
-```
+```javascript
 const fs = require('fs')
 
 fs.readFile('path', 'encType', (err, str)=>{

@@ -156,7 +156,7 @@ useRef hook don't result in component render when the value is updated.
 
 It is a more advance way to manage state. Needs a reducer function which is a pure function.
 
-```
+```javascript
 import { useReducer } from "react"
 
 const reducer = (state, action)=>{
@@ -192,7 +192,7 @@ Big useCases -
 2. Memoizing values to avoid expensive calcs on every render
 3. Memoizing values that are used in dependency array of another hook.
 
-```
+```javascript
 const {useMemo} from 'react'
 
 function Component(posts){
@@ -216,7 +216,7 @@ function Component(posts){
 
 This hook is used to memoize Functions. Usage is same as useMemo
 
-```
+```javascript
 const {useCallback} from 'react'
 
 function Component(posts){
@@ -239,7 +239,7 @@ Use the package React-router-dom for routing. Multiple functions are allowed.
 
 #### Base
 
-```
+```javascript
 function App() {
 
   return (
@@ -263,7 +263,7 @@ function App() {
 
 #### React Routers with data loaders >v6
 
-```
+```javascript
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const menuLoader = async()=>{
@@ -298,7 +298,7 @@ export default App;
 
 AppLayout.js File 👇. With loading indicator
 
-```
+```javascript
 import { Fragment } from "react";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
@@ -325,7 +325,7 @@ export default AppLayout;
 
 How to Use the loaded data in File 🤔 ?? Ahah!! got it 👇
 
-```
+```javascript
 import { useLoaderData } from "react-router-dom";
 
 function Menu() {
@@ -338,7 +338,7 @@ export default Menu;
 
 What happens when error ?? 🫨😢😭. No worries
 
-```
+```javascript
 import { useNavigate, useRouteError } from 'react-router-dom';
 
 function NotFound() {
@@ -360,7 +360,7 @@ export default NotFound;
 
 #### Use \<Link/> and \<NavLink/> to route through pages
 
-```
+```javascript
 function AppNav() {
   return (
     <nav className={styles.nav}>
@@ -381,7 +381,7 @@ export default AppNav;
 
 #### Using Querys and Params in urls
 
-```
+```javascript
 <Link to={`/app/cities/${id}?lat=${position.lat}&lng=${position.lng}`}>
 
 function City() {
@@ -398,7 +398,7 @@ function City() {
 
 Navigate to any page by using hook UseNavigate
 
-```
+```javascript
 const navigate = useNavigate()
 
 clickHandler ()=>{
@@ -417,7 +417,7 @@ Consumer: Components that read the provided context value
 
 #### Creating context
 
-```
+```javascript
 import {useContext, createContext, useReducer} from React
 
 const Context = createContext()
@@ -455,7 +455,7 @@ export {ContextProvider, useContext}
 
 #### Using Context in child elements
 
-```
+```javascript
 
 import {ContextProvider, useContext} from '../Context'
 
@@ -493,7 +493,7 @@ Some points to discuss -
 
 Memoize a component
 
-```
+```javascript
 import {memo} from 'react'
 
 function slowFunction(){
@@ -514,7 +514,7 @@ See [useMemo](react.md#useMemo) for memoize Values passed in props. See [useCall
 
 Load each element lazily in React Router. Use Router like this
 
-```
+```javascript
 import {lazy, Suspense} from 'react;
 import SpinnerFullPage from './SpinnerFullPage'
 
@@ -544,7 +544,7 @@ Redux is a global state management tool simillar like useReducer + context API.
 
 Initiate Redux for a feature
 
-```
+```javascript
 // File - customerSlice.js
 
 const InitialState = {
@@ -576,7 +576,7 @@ export const delCustomer = ()=> ({type: 'customer/delete})
 
 Redux store file, creating the store by combining all Reducers
 
-```
+```javascript
 // - File store.js
 
 import { combineReducers, createStore, applyMiddleware } from "redux"
@@ -599,7 +599,7 @@ export default store;
 
 Index.js file
 
-```
+```javascript
 import { Provider } from 'react-redux'
 import store from './store'
 
@@ -615,7 +615,7 @@ root.render(
 
 App.js File - Use store for dispatching actions
 
-```
+```javascript
 // App.js
 
 import { useSelector, useDispatch } from "react-redux";
@@ -642,7 +642,7 @@ function App(){
 
 Using Redux middleware with Thunk
 
-```
+```javascript
 // File - customerSlice.js
 
 const InitialState = {
@@ -686,7 +686,7 @@ export const delCustomer = ()=> {
 
 Configure Store. It brings thunks and combines reducer behind the scenes. 😲
 
-```
+```javascript
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './userSlice'
 
@@ -701,7 +701,7 @@ export default store
 
 Use store to wrap up in index.jsx or main.jsx file. That's it
 
-```
+```javascript
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 
@@ -717,7 +717,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 Creating Reducers or Slice is way easier now. 😃
 
-```
+```javascript
 import {createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
@@ -745,7 +745,7 @@ export default userSlice.reducer
 
 #### Setup Reqct query
 
-```
+```javascript
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
@@ -772,7 +772,7 @@ export default App;
 
 React query can work with graphql as well as any fetch API . Yayy 🤩
 
-```
+```javascript
 import MenuItem from './MenuItem'
 import { useQuery } from "@tanstack/react-query";
 
@@ -802,7 +802,7 @@ export default Menu;
 
 Mutation is just writing or updating to database
 
-```
+```javascript
 const queryClient = useQueryClient()
 
 const {isLoading, mutate} = useMutation({
@@ -831,7 +831,7 @@ React query can be used for prefetching data. Next page data 🤩
 
 For complete control over what the component renders, by passing in a function that tells the component what to render. **More common before hooks**. But still useful
 
-```
+```javascript
 export default function App() {
   return (
     <div>
@@ -858,7 +858,7 @@ export default function App() {
 }
 ```
 
-```
+```javascript
 function List({ title, items, render }) {
   const isCollapsed = false;
   const displayItems = isCollapsed ? items.slice(0, 3) : items;
@@ -880,7 +880,7 @@ This way The List component don't know what it is rendering, and control is with
 
 It is a wrapper to a component. HOC takes a component and returns a simillar component with enhanced features. Naming starts "with..." example - withToggles. Given below an example, how a normal list features are enhanced with HOC wrapper.
 
-```
+```javascript
 // App.js
 
 export default function App() {
@@ -900,7 +900,7 @@ export default function App() {
 }
 ```
 
-```
+```javascript
 // File HOC
 
 import { useState } from "react";
@@ -940,7 +940,7 @@ export default function withToggles(WrappedComponent) {
 
 For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components
 
-```
+```javascript
 import { createContext, useContext, useState } from "react";
 
 //1. Create a context
@@ -989,7 +989,7 @@ export default Counter;
 
 ```
 
-```
+```javascript
 import Counter from "./Counter";
 import "./styles.css";
 
@@ -1012,13 +1012,13 @@ export default function App() {
 
 #### Packages needed
 
-```
+```sh
 yarn add -D eslint vite-plugin-eslint
 ```
 
 #### vite.config.js
 
-```
+```javascript
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
@@ -1044,7 +1044,7 @@ export default defineConfig({
 
 #### .eslintrc.cjs
 
-```
+```javascript
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
