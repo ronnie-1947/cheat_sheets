@@ -1,18 +1,20 @@
-# React JS
+# React
 
-## State
+## React JS
+
+### State
 
 React is all about state management. State is a component's and its children's internal data. If state changes, rerender of component and its children (who are using that state) takes place.
 
-## Pure functions vs Impure functions
+### Pure functions vs Impure functions
 
-### Pure Functions
+#### Pure Functions
 
 Pure functions only depend on their input parameters and do not modify the state of the application or have side effects.
 
 Result of Pure function don't change with an outside parameter
 
-```
+```javascript
 // This function only depend on the value of r (its parameter)
 function pureFunc (r) {
 
@@ -22,11 +24,11 @@ function pureFunc (r) {
 
 **React components are pure functions**
 
-### ImPure Functions
+#### ImPure Functions
 
 Can have unpredictable behavior and can modify the state of the application or have side effects. Side effects such as initiate a timer or change the state of another function.
 
-```
+```javascript
 let pi = 3.14 * new Date().getHours()
 
 // This function depends on the value of pi and Date. The final result can change with time.
@@ -35,42 +37,42 @@ function impureFunction (r){
 }
 ```
 
-## How React works
+### How React works
 
 React paints the DOM in 3 phases
 
-- Create Virtual DOM (Render phase)
-- Create Fiber tree (Reconciliation)
-- Commit Phase (Paints the DOM)
+* Create Virtual DOM (Render phase)
+* Create Fiber tree (Reconciliation)
+* Commit Phase (Paints the DOM)
 
-### Create Virtual DOM
+#### Create Virtual DOM
 
 Virtual DOM is a JS object and it is created pretty fast. if the state is changed in some component, all of its child component goes to a modified state.
 
-### Reconciliation (Diffing)
+#### Reconciliation (Diffing)
 
 Fiber tree creation, React compares the current tree with the virtual DOM to create an updated Tree.
 
-- The required props are passed in child components
-- Repaint happens in child components
-- State is morized if the component is not erased or no change in position of component
-- Loss of state if component is deleted
+* The required props are passed in child components
+* Repaint happens in child components
+* State is morized if the component is not erased or no change in position of component
+* Loss of state if component is deleted
 
 Key props is used to uniquely identify a component.
 
 NOTE: Don't set the key to index of the array. If there is remove of elements in between, the state of the elements get jumbled up
 
-## Events
+### Events
 
 React introduce us to synthetic events so that most of the event works same across all browsers. And synthetic events bouble except the scroll event.
 
-## component LifeCycle
+### component LifeCycle
 
 1. Mount / Initial Render 🐣
 2. Re-Render 💫
 3. Unmount ☠️
 
-## Hooks
+### Hooks
 
 Special built-in functions that allow us to hook into React internals:
 
@@ -79,7 +81,7 @@ Special built-in functions that allow us to hook into React internals:
 3. Manual DOM selection
 4. Etc.
 
-### Hooks list
+#### Hooks list
 
 ```
 useState
@@ -92,14 +94,14 @@ useMemo
 useTransition
 ```
 
-### Hooks Rules
+#### Hooks Rules
 
 1. Hooks need to called from the top level of a React component
 2. React keep record for order of hooks written
 
-### useState Hook
+#### useState Hook
 
-```
+```javascript
 const [state, setState] = useState(true)
 
 <!--  setState accepts a function as arg where cur is the current state -->
@@ -110,9 +112,9 @@ const handleState = ()=>{
 
 Key points:
 
-- If useState is called multiple times inside handle func
+* If useState is called multiple times inside handle func
 
-```
+```javascript
 const handleState = ()=>{
   setState(cur=> cur + 1)
   setState(cur=> cur + 1)
@@ -120,24 +122,24 @@ const handleState = ()=>{
   }
 ```
 
-- Multiple setState are batched into one and rendering takes place only once with all state change. Auto batching is enabled in React 18+
-- setState is asynchrnous
-- Opt out of automatic batching by wrapping a state update in ReactDOM.flushSync()
+* Multiple setState are batched into one and rendering takes place only once with all state change. Auto batching is enabled in React 18+
+* setState is asynchrnous
+* Opt out of automatic batching by wrapping a state update in ReactDOM.flushSync()
 
 useState hook also accepts a function with no args
 
-```
+```javascript
 const [movies, setMovies] = useState(()=>{
   const movies = localStorage.getItem('movies')
   return JSON.parse(movies)
 })
 ```
 
-### useRef() Hook
+#### useRef() Hook
 
 A hook to store DOM elements.
 
-```
+```javascript
 const inputEl = useRef(null)
 
 useEffect(()=>{
@@ -150,7 +152,7 @@ return <input ref={inputEL}/>
 
 useRef hook don't result in component render when the value is updated.
 
-### useReducer Hook
+#### useReducer Hook
 
 It is a more advance way to manage state. Needs a reducer function which is a pure function.
 
@@ -180,7 +182,7 @@ const useCounter = ()=>{
 export default useCounter
 ```
 
-### useMemo
+#### useMemo
 
 Used to memoize values. As long as dependencies don't change, the cached value will be returned. It has a dependency array like useEffect.
 
@@ -210,7 +212,7 @@ function Component(posts){
 
 ```
 
-### useCallback
+#### useCallback
 
 This hook is used to memoize Functions. Usage is same as useMemo
 
@@ -231,11 +233,11 @@ function Component(posts){
 }
 ```
 
-## Routing in React
+### Routing in React
 
 Use the package React-router-dom for routing. Multiple functions are allowed.
 
-### Base
+#### Base
 
 ```
 function App() {
@@ -259,7 +261,7 @@ function App() {
 }
 ```
 
-### React Routers with data loaders >v6
+#### React Routers with data loaders >v6
 
 ```
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -356,7 +358,7 @@ export default NotFound;
 
 ```
 
-### Use \<Link/> and \<NavLink/> to route through pages
+#### Use \<Link/> and \<NavLink/> to route through pages
 
 ```
 function AppNav() {
@@ -377,7 +379,7 @@ function AppNav() {
 export default AppNav;
 ```
 
-### Using Querys and Params in urls
+#### Using Querys and Params in urls
 
 ```
 <Link to={`/app/cities/${id}?lat=${position.lat}&lng=${position.lng}`}>
@@ -392,7 +394,7 @@ function City() {
 }
 ```
 
-### Programatic Navigation
+#### Programatic Navigation
 
 Navigate to any page by using hook UseNavigate
 
@@ -405,7 +407,7 @@ clickHandler ()=>{
 }
 ```
 
-## Context API
+### Context API
 
 Manage global state with context API
 
@@ -413,7 +415,7 @@ Provider: Main place to store global state. Usually in the App component.
 
 Consumer: Components that read the provided context value
 
-### Creating context
+#### Creating context
 
 ```
 import {useContext, createContext, useReducer} from React
@@ -451,7 +453,7 @@ function useContext(){
 export {ContextProvider, useContext}
 ```
 
-### Using Context in child elements
+#### Using Context in child elements
 
 ```
 
@@ -467,9 +469,9 @@ function Header(){
 
 For maximum optimizationi use context this way. Use different context for different states. If multiple states are there in single contexts, all the components using the context will rerender on context change.
 
-## Optimization
+### Optimization
 
-### Wasted Renders
+#### Wasted Renders
 
 A render that didn't produce any change in the DOM are wasted renders. Component get re-renders in 3 situations -
 
@@ -477,17 +479,17 @@ A render that didn't produce any change in the DOM are wasted renders. Component
 2. Context changes
 3. Parent - Rerenders
 
-- Common method to avoid rerender of a slow component is to -- Pass the \<SLOW_COMPONENT> as a prop or a children.
+* Common method to avoid rerender of a slow component is to -- Pass the \<SLOW\_COMPONENT> as a prop or a children.
 
-### Memoization with useMemo
+#### Memoization with useMemo
 
 Optimization technique that executes a pure function once, and saves the result in memory. If we try to execute the function again **with same arguments** as before, the previously saved result will be returned, without executing the function again.
 
 Some points to discuss -
 
-- Memoized child will not rerender when parents rerenders
-- Memoized child will rerender when it's own state changes or change in context
-- Use memo when the component is heave and often rerenders with same props
+* Memoized child will not rerender when parents rerenders
+* Memoized child will rerender when it's own state changes or change in context
+* Use memo when the component is heave and often rerenders with same props
 
 Memoize a component
 
@@ -506,10 +508,9 @@ export default memo(slowFunction) // Wrap it in memo
 
 When props memo components are either functions or objects, use useMemo or useCallback hooks.
 
-See [useMemo](#useMemo) for memoize Values passed in props.
-See [useCallback](#useMemo) for memoize functions passed in props.
+See [useMemo](react.md#useMemo) for memoize Values passed in props. See [useCallback](react.md#useMemo) for memoize functions passed in props.
 
-### BundleSize with codesplitting and Suspense
+#### BundleSize with codesplitting and Suspense
 
 Load each element lazily in React Router. Use Router like this
 
@@ -535,11 +536,11 @@ const PageNotFound = lazy(()=> import('./PageNotFound'))
 </BrowserRouter>
 ```
 
-## Redux
+### Redux
 
 Redux is a global state management tool simillar like useReducer + context API.
 
-### Redux in traditional way
+#### Redux in traditional way
 
 Initiate Redux for a feature
 
@@ -681,7 +682,7 @@ export const delCustomer = ()=> {
 }
 ```
 
-### Modern Redux with Redux Tool Kit
+#### Modern Redux with Redux Tool Kit
 
 Configure Store. It brings thunks and combines reducer behind the scenes. 😲
 
@@ -740,9 +741,9 @@ export const {createUser, deleteUser} = userSlice.actions
 export default userSlice.reducer
 ```
 
-## React Query
+### React Query
 
-### Setup Reqct query
+#### Setup Reqct query
 
 ```
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -767,7 +768,7 @@ const App = () => {
 export default App;
 ```
 
-### Using React query
+#### Using React query
 
 React query can work with graphql as well as any fetch API . Yayy 🤩
 
@@ -797,7 +798,7 @@ function Menu() {
 export default Menu;
 ```
 
-### Mutate with React query
+#### Mutate with React query
 
 Mutation is just writing or updating to database
 
@@ -824,9 +825,9 @@ return <button onClick={mutate}> ❌Click to delete </button>
 
 React query can be used for prefetching data. Next page data 🤩
 
-## Advance React patterns
+### Advance React patterns
 
-### Render props
+#### Render props
 
 For complete control over what the component renders, by passing in a function that tells the component what to render. **More common before hooks**. But still useful
 
@@ -875,7 +876,7 @@ function List({ title, items, render }) {
 
 This way The List component don't know what it is rendering, and control is with the App. List is acting a kind of layout. App can use List and render Products and Companies list.
 
-### Higher Order Component
+#### Higher Order Component
 
 It is a wrapper to a component. HOC takes a component and returns a simillar component with enhanced features. Naming starts "with..." example - withToggles. Given below an example, how a normal list features are enhanced with HOC wrapper.
 
@@ -935,7 +936,7 @@ export default function withToggles(WrappedComponent) {
 }
 ```
 
-### Compound component pattern
+#### Compound component pattern
 
 For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components
 
@@ -1007,15 +1008,15 @@ export default function App() {
 }
 ```
 
-## ESLint Setup
+### ESLint Setup
 
-### Packages needed
+#### Packages needed
 
 ```
 yarn add -D eslint vite-plugin-eslint
 ```
 
-### vite.config.js
+#### vite.config.js
 
 ```
 import { defineConfig } from 'vite'
@@ -1041,7 +1042,7 @@ export default defineConfig({
 })
 ```
 
-### .eslintrc.cjs
+#### .eslintrc.cjs
 
 ```
 module.exports = {
@@ -1067,125 +1068,4 @@ module.exports = {
   },
 }
 
-```
-
-# Next JS > V13
-
-Next JS introduced some features that can run code on the server using Server Actions
-
-## Server Actions
-
-An example shown to create a server action in TypeScript.
-```
-async function createSnippet(formData: FormData) {
-
-  // This needs to be a server action!
-  "use server";
-
-  // Check the user's input and make sure they're valid
-  const inputs: string[] = ["title", "code"];
-  const [title, code] = inputs.map((c) => formData.get(c) as string);
-
-  // Create a new record in the database
-  await db.snippet.create({ data: { code, title } });
-
-  // Redirect the user back to the root route
-  redirect("/");
-}
-```
-## Server Component & Client Component
-
-### Server Component
-By default all components are server components in NEXT JS. We can directly fetch data from database.
-
-#### Limitations
-- Cannot use any kind of hook
-- Cannot assign any event handlers
-
-### Client Component
-All that we are using in react apps. These components supports events, hooks etc. Basically that run on the client browser.
-A client can't show directly a server component
-```
-'use client'
-```
-## Use Form State
-It is a hook for client components. It is used to show error messages in forms during validations. It works with server actions and client components together.
-
-### UseFormState Hook
-```
-const SnippetCreatePage = () => {
-  const [formState, action] = useFormState(createSnippetAction, {
-    message: "",
-  });
-
-  return (
-    <form action={action}></form>
-  )}
-```
-### Create server Action
-```
-'use server'
-
-export async function createSnippetAction(formState: { message: string }, formData: FormData) {
-
-  try {
-    // Check the user's input and make sure they're valid
-    const inputs: string[] = ["title", "code"];
-    const [title, code] = inputs.map((c) => formData.get(c));
-
-    if (typeof (title) !== 'string' || title.length < 3) return { message: 'Title must be longer' }
-    if (typeof (code) !== 'string' || code.length < 3) return { message: 'Code must be longer' }
-
-    // Create a new record in the database
-    await db.snippet.create({ data: { code, title } });
-
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return {
-        message: err.message
-      }
-    } else {
-      return {
-        message: 'Something went wrong'
-      }
-    }
-  }
-  
-  // Redirect the user back to the root route
-  redirect("/");
-}
-```
-
-## Cache & Static or Dynamic page
-"Yarn build" will produce build outputs of the files. By default all the files are static. 
-
-### Disable caching
-To make it dynamic, write in the page file. This means after every 0 seconds fetch latest data from database.
-```
-export const revalidate = 0; 
-```
-
-### On Demand revalidation
-Revalidate with latest data whenever needed. This is the best way to show new data. Do it in server actions
-```
-import { revalidatePath } from "next/cache"
-
-export const deleteSnippetAction = async (id: number) => {
-  await db.snippet.delete({ where: { id } })
-
-  revalidatePath('/')
-  redirect('/')
-}
-```
-
-### Caching in dynamic paths
-To cache dynamic paths. Do this below.
-```
-export async function generateStaticParams() {
-  const snippets = await db.snippet.findMany()
-
-  return snippets.map((snippet)=>({
-    id: snippet.id.toString()
-  }))
-}
 ```

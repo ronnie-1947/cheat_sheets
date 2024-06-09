@@ -2,8 +2,8 @@
 
 ### Table Of Contents
 
-* [Adding Fonts](React-Native.md#adding-fonts)
-* [React-Native Navigation](React-Native.md#react-native-navigation) +
+* [Adding Fonts](react-native.md#adding-fonts)
+* [React-Native Navigation](react-native.md#react-native-navigation) +
 
 ## Adding Fonts
 

@@ -10,8 +10,6 @@
 * [MySql](MySql.md)
 * [NGIN X](Nginx.md)
 * [PowerShell](PowerShell.md)
-* [React-Native](React-Native.md)
-* [React](React.md)
 * [SAAS](Sass.md)
 * [Sequelize](Sequelize.md)
 * [Solidity](Solidity.md)
@@ -32,3 +30,9 @@
 * [Numpy](python/numpy.md)
 * [Matplotlib](python/matplotlib.md)
 * [Scikit Learn](python/scikit-learn.md)
+
+## React
+
+* [Next JS](react/next-js.md)
+* [React](react/react.md)
+* [React-Native](react/react-native.md)
