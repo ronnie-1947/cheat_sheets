@@ -56,49 +56,125 @@ It adds a state to a form that is controlled by server-side. Form state is used 
 Note: This form hook runs fine without running JS in the browser
 
 ```javascript
-const SnippetCreatePage = () => {
-  const [formState, action] = useFormState(createSnippetAction, {
-    message: "",
-  });
+import { createTopic } from "@/actions/topic";
+import { useFormState } from "react-dom";
 
+const TopicCreatePage = () => {
+  
+  const [formState, createTopicAction] = useFormState(createTopic, {
+    errors: {},
+  });
+  
   return (
-    <form action={action}></form>
+    <form action={createTopicAction}></form>
   )}
 ```
 
 #### Create server Action
 
-```javascript
-'use server'
+<pre class="language-typescript"><code class="lang-typescript"><strong>// @/actions/topic/index.tsx
+</strong><strong>"use server";
+</strong>
+import paths from "@/app/paths"; // Path helpers
+import { auth } from "@/auth"; // To check if signed in
+import { db } from "@/db"; // Save to database
+import type { Topic } from "@prisma/client"; // Import type
+import { revalidatePath } from "next/cache"; // Revalidate home page after creating
+import { redirect } from "next/navigation"; // Redirect after creating
+import { z } from "zod"; // Form validation
 
-export async function createSnippetAction(formState: { message: string }, formData: FormData) {
+// Form validation
+const createTopicSchema = z.object({
+  name: z
+    .string()
+    .min(3)
+    .regex(/^[a-z-]+$/, {
+      message: "Must be lowercase letters or dashes",
+    }),
+  description: z.string().min(10),
+});
 
-  try {
-    // Check the user's input and make sure they're valid
-    const inputs: string[] = ["title", "code"];
-    const [title, code] = inputs.map((c) => formData.get(c));
+interface CreateTopicFormState {
+  errors: {
+    name?: string[];
+    description?: string[];
+    _form?: string[];
+  };
+}
 
-    if (typeof (title) !== 'string' || title.length < 3) return { message: 'Title must be longer' }
-    if (typeof (code) !== 'string' || code.length < 3) return { message: 'Code must be longer' }
+export async function createTopic(
+  formState: CreateTopicFormState, 
+  formData: FormData
+): Promise&#x3C;CreateTopicFormState> {
 
-    // Create a new record in the database
-    await db.snippet.create({ data: { code, title } });
-
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return {
-        message: err.message
-      }
-    } else {
-      return {
-        message: 'Something went wrong'
-      }
-    }
+  // Validate the form data and store it in result variable
+  const result = createTopicSchema.safeParse({
+    name: formData.get("name"),
+    description: formData.get("description"),
+  });
+  
+  // Verify logged in
+  const session = await auth();
+  if (!session || !session.user) {
+    return { errors: { _form: ["You must be signed in to do this"] } };
   }
   
-  // Redirect the user back to the root route
-  redirect("/");
+  // Send error message if error in validation
+  if (!result.success) {
+    return { errors: result.error.flatten().fieldErrors };
+  }
+  
+  // Create topic in database
+  let topic: Topic;
+  try {
+    const topic = await db.topic.create({
+      data: {
+        slug: result.data.name,
+        description: result.data.description,
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        errors: { _form: [error.message] },
+      };
+    }
+    return {
+      errors: { _form: ['Something went wrong'] },
+    };
+  }
+
+  revalidatePath('/')
+  redirect(paths.topicShow(result.data.name));
 }
+
+</code></pre>
+
+### Use formStatus hook
+
+This is a hook used to check if the form is in loading state
+
+```typescript
+"use client";
+
+import { Button } from "@nextui-org/react";
+import { useFormStatus } from "react-dom";
+
+interface Props {
+  children: React.ReactNode;
+}
+
+function FormButton({ children }: Props) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" isLoading={pending}>
+      {children}
+    </Button>
+  );
+}
+
+export default FormButton;
+
 ```
 
 ## Use Server Actions in Client components
