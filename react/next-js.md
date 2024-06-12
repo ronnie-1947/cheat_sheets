@@ -543,3 +543,102 @@ export default async function Auth() {
     return ()
 }
 ```
+
+## Stream with suspense
+
+Stream some components slowly, which takes some time.&#x20;
+
+#### To achieve this wrap with \<Suspense
+
+<pre class="language-typescript"><code class="lang-typescript">import { Suspense } from "react";
+<strong>
+</strong><strong>export default async function PostShowPage({ params }: PostShowPageProps) {
+</strong>  const { slug, postId } = params;
+
+  return (
+    &#x3C;div className="space-y-3">
+      &#x3C;Suspense fallback={&#x3C;PostShowLoading/>}>
+        &#x3C;PostShow postId={postId} />
+      &#x3C;/Suspense>
+    &#x3C;/div>
+  );
+}
+</code></pre>
+
+### Loading Component
+
+```typescript
+import { Skeleton } from "@nextui-org/react";
+import React from "react";
+
+function PostShowLoading() {
+  return <div className="m-4">
+    <div className="my-2">
+      <Skeleton className="h-10 w-11/12"/>
+    </div>
+    <div className="p-4 border rounded space-y-2">
+      <Skeleton className="h-6 w-11/12"/>
+      <Skeleton className="h-6 w-11/12"/>
+      <Skeleton className="h-6 w-11/12"/>
+    </div>
+  </div>;
+}
+
+export default PostShowLoading;
+```
+
+## Query and params
+
+### Search Query
+
+#### Search querys are extracted from URL in the root page like this👇
+
+```typescript
+// URL = 'www.google.com?term=Newyear'
+
+interface SearchPageProps{
+    searchParams: {
+        term: String;
+    }
+}
+
+export default function SearchPage({searchParams}: SearchPageProps) {
+    return <>{searchParams.term}</>
+}
+```
+
+#### Search querys are extracted from URL in the client pages like this👇
+
+```typescript
+'use client'
+
+import {useSearchParams} from 'next/navigation'
+
+export default function SearchInput(){
+    
+    const searchParams = useSearchParams()
+    
+    // Wrap with <suspense> to avoid warning and render in client browser
+    return <Suspense>{searchParams.term}</Suspense>
+}
+```
+
+### Extract Params&#x20;
+
+<pre class="language-typescript"><code class="lang-typescript"><strong>// URL = /post/[slug]/[postId]
+</strong><strong>
+</strong><strong>interface PostShowPageProps {
+</strong>  params: {
+    slug: string;
+    postId: string;
+  };
+}
+
+export default async function PostShowPage({ params }: PostShowPageProps) {
+  const { slug, postId } = params;
+
+  return (
+   ...
+  );
+}
+</code></pre>
