@@ -2,7 +2,8 @@
 
 Next JS introduced some features that can run code on the server using Server Actions
 
-Link to app\_1: [https://github.com/ronnie-1947/nextjs\_v14\_struc\_app](https://github.com/ronnie-1947/nextjs\_v14\_struc\_app)
+* Link to app\_1 (Snippets app) : [https://github.com/ronnie-1947/nextjs\_v14\_struc\_app](https://github.com/ronnie-1947/nextjs\_v14\_struc\_app)
+* Link to app\_2 (social media app) : [https://github.com/ronnie-1947/nextjs-v14-social-media-app](https://github.com/ronnie-1947/nextjs-v14-social-media-app)
 
 ## Server Actions
 
