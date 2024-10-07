@@ -40,3 +40,4 @@
 ## CLOUD
 
 * [IAM (Identity & Access management)](cloud/iam-identity-and-access-management.md)
+* [EC2](cloud/ec2.md)
