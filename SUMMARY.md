@@ -14,7 +14,7 @@
 * [Sequelize](Sequelize.md)
 * [Solidity](Solidity.md)
 * [Typescript](Typescript.md)
-* [bash\_shellScripting](bash\_shellScripting.md)
+* [bash\_shellScripting](bash_shellScripting.md)
 * [D3 JS](d3.md)
 * [linux](linux.md)
 * [NodeJs\_CheatSheet](node.md)
@@ -41,3 +41,7 @@
 
 * [IAM (Identity & Access management)](cloud/iam-identity-and-access-management.md)
 * [EC2](cloud/ec2.md)
+
+## Go Lang
+
+* [Go Notes](go-lang/go-notes.md)
