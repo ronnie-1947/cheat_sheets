@@ -41,7 +41,10 @@
 
 * [IAM (Identity & Access management)](cloud/iam-identity-and-access-management.md)
 * [EC2](cloud/ec2.md)
+* [GCP-Gmail API](cloud/gcp-gmail-api.md)
 
 ## Go Lang
 
 * [Go Notes](go-lang/go-notes.md)
+
+## Group 1
