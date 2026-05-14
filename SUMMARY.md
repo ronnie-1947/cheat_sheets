@@ -49,4 +49,6 @@
 
 ## Claude
 
-* [Custom commands](claude/custom-commands.md)
+* [Command Recipes](claude/command-recipes.md)
+* [Custom Commands](claude/custom-commands.md)
+* [Built-in Commands](claude/built-in-commands.md)
