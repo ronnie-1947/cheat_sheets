@@ -151,4 +151,173 @@ Review the above for code quality, security issues, and missing tests.
 
 * Commands are re-scanned each session — save the file and restart to pick up changes.
 * If a skill and a command share the same name, the **skill takes precedence**.
-* Personal commands (`~/.claude/commands/`) are never committed to git; project commands are.
+* Personal commands (`~/.claude/commands/`) are never committed to git; project commands are.<br>
+
+## Frontmatter Reference
+
+YAML frontmatter is optional metadata placed at the **top** of a command file, between triple dashes (`---`). It configures the command's behaviour, permissions, and UI hints.
+
+***
+
+### Syntax
+
+```markdown
+---
+description: A short description shown in the command picker
+argument-hint: <arg1> [optional-arg2]
+allowed-tools: Read, Write, Edit, Bash(npm test:*)
+model: claude-opus-4-6
+context: fork
+agent: general-purpose
+disable-model-invocation: false
+---
+
+Your prompt body goes here, below the closing ---.
+```
+
+***
+
+### Fields
+
+#### `description`
+
+**Type:** `string`\
+**Required:** No\
+**Purpose:** Shown in the `/` autocomplete picker alongside the command name.
+
+```yaml
+description: Create a UI component using TDD
+```
+
+***
+
+#### `argument-hint`
+
+**Type:** `string`\
+**Required:** No\
+**Purpose:** Shown as a hint when the user types the command, so they know what arguments to provide.
+
+```yaml
+argument-hint: <component-description>
+```
+
+```yaml
+argument-hint: <issue-number> [priority]
+```
+
+Angle brackets `< >` = required. Square brackets `[ ]` = optional.
+
+***
+
+#### `allowed-tools`
+
+**Type:** comma-separated list\
+**Required:** No\
+**Purpose:** Restricts which Claude Code tools the command can invoke. Protects against unintended file writes or shell execution.
+
+```yaml
+allowed-tools: Read, Grep, Glob
+```
+
+```yaml
+allowed-tools: Read, Write, Edit, Bash(npm test:*), Bash(npx vitest:*)
+```
+
+```yaml
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
+```
+
+**Common tool names:**
+
+| Tool               | What it does             |
+| ------------------ | ------------------------ |
+| `Read`             | Read files from disk     |
+| `Write`            | Write / create files     |
+| `Edit`             | Edit existing files      |
+| `Glob`             | Pattern-match file paths |
+| `Grep`             | Search file contents     |
+| `Bash(*)`          | Run any shell command    |
+| `Bash(git *:*)`    | Run only git commands    |
+| `Bash(npm test:*)` | Run only `npm test …`    |
+
+***
+
+#### `model`
+
+**Type:** `string` (model identifier)\
+**Required:** No (defaults to the session model)\
+**Purpose:** Override the model for this command. Useful for using a cheap fast model on simple commands and Opus on complex ones.
+
+```yaml
+model: claude-haiku-4-5-20251001
+```
+
+```yaml
+model: claude-opus-4-6
+```
+
+```yaml
+model: claude-sonnet-4-6
+```
+
+***
+
+#### `context`
+
+**Type:** `string`\
+**Required:** No\
+**Values:** `fork`\
+**Purpose:** `fork` runs the command in a fresh context window, leaving the main session history untouched. Good for expensive or isolated tasks.
+
+```yaml
+context: fork
+```
+
+***
+
+#### `agent`
+
+**Type:** `string`\
+**Required:** No\
+**Purpose:** Specify which subagent persona should execute this command.
+
+```yaml
+agent: general-purpose
+```
+
+***
+
+#### `disable-model-invocation`
+
+**Type:** `boolean`\
+**Required:** No (default `false`)\
+**Purpose:** When `true`, the command runs its shell/tool calls without calling the LLM — useful for pure automation scripts.
+
+```yaml
+disable-model-invocation: true
+```
+
+***
+
+### Full Example
+
+```markdown
+---
+description: Create a UI component using TDD (test-driven development)
+argument-hint: <brief component description>
+allowed-tools: Read, Write, Edit, Glob, Bash(npm test:*), Bash(npx vitest:*)
+model: claude-sonnet-4-6
+context: fork
+---
+
+The user wants to build this component: **$ARGUMENTS**
+
+### Steps
+
+1. Derive a PascalCase component name from the description.
+2. Write tests in `tests/components/[ComponentName].test.tsx`.
+3. Run tests — expect them to fail.
+4. Create the component and its CSS module.
+5. Run tests — expect them to pass.
+6. Add the component to the preview page.
+```
