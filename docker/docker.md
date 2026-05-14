@@ -1,65 +1,69 @@
-- [Docker Basic Commands](#docker-basic-commands)
-- [Docker Containers](#docker-containers)
-- [Docker Images](#docker-images)
-- [Docker Volumes](#docker-volumes)
-- [Docker Networks](#docker-network)
-- [Dockerfile](#dockerfile)
-- [Docker Ignore File](#dockerignore)
-- [Docker Compose](#docker-compose)
-- [Utility Containers](#utility-container)
+# Docker
 
-## Docker Basic Commands
+* [Docker Basic Commands](docker.md#docker-basic-commands)
+* [Docker Containers](docker.md#docker-containers)
+* [Docker Images](docker.md#docker-images)
+* [Docker Volumes](docker.md#docker-volumes)
+* [Docker Networks](docker.md#docker-network)
+* [Dockerfile](docker.md#dockerfile)
+* [Docker Ignore File](docker.md#dockerignore)
+* [Docker Compose](docker.md#docker-compose)
+* [Utility Containers](docker.md#utility-container)
 
-| Command | Description |
-| ------- | ----------- |
-| `docker login` |Login to Dockerhub|
-| `docker logout` |Logout to Dockerhub|
-| `docker version` |Shows docker details|
-| `docker info` |Shows docker more Info details|
-| `docker container stats` |Live monitoring of containers|
-| `docker container inspect <containerId>` |Shows metadata how the container was started|
-| `docker top <containerId>` |shows the process running inside a container|
+### Docker Basic Commands
 
-______________
+| Command                                  | Description                                  |
+| ---------------------------------------- | -------------------------------------------- |
+| `docker login`                           | Login to Dockerhub                           |
+| `docker logout`                          | Logout to Dockerhub                          |
+| `docker version`                         | Shows docker details                         |
+| `docker info`                            | Shows docker more Info details               |
+| `docker container stats`                 | Live monitoring of containers                |
+| `docker container inspect <containerId>` | Shows metadata how the container was started |
+| `docker top <containerId>`               | shows the process running inside a container |
 
+***
 
-## Docker Containers
-| Command | Description |
-| ------- | ----------- |
-| `docker container ls -a` |Lists all available containers including hidden containers|
-| `docker container run --publish 80:80 nginx` |Starts an nginx server in port 80|
-| `docker run -p 3000:80 -d --name any_name --rm nginx` |Runs an nginx server in port 3000 in detach state|
-| `docker run -p 3000:80 --rm nginx` |provide --rm flag to automatically remove the container as it stops|
-| `docker container start <containerId>` |Starts unique container with the id|
-| `docker container stop <containerId>` |Stops unique container with the id|
-| `docker container rm -f <containerId>` |Force removes the container with id|
-| `winpty docker run -it <imageName> bash` |Starts a new image in bash shell|
-| `winpty docker exec -ia <containerId> bash` |Start an existing container in terminal|
-| `docker logs -f <containerId>` |Shows all logs printed in terminal, and follows it|
-| `docker cp <localFilePath> <containerName>:<./destinationPath>` |Copy to and from a running container|
-______________
+### Docker Containers
 
-## Docker Images
+| Command                                                         | Description                                                         |
+| --------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `docker container ls -a`                                        | Lists all available containers including hidden containers          |
+| `docker container run --publish 80:80 nginx`                    | Starts an nginx server in port 80                                   |
+| `docker run -p 3000:80 -d --name any_name --rm nginx`           | Runs an nginx server in port 3000 in detach state                   |
+| `docker run -p 3000:80 --rm nginx`                              | provide --rm flag to automatically remove the container as it stops |
+| `docker container start <containerId>`                          | Starts unique container with the id                                 |
+| `docker container stop <containerId>`                           | Stops unique container with the id                                  |
+| `docker container rm -f <containerId>`                          | Force removes the container with id                                 |
+| `winpty docker run -it <imageName> bash`                        | Starts a new image in bash shell                                    |
+| `winpty docker exec -ia <containerId> bash`                     | Start an existing container in terminal                             |
+| `docker logs -f <containerId>`                                  | Shows all logs printed in terminal, and follows it                  |
+| `docker cp <localFilePath> <containerName>:<./destinationPath>` | Copy to and from a running container                                |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_                                    |                                                                     |
 
+### Docker Images
 
-| Command | Description |
-| ------- | ----------- |
-| `docker images` |Shows all available images with little detail|
-| `docker image inspect <imageId>` |Shows full info of an image|
-| `docker rmi <imageID>` |Removes image with the imageId|
-| `docker build -t <imageName>:<imageTag> .` |Builds custom image reading the Dockerfile|
-| `docker image prune` |Removes all unused images|
-| `docker tag <imageName> <newImageName>` |Renames an image name|
-| `docker push <imageName>` |Push to dockerhub or some other hub|
-| `docker pull <imageName>` |Pull from dockerhub or some other hub|
+| Command                                    | Description                                   |
+| ------------------------------------------ | --------------------------------------------- |
+| `docker images`                            | Shows all available images with little detail |
+| `docker image inspect <imageId>`           | Shows full info of an image                   |
+| `docker rmi <imageID>`                     | Removes image with the imageId                |
+| `docker build -t <imageName>:<imageTag> .` | Builds custom image reading the Dockerfile    |
+| `docker image prune`                       | Removes all unused images                     |
+| `docker tag <imageName> <newImageName>`    | Renames an image name                         |
+| `docker push <imageName>`                  | Push to dockerhub or some other hub           |
+| `docker pull <imageName>`                  | Pull from dockerhub or some other hub         |
 
-____________
+***
 
-## Docker Volume
+### Docker Volume
+
 Volumes are folders on the host machine , which are made available in containers
 
-### Anonymus Volumes
+#### Anonymus Volumes
+
 These are unnamed volumes , created with the container and have no use when the container is deleted. Creating Anonymus volume, via docker file
+
 ```
 FROM node
 ...
@@ -67,61 +71,77 @@ VOLUME ["/app/feedback"] # Specify the folder, to be stored in volume
 ...
 ```
 
-### Named Volumes
+#### Named Volumes
+
 Named volumes are created when run a container
+
 ```
 docker container run -v <volumeName>:></folder/path> -d <imageId>
 ```
 
-### Bind Mounts
+#### Bind Mounts
+
 Bind Mounts are type of volumes, where the source path is known Or Path is given instead of VolumeName. Bind Mounts are supposed to be READ ONLY. :ro flag is applied in the end
+
 ```
 docker container run -v "</source/code/path>:</workingDir>:ro" -d <imageId>
 ```
+
 Running anonymus volumes, named volumes and bindmounts together
+
 ```
 docker container run -v <volumeName>:></folder/path> -v "</source/code/path>:</workingDir>:ro" -v /workingDir/node_modules -d <imageId>
 ```
 
-### Volume Commands 
-Command | Description |
-| ------- | ----------- |
-| `docker volume ls` |List all volumes|
-| `docker volume rm <volumeId>` |Remove a volume|
-| `docker volume prune` |Remove all unused volume|
-| `docker volume create <volumeName>` |Create a new volume manually|
-| `docker volume inspect <volumeName>` |See Volume meta informations|
+#### Volume Commands
 
-____________
+| Command                              | Description                  |
+| ------------------------------------ | ---------------------------- |
+| `docker volume ls`                   | List all volumes             |
+| `docker volume rm <volumeId>`        | Remove a volume              |
+| `docker volume prune`                | Remove all unused volume     |
+| `docker volume create <volumeName>`  | Create a new volume manually |
+| `docker volume inspect <volumeName>` | See Volume meta informations |
 
-## Docker Network
+***
 
-### Connect to localhost
-Docker connects to host machine by using special address. **host.docker.internal:[PORT]**
+### Docker Network
+
+#### Connect to localhost
+
+Docker connects to host machine by using special address. **host.docker.internal:\[PORT]**
+
 ```
 mongoClient.connect('mongodb://host.docker.internal:27017/test')
 ```
 
-### Connect Container to Container
-####  Use Container IP address to connect
+#### Connect Container to Container
+
+**Use Container IP address to connect**
+
 ```
 docker container inspect <containerName>
 # Where mongo-container ip addr = 172.17.0.2
 mongoClient.connect('mongodb://172.17.0.2/test')
 ```
-#### Create Container Network
-| Command | Description |
-| ------- | ----------- |
-| `docker network create <networkName>` |Create network in docker for communication|
-| `docker run --network <networkName> <containerName>` |Start a container with the network|
+
+**Create Container Network**
+
+| Command                                              | Description                                |
+| ---------------------------------------------------- | ------------------------------------------ |
+| `docker network create <networkName>`                | Create network in docker for communication |
+| `docker run --network <networkName> <containerName>` | Start a container with the network         |
 
 Use other container name as IP address
+
 ```
 mongoClient.connect('mongodb://<mongo_containerName>/test')
 ```
-____________
 
-## Dockerfile
+***
+
+### Dockerfile
+
 ```
 FROM node  # Image name
 
@@ -144,17 +164,20 @@ CMD ["node", "server.js"] # Cmd run after starting container
 ENTRYPOINT ["npm"] # appends command after npm while starting
 ```
 
+### dockerignore
 
-## dockerignore
 Prevent from copying into container
+
 ```
 node_modules
 Dockerfile
 .git
 ```
-________________
 
-## Docker Compose
+***
+
+### Docker Compose
+
 Docker compose runs all commands to run containers, set volumes, set networks etc. docker-compose.yaml config file to be written to use docker compose
 
 ```
@@ -216,20 +239,24 @@ volumes:
 volumes: 
   data:
 ```
+
 Docker-compose.yaml file uses strict indentations
 
-### Commands
-#### Create Container Network
-| Command | Description |
-| ------- | ----------- |
-| `docker-compose up -d` |creates and start containers in detach mode|
-| `docker-compose up --build -d` |Builds images first then start containers|
-| `docker-compose build` |Builds all images listed in yml file|
-| `docker-compose down` |stops and removes container, network|
-| `docker-compose down -v` |stops and removes container, network & volumes|
-| `docker-compose run --rm <containerNameFromComposeFile> <Any Command>` |Runs docker container|
+#### Commands
 
-______________
+**Create Container Network**
 
-## Utility Container
+| Command                                                                | Description                                    |
+| ---------------------------------------------------------------------- | ---------------------------------------------- |
+| `docker-compose up -d`                                                 | creates and start containers in detach mode    |
+| `docker-compose up --build -d`                                         | Builds images first then start containers      |
+| `docker-compose build`                                                 | Builds all images listed in yml file           |
+| `docker-compose down`                                                  | stops and removes container, network           |
+| `docker-compose down -v`                                               | stops and removes container, network & volumes |
+| `docker-compose run --rm <containerNameFromComposeFile> <Any Command>` | Runs docker container                          |
+
+***
+
+### Utility Container
+
 These are containers used to code from scratch

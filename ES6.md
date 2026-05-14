@@ -1,32 +1,29 @@
 # es6-cheatsheet
 
-A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code
-snippet examples for your day to day workflow. Contributions are welcome!
+A cheatsheet containing ES2015 \[ES6] tips, tricks, best practices and code snippet examples for your day to day workflow. Contributions are welcome!
 
 ## Table of Contents
 
-- [var versus let / const](#var-versus-let--const)
-- [Replacing IIFEs with Blocks](#replacing-iifes-with-blocks)
-- [Arrow Functions](#arrow-functions)
-- [Strings](#strings)
-- [Destructuring](#destructuring)
-- [Modules](#modules)
-- [Parameters](#parameters)
-- [Classes](#classes)
-- [Symbols](#symbols)
-- [Maps](#maps)
-- [WeakMaps](#weakmaps)
-- [Promises](#promises)
-- [Generators](#generators)
-- [Async Await](#async-await)
-- [Getter/Setter functions](#getter-and-setter-functions)
-- [License](#license)
+* [var versus let / const](ES6.md#var-versus-let--const)
+* [Replacing IIFEs with Blocks](ES6.md#replacing-iifes-with-blocks)
+* [Arrow Functions](ES6.md#arrow-functions)
+* [Strings](ES6.md#strings)
+* [Destructuring](ES6.md#destructuring)
+* [Modules](ES6.md#modules)
+* [Parameters](ES6.md#parameters)
+* [Classes](ES6.md#classes)
+* [Symbols](ES6.md#symbols)
+* [Maps](ES6.md#maps)
+* [WeakMaps](ES6.md#weakmaps)
+* [Promises](ES6.md#promises)
+* [Generators](ES6.md#generators)
+* [Async Await](ES6.md#async-await)
+* [Getter/Setter functions](ES6.md#getter-and-setter-functions)
+* [License](ES6.md#license)
 
 ## var versus let / const
 
-> Besides `var`, we now have access to two new identifiers for storing values
-—`let` and `const`. Unlike `var`, `let` and `const` statements are not hoisted
-to the top of their enclosing scope.
+> Besides `var`, we now have access to two new identifiers for storing values —`let` and `const`. Unlike `var`, `let` and `const` statements are not hoisted to the top of their enclosing scope.
 
 An example of using `var`:
 
@@ -60,13 +57,9 @@ function getFood(food) {
 getFood(false); // 'Meow Mix'
 ```
 
-This change in behavior highlights that we need to be careful when refactoring
-legacy code which uses `var`. Blindly replacing instances of `var` with `let`
-may lead to unexpected behavior.
+This change in behavior highlights that we need to be careful when refactoring legacy code which uses `var`. Blindly replacing instances of `var` with `let` may lead to unexpected behavior.
 
-> **Note**: `let` and `const` are block scoped. Therefore, referencing
-block-scoped identifiers before they are defined will produce
-a `ReferenceError`.
+> **Note**: `let` and `const` are block scoped. Therefore, referencing block-scoped identifiers before they are defined will produce a `ReferenceError`.
 
 ```javascript
 console.log(x); // ReferenceError: x is not defined
@@ -74,18 +67,13 @@ console.log(x); // ReferenceError: x is not defined
 let x = 'hi';
 ```
 
-> **Best Practice**: Leave `var` declarations inside of legacy code to denote
-that it needs to be carefully refactored. When working on a new codebase, use
-`let` for variables that will change their value over time, and `const` for
-variables which cannot be reassigned.
+> **Best Practice**: Leave `var` declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use `let` for variables that will change their value over time, and `const` for variables which cannot be reassigned.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Replacing IIFEs with Blocks
 
-> A common use of **Immediately Invoked Function Expressions** is to enclose
-values within its scope. In ES6, we now have the ability to create block-based
-scopes and therefore are not limited purely to function-based scope.
+> A common use of **Immediately Invoked Function Expressions** is to enclose values within its scope. In ES6, we now have the ability to create block-based scopes and therefore are not limited purely to function-based scope.
 
 ```javascript
 (function () {
@@ -105,12 +93,11 @@ Using ES6 Blocks:
 console.log(food); // Reference Error
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Arrow Functions
 
-Often times we have nested functions in which we would like to preserve the
-context of `this` from its lexical scope. An example is shown below:
+Often times we have nested functions in which we would like to preserve the context of `this` from its lexical scope. An example is shown below:
 
 ```javascript
 function Person(name) {
@@ -124,8 +111,7 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
-One common solution to this problem is to store the context of `this` using
-a variable:
+One common solution to this problem is to store the context of `this` using a variable:
 
 ```javascript
 function Person(name) {
@@ -168,8 +154,7 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
-Using **Arrow Functions**, the lexical value of `this` isn't shadowed and we
-can re-write the above as shown:
+Using **Arrow Functions**, the lexical value of `this` isn't shadowed and we can re-write the above as shown:
 
 ```javascript
 function Person(name) {
@@ -181,11 +166,9 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
-> **Best Practice**: Use **Arrow Functions** whenever you need to preserve the
-lexical value of `this`.
+> **Best Practice**: Use **Arrow Functions** whenever you need to preserve the lexical value of `this`.
 
-Arrow Functions are also more concise when used in function expressions which
-simply return a value:
+Arrow Functions are also more concise when used in function expressions which simply return a value:
 
 ```javascript
 var squares = arr.map(function (x) { return x * x }); // Function Expression
@@ -196,16 +179,13 @@ const arr = [1, 2, 3, 4, 5];
 const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 ```
 
-> **Best Practice**: Use **Arrow Functions** in place of function expressions
-when possible.
+> **Best Practice**: Use **Arrow Functions** in place of function expressions when possible.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Strings
 
-With ES6, the standard library has grown immensely. Along with these changes
-are new methods which can be used on strings, such as `.includes()` and
-`.repeat()`.
+With ES6, the standard library has grown immensely. Along with these changes are new methods which can be used on strings, such as `.includes()` and `.repeat()`.
 
 ### .includes( )
 
@@ -216,8 +196,7 @@ var substring = 'foo';
 console.log(string.indexOf(substring) > -1);
 ```
 
-Instead of checking for a return value `> -1` to denote string containment,
-we can simply use `.includes()` which will return a boolean:
+Instead of checking for a return value `> -1` to denote string containment, we can simply use `.includes()` which will return a boolean:
 
 ```javascript
 const string = 'food';
@@ -247,8 +226,7 @@ In ES6, we now have access to a terser implementation:
 
 ### Template Literals
 
-Using **Template Literals**, we can now construct strings that have special
-characters in them without needing to escape them explicitly.
+Using **Template Literals**, we can now construct strings that have special characters in them without needing to escape them explicitly.
 
 ```javascript
 var text = "This string contains \"double quotes\" which are escaped.";
@@ -258,8 +236,7 @@ var text = "This string contains \"double quotes\" which are escaped.";
 let text = `This string contains "double quotes" which don't need to be escaped anymore.`;
 ```
 
-**Template Literals** also support interpolation, which makes the task of
-concatenating strings and values:
+**Template Literals** also support interpolation, which makes the task of concatenating strings and values:
 
 ```javascript
 var name = 'Tiger';
@@ -297,8 +274,7 @@ var text = [
 ].join('\n');
 ```
 
-**Template Literals** will preserve new lines for us without having to
-explicitly place them in:
+**Template Literals** will preserve new lines for us without having to explicitly place them in:
 
 ```javascript
 let text = ( `cat
@@ -314,12 +290,11 @@ let today = new Date();
 let text = `The time and date is ${today.toLocaleString()}`;
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Destructuring
 
-Destructuring allows us to extract values from arrays and objects (even deeply
-nested) and store them in variables with a more convenient syntax.
+Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convenient syntax.
 
 ### Destructuring Arrays
 
@@ -354,14 +329,11 @@ console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Modules
 
-Prior to ES6, we used libraries such as [Browserify](http://browserify.org/)
-to create modules on the client-side, and [require](https://nodejs.org/api/modules.html#modules_module_require_id)
-in **Node.js**. With ES6, we can now directly use modules of all types
-(AMD and CommonJS).
+Prior to ES6, we used libraries such as [Browserify](http://browserify.org/) to create modules on the client-side, and [require](https://nodejs.org/api/modules.html#modules_module_require_id) in **Node.js**. With ES6, we can now directly use modules of all types (AMD and CommonJS).
 
 ### Exporting in CommonJS
 
@@ -374,8 +346,7 @@ module.exports = function bar () {};
 
 ### Exporting in ES6
 
-With ES6, we have various flavors of exporting. We can perform
-**Named Exports**:
+With ES6, we have various flavors of exporting. We can perform **Named Exports**:
 
 ```javascript
 export let name = 'David';
@@ -431,12 +402,7 @@ export default api;
  */
 ```
 
-> **Best Practices**: Always use the `export default` method at **the end** of
-the module. It makes it clear what is being exported, and saves time by having
-to figure out what name a value was exported as. More so, the common practice
-in CommonJS modules is to export a single value or object. By sticking to this
-paradigm, we make our code easily readable and allow ourselves to interpolate
-between CommonJS and ES6 modules.
+> **Best Practices**: Always use the `export default` method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. More so, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allow ourselves to interpolate between CommonJS and ES6 modules.
 
 ### Importing in ES6
 
@@ -446,8 +412,7 @@ ES6 provides us with various flavors of importing. We can import an entire file:
 import 'underscore';
 ```
 
-> It is important to note that simply **importing an entire file will execute
-all code at the top level of that file**.
+> It is important to note that simply **importing an entire file will execute all code at the top level of that file**.
 
 Similar to Python, we have named imports:
 
@@ -476,6 +441,7 @@ Lastly, we can import a list of values from a module:
 import * as additionUtil from 'math/addition';
 const { sumTwo, sumThree } = additionUtil;
 ```
+
 Importing from the default binding like this:
 
 ```javascript
@@ -483,8 +449,7 @@ import api from 'math/addition';
 // Same as: import { default as api } from 'math/addition';
 ```
 
-While it is better to keep the exports simple, but we can sometimes mix default import and mixed import if needed.
-When we are exporting like this:
+While it is better to keep the exports simple, but we can sometimes mix default import and mixed import if needed. When we are exporting like this:
 
 ```javascript
 // foos.js
@@ -510,18 +475,13 @@ This can also be simplified further, using:
 import React, { Component, PropTypes } from 'react';
 ```
 
-> **Note**: Values that are exported are **bindings**, not references.
-Therefore, changing the binding of a variable in one module will affect the
-value within the exported module. Avoid changing the public interface of these
-exported values.
+> **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Parameters
 
-In ES5, we had varying ways to handle functions which needed **default values**,
-**indefinite arguments**, and **named parameters**. With ES6, we can accomplish
-all of this and more using more concise syntax.
+In ES5, we had varying ways to handle functions which needed **default values**, **indefinite arguments**, and **named parameters**. With ES6, we can accomplish all of this and more using more concise syntax.
 
 ### Default Parameters
 
@@ -571,8 +531,7 @@ function logArguments(...args) {
 
 ### Named Parameters
 
-One of the patterns in ES5 to handle named parameters was to use the **options
-object** pattern, adopted from jQuery.
+One of the patterns in ES5 to handle named parameters was to use the **options object** pattern, adopted from jQuery.
 
 ```javascript
 function initializeCanvas(options) {
@@ -582,8 +541,7 @@ function initializeCanvas(options) {
 }
 ```
 
-We can achieve the same functionality using destructuring as a formal parameter
-to a function:
+We can achieve the same functionality using destructuring as a formal parameter to a function:
 
 ```javascript
 function initializeCanvas(
@@ -592,8 +550,7 @@ function initializeCanvas(
     }
 ```
 
-If we want to make the entire value optional, we can do so by destructuring an
-empty object:
+If we want to make the entire value optional, we can do so by destructuring an empty object:
 
 ```javascript
 function initializeCanvas(
@@ -605,12 +562,12 @@ function initializeCanvas(
 ### Spread Operator
 
 In ES5, we could find the max of values in an array by using the `apply` method on `Math.max` like this:
+
 ```javascript
 Math.max.apply(null, [-1, 100, 9001, -32]); // 9001
 ```
 
-In ES6, we can now use the spread operator to pass an array of values to be used as
-parameters to a function:
+In ES6, we can now use the spread operator to pass an array of values to be used as parameters to a function:
 
 ```javascript
 Math.max(...[-1, 100, 9001, -32]); // 9001
@@ -623,12 +580,11 @@ let cities = ['San Francisco', 'Los Angeles'];
 let places = ['Miami', ...cities, 'Chicago']; // ['Miami', 'San Francisco', 'Los Angeles', 'Chicago']
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Classes
 
-Prior to ES6, we implemented Classes by creating a constructor function and
-adding properties by extending the prototype:
+Prior to ES6, we implemented Classes by creating a constructor function and adding properties by extending the prototype:
 
 ```javascript
 function Person(name, age, gender) {
@@ -660,8 +616,7 @@ Personal.prototype.incrementAge = function () {
 };
 ```
 
-ES6 provides much needed syntactic sugar for doing this under the hood. We can
-create Classes directly:
+ES6 provides much needed syntactic sugar for doing this under the hood. We can create Classes directly:
 
 ```javascript
 class Person {
@@ -695,24 +650,17 @@ class Personal extends Person {
 }
 ```
 
-> **Best Practice**: While the syntax for creating classes in ES6 obscures how
-implementation and prototypes work under the hood, it is a good feature for
-beginners and allows us to write cleaner code.
+> **Best Practice**: While the syntax for creating classes in ES6 obscures how implementation and prototypes work under the hood, it is a good feature for beginners and allows us to write cleaner code.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Symbols
 
-Symbols have existed prior to ES6, but now we have a public interface to using
-them directly. Symbols are immutable and unique and can be used as keys in any hash.
+Symbols have existed prior to ES6, but now we have a public interface to using them directly. Symbols are immutable and unique and can be used as keys in any hash.
 
 ### Symbol( )
 
-Calling `Symbol()` or `Symbol(description)` will create a unique symbol that cannot be looked up
-globally. A Use case for `Symbol()` is to patch objects or namespaces from third parties with your own
-logic, but be confident that you won't collide with updates to that library. For example,
-if you wanted to add a method `refreshComponent` to the `React.Component` class, and be certain that
-you didn't trample a method they add in a later update:
+Calling `Symbol()` or `Symbol(description)` will create a unique symbol that cannot be looked up globally. A Use case for `Symbol()` is to patch objects or namespaces from third parties with your own logic, but be confident that you won't collide with updates to that library. For example, if you wanted to add a method `refreshComponent` to the `React.Component` class, and be certain that you didn't trample a method they add in a later update:
 
 ```javascript
 const refreshComponent = Symbol();
@@ -722,12 +670,9 @@ React.Component.prototype[refreshComponent] = () => {
 }
 ```
 
-
 ### Symbol.for(key)
 
-`Symbol.for(key)` will create a Symbol that is still immutable and unique, but can be looked up globally.
-Two identical calls to `Symbol.for(key)` will return the same Symbol instance. NOTE: This is not true for
-`Symbol(description)`:
+`Symbol.for(key)` will create a Symbol that is still immutable and unique, but can be looked up globally. Two identical calls to `Symbol.for(key)` will return the same Symbol instance. NOTE: This is not true for `Symbol(description)`:
 
 ```javascript
 Symbol('foo') === Symbol('foo') // false
@@ -735,9 +680,7 @@ Symbol.for('foo') === Symbol('foo') // false
 Symbol.for('foo') === Symbol.for('foo') // true
 ```
 
-A common use case for Symbols, and in particular with `Symbol.for(key)` is for interoperability. This can be
-achieved by having your code look for a Symbol member on object arguments from third parties that contain some
-known interface. For example:
+A common use case for Symbols, and in particular with `Symbol.for(key)` is for interoperability. This can be achieved by having your code look for a Symbol member on object arguments from third parties that contain some known interface. For example:
 
 ```javascript
 function reader(obj) {
@@ -764,16 +707,13 @@ class SomeReadableType {
 }
 ```
 
-> A notable example of Symbol use for interoperability is `Symbol.iterator` which exists on all iterable
-types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator
-interface.
+> A notable example of Symbol use for interoperability is `Symbol.iterator` which exists on all iterable types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator interface.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Maps
 
-**Maps** is a much needed data structure in JavaScript. Prior to ES6, we created
-**hash** maps through objects:
+**Maps** is a much needed data structure in JavaScript. Prior to ES6, we created **hash** maps through objects:
 
 ```javascript
 var map = new Object();
@@ -781,8 +721,7 @@ map[key1] = 'value1';
 map[key2] = 'value2';
 ```
 
-However, this does not protect us from accidentally overriding functions with
-specific property names:
+However, this does not protect us from accidentally overriding functions with specific property names:
 
 ```javascript
 > getOwnProperty({ hasOwnProperty: 'Hah, overwritten'}, 'Pwned');
@@ -798,9 +737,7 @@ let map = new Map();
 > map.has('name'); // true
 ```
 
-The most amazing part of Maps is that we are no longer limited to just using
-strings. We can now use any type as a key, and it will not be type-cast to
-a string.
+The most amazing part of Maps is that we are no longer limited to just using strings. We can now use any type as a key, and it will not be type-cast to a string.
 
 ```javascript
 let map = new Map([
@@ -817,9 +754,7 @@ for (let key of map.keys()) {
 }
 ```
 
-> **Note**: Using non-primitive values such as functions or objects won't work
-when testing equality using methods such as `map.get()`. As such, stick to
-primitive values such as Strings, Booleans and Numbers.
+> **Note**: Using non-primitive values such as functions or objects won't work when testing equality using methods such as `map.get()`. As such, stick to primitive values such as Strings, Booleans and Numbers.
 
 We can also iterate over maps using `.entries()`:
 
@@ -829,12 +764,11 @@ for (let [key, value] of map.entries()) {
 }
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## WeakMaps
 
-In order to store private data versions < ES6, we had various ways of doing this.
-One such method was using naming conventions:
+In order to store private data versions < ES6, we had various ways of doing this. One such method was using naming conventions:
 
 ```javascript
 class Person {
@@ -848,8 +782,7 @@ class Person {
 }
 ```
 
-But naming conventions can cause confusion in a codebase and are not always
-going to be upheld. Instead, we can use WeakMaps to store our values:
+But naming conventions can cause confusion in a codebase and are not always going to be upheld. Instead, we can use WeakMaps to store our values:
 
 ```javascript
 let _age = new WeakMap();
@@ -868,9 +801,7 @@ class Person {
 }
 ```
 
-The cool thing about using WeakMaps to store our private data is that their
-keys do not give away the property names, which can be seen by using
-`Reflect.ownKeys()`:
+The cool thing about using WeakMaps to store our private data is that their keys do not give away the property names, which can be seen by using `Reflect.ownKeys()`:
 
 ```javascript
 > const person = new Person(50);
@@ -878,8 +809,7 @@ keys do not give away the property names, which can be seen by using
 > Reflect.ownKeys(person); // []
 ```
 
-A more practical example of using WeakMaps is to store data which is associated
-to a DOM element without having to pollute the DOM itself:
+A more practical example of using WeakMaps is to store data which is associated to a DOM element without having to pollute the DOM itself:
 
 ```javascript
 let map = new WeakMap();
@@ -898,18 +828,11 @@ el = null;
 // map is empty, since the element is destroyed
 ```
 
-As shown above, once the object is destroyed by the garbage collector,
-the WeakMap will automatically remove the key-value pair which was identified
-by that object.
+As shown above, once the object is destroyed by the garbage collector, the WeakMap will automatically remove the key-value pair which was identified by that object.
 
-> **Note**: To further illustrate the usefulness of this example, consider how
-jQuery stores a cache of objects corresponding to DOM elements which have
-references. Using WeakMaps, jQuery can automatically free up any memory that
-was associated with a particular DOM element once it has been removed from the
-document. In general, WeakMaps are very useful for any library that wraps DOM
-elements.
+> **Note**: To further illustrate the usefulness of this example, consider how jQuery stores a cache of objects corresponding to DOM elements which have references. Using WeakMaps, jQuery can automatically free up any memory that was associated with a particular DOM element once it has been removed from the document. In general, WeakMaps are very useful for any library that wraps DOM elements.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Promises
 
@@ -941,8 +864,7 @@ func1(value1)
     });
 ```
 
-Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or
-[Q](https://github.com/kriskowal/q). Now we have Promises natively:
+Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or [Q](https://github.com/kriskowal/q). Now we have Promises natively:
 
 ```javascript
 new Promise((resolve, reject) =>
@@ -950,13 +872,9 @@ new Promise((resolve, reject) =>
         .catch(reason => console.log(reason));
 ```
 
-Where we have two handlers, **resolve** (a function called when the Promise is
-**fulfilled**) and **reject** (a function called when the Promise is **rejected**).
+Where we have two handlers, **resolve** (a function called when the Promise is **fulfilled**) and **reject** (a function called when the Promise is **rejected**).
 
-> **Benefits of Promises**: Error Handling using a bunch of nested callbacks
-can get chaotic. Using Promises, we have a clear path to bubbling errors up
-and handling them appropriately. Moreover, the value of a Promise after it has
-been resolved/rejected is immutable - it will never change.
+> **Benefits of Promises**: Error Handling using a bunch of nested callbacks can get chaotic. Using Promises, we have a clear path to bubbling errors up and handling them appropriately. Moreover, the value of a Promise after it has been resolved/rejected is immutable - it will never change.
 
 Here is a practical example of using Promises:
 
@@ -974,8 +892,7 @@ return new Promise((resolve, reject) => {
 });
 ```
 
-We can also **parallelize** Promises to handle an array of asynchronous
-operations by using `Promise.all()`:
+We can also **parallelize** Promises to handle an array of asynchronous operations by using `Promise.all()`:
 
 ```javascript
 let urls = [
@@ -1002,15 +919,11 @@ Promise.all(promises)
  });
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Generators
 
-Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid
-[callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our
-asynchronous code a synchronous feel. Generators are essentially functions which we can
-[pause their execution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
-and subsequently return the value of an expression.
+Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid [callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our asynchronous code a synchronous feel. Generators are essentially functions which we can [pause their execution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) and subsequently return the value of an expression.
 
 A simple example of using generators is shown below:
 
@@ -1029,9 +942,7 @@ var generator = sillyGenerator();
 > console.log(generator.next()); // { value: 4, done: false }
 ```
 
-Where [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
-will allow us to push our generator forward and evaluate a new expression. While the above example is extremely
-contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
+Where [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next) will allow us to push our generator forward and evaluate a new expression. While the above example is extremely contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
 
 ```javascript
 // Hiding asynchronousity with Generators
@@ -1054,11 +965,9 @@ function* getData() {
 }
 ```
 
-By the power of `yield`, we are guaranteed that `entry1` will have the data needed to be parsed and stored
-in `data1`.
+By the power of `yield`, we are guaranteed that `entry1` will have the data needed to be parsed and stored in `data1`.
 
-While generators allow us to write asynchronous code in a synchronous manner, there is no clear
-and easy path for error propagation. As such, as we can augment our generator with Promises:
+While generators allow us to write asynchronous code in a synchronous manner, there is no clear and easy path for error propagation. As such, as we can augment our generator with Promises:
 
 ```javascript
 function request(url) {
@@ -1068,8 +977,7 @@ function request(url) {
 }
 ```
 
-And we write a function which will step through our generator using `next` which in turn will utilize our
-`request` method above to yield a Promise:
+And we write a function which will step through our generator using `next` which in turn will utilize our `request` method above to yield a Promise:
 
 ```javascript
 function iterateGenerator(gen) {
@@ -1083,8 +991,7 @@ function iterateGenerator(gen) {
 }
 ```
 
-By augmenting our Generator with Promises, we have a clear way of propagating errors through the use of our
-Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
+By augmenting our Generator with Promises, we have a clear way of propagating errors through the use of our Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
 
 ```javascript
 iterateGenerator(function* getData() {
@@ -1095,17 +1002,13 @@ iterateGenerator(function* getData() {
 });
 ```
 
-We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators
-and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propagate
-errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:
-[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
+We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propagate errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits: [async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## Async Await
 
-While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished
-using Generators and Promises with less effort:
+While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished using Generators and Promises with less effort:
 
 ```javascript
 var request = require('request');
@@ -1126,10 +1029,10 @@ async function main() {
 main();
 ```
 
-Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource
-for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
+Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)
+
 ## Getter and setter functions
 
 ES6 has started supporting getter and setter functions within classes. Using the following example:
@@ -1194,7 +1097,8 @@ person.fullName; // James Bond
 person.fullName = 'Bond 007';
 person.fullName; // Bond 007
 ```
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+
+[(back to table of contents)](ES6.md#table-of-contents)
 
 ## License
 
@@ -1202,22 +1106,10 @@ The MIT License (MIT)
 
 Copyright (c) 2015 David Leonard
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+[(back to table of contents)](ES6.md#table-of-contents)

@@ -49,6 +49,4 @@
 
 ## Claude
 
-***
-
-* [Custom commands](custom-commands.md)
+* [Custom commands](claude/custom-commands.md)
