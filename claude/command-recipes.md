@@ -42,47 +42,39 @@ describe("ComponentName", () => {
     expect(screen.getByRole("...")).toBeInTheDocument()
   })
 })
-````
-
-#### 2. Run Tests — Expect Failure
-
-```bash
-npm test tests/components/[ComponentName].test.tsx
 ```
 
-#### 3. Create the Component
-
-* `components/[ComponentName]/[ComponentName].tsx`
-* `components/[ComponentName]/[ComponentName].module.css`
-* `components/[ComponentName]/index.ts` → `export { default } from './[ComponentName]'`
-
-Conventions: no semicolons, CSS Modules, theme colours from `globals.css`.
-
-#### 4. Run Tests — Expect Pass
-
-```bash
-npm test tests/components/[ComponentName].test.tsx
+### 2. Run Tests — Expect Failure
+```
+  npm test tests/components/[ComponentName].test.tsx
 ```
 
+### 3. Create the Component
+
+components/[ComponentName]/[ComponentName].tsx
+components/[ComponentName]/[ComponentName].module.css
+components/[ComponentName]/index.ts → export { default } from './[ComponentName]'
+Conventions: no semicolons, CSS Modules, theme colours from globals.css.
+
+### 4. Run Tests — Expect Pass
+```
+npm test tests/components/[ComponentName].test.tsx
+```
 Iterate until all tests pass.
 
-#### 5. Add to Preview Page
+### 5. Add to Preview Page
+Update app/(public)/preview/page.tsx with a labelled section showing the component.
 
-Update `app/(public)/preview/page.tsx` with a labelled section showing the component.
-
-### Rules
-
-* Keep tests minimal — 2–3 assertions is enough.
-* Only proceed to the next step when the current step passes.
+## Rules
+Keep tests minimal — 2–3 assertions is enough.
+Only proceed to the next step when the current step passes.
+````
 
 ````
 
 ---
-
 ## `code-review.md` — PR / Diff Review
-
 **Invoke:** `/code-review`
-
 ```markdown
 ---
 description: Comprehensive review of all changes since the last commit
