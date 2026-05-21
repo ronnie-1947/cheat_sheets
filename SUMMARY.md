@@ -53,3 +53,4 @@
 * [Custom Commands](claude/custom-commands.md)
 * [Built-in Commands](claude/built-in-commands.md)
 * [Claude Code Hooks](claude/claude-code-hooks.md)
+* [MCP Servers](claude/mcp-servers.md)
